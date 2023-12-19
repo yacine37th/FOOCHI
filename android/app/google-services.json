@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "148313253920",
+    "project_id": "fouchifood",
+    "storage_bucket": "fouchifood.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148313253920:android:c942bec3613dd49219f445",
+        "android_client_info": {
+          "package_name": "com.example.fluter_ecom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN8q1xk-mvZ3aSU6IPx11Sv7-RSfAcIII"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

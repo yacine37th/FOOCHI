@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:simple_animations/simple_animations.dart';
 
+import '../animation/fade_animation.dart';
 import '../theme/main_colors.dart';
 
 class FoochiSignUpView extends StatefulWidget {
@@ -32,7 +33,7 @@ class _FoochiSignUpViewState extends State<FoochiSignUpView> {
             child: Column(
               children: [
                 const SizedBox(height: 80),
-                 Center(child: Image.asset(AppAssets.kAppLogo)),
+                Center(child: Image.asset(AppAssets.kAppLogo)),
                 const SizedBox(height: 30),
                 const Text('Sign Up',
                     style: TextStyle(
@@ -45,7 +46,7 @@ class _FoochiSignUpViewState extends State<FoochiSignUpView> {
                     debugPrint('Facebook');
                   },
                   googleCallback: () {
-                    debugPrint('Google');
+                    debugPrint('Google');  
                   },
                   twitterCallback: () {
                     debugPrint('Twitter');
@@ -119,8 +120,7 @@ class _FoochiSignUpViewState extends State<FoochiSignUpView> {
                           color: AppColors.kPrimary,
                         )),
                     CustomTextButton(
-                      onPressed: () {
-                      },
+                      onPressed: () {},
                       text: 'Sign In',
                     )
                   ],
@@ -153,8 +153,6 @@ class _FoochiSignUpViewState extends State<FoochiSignUpView> {
     }
   }
 }
-
-
 
 class SocialIcons extends StatefulWidget {
   final VoidCallback onTap;
@@ -483,29 +481,3 @@ class _PrimaryButtonState extends State<PrimaryButton>
   }
 }
 
-class FadeAnimation extends StatelessWidget {
-  final double delay;
-  final Widget child;
-
-  const FadeAnimation({super.key, required this.delay, required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    final tween = MovieTween()
-      ..tween('opacity', Tween(begin: 0.0, end: 1.0),
-          duration: const Duration(milliseconds: 500))
-      ..tween('translateY', Tween(begin: -30.0, end: 0.0),
-          duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
-    return PlayAnimationBuilder(
-      delay: Duration(milliseconds: (500 * delay).round()),
-      duration: tween.duration,
-      tween: tween,
-      child: child,
-      builder: (context, animation, child) => Opacity(
-        opacity: animation.get('opacity'),
-        child: Transform.translate(
-            offset: Offset(0, animation.get('translateY')), child: child),
-      ),
-    );
-  }
-}
