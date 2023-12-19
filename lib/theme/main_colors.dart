@@ -6,4 +6,5 @@ class AppColors {
   static const Color kBackground = Color(0xFFFFF5E0);
   static const Color kOrange = Color(0xFFEF8829);
   static const Color kLine = Color(0xFFE6DCCD);
+  static const Color KError = Color.fromARGB(255, 194, 5, 5);
 }
