@@ -104,7 +104,6 @@ class SignUp extends StatelessWidget {
                         //     )
                         //     )
                       ),
-
                       GestureDetector(
                         onTap: () {},
                         child: Card(
@@ -123,7 +122,6 @@ class SignUp extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       GestureDetector(
                         onTap: () {},
                         child: Card(
@@ -142,32 +140,85 @@ class SignUp extends StatelessWidget {
                           ),
                         ),
                       ),
-
-                      // SocialIcons(
-                      //   onTap: facebookCallback,
-                      //   child: Image.asset(AppAssets.kFacebook),
-                      // ),
-                      // SocialIcons(
-                      //   onTap: twitterCallback,
-                      //   child: Image.asset(AppAssets.kTwitter),
-                      // ),
                     ],
                   ),
 
-                  // SocialIconRow(
-                  //   facebookCallback: () {
-                  //     debugPrint('Facebook');
-                  //   },
-                  //   googleCallback: () {
-                  //     debugPrint('Google');
-                  //   },
-                  //   twitterCallback: () {
-                  //     debugPrint('Twitter');
-                  //   },
-                  // ),
-
                   const SizedBox(height: 30),
+                  TextFormField(
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.emailAddress,
+                    onSaved: (username) {
+                      signUpController.userName = username;
+                    },
+                    onChanged: (username) {
+                      signUpController.userName = username.trim();
+                    },
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return "Please fill Your Username";
+                      }
+                      if (!RegExp(r'^[a-zA-Z]+$').hasMatch(val)) {
+                        return "Please fill With a valid Username";
+                      }
+                      return null;
+                    },
+                    initialValue: signUpController.userName,
+                    decoration: InputDecoration(
+                      hintText: 'Your Username',
+                      errorMaxLines: 2,
+                      prefixIcon: Icon(Icons.person, color: AppColors.kLine),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 16),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: AppColors.kLine),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: AppColors.kOrange),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(color: AppColors.kLine),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: AppColors.kLine),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      hintStyle: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.grey),
+                      // suffixIcon: widget.isForgetButton
+                      //     ? CustomTextButton(
+                      //         onPressed: () {},
+                      //         text: 'Forgot?',
+                      //         color: AppColors.kPrimary,
+                      //       )
+                      //     : widget.isPasswordField
+                      //         ? IconButton(
+                      //             onPressed: () {
+                      //               setState(() {
+                      //                 isObscure = !isObscure;
+                      //               });
+                      //             },
+                      //             padding: EdgeInsets.zero,
+                      //             constraints: const BoxConstraints(),
+                      //           )
+                      //         : Icon(widget.isPhone ? Icons.phone_android : Icons.done,
+                      //             size: 20,
+                      //             color: widget.isFieldValidated
+                      //                 ? AppColors.kPrimary
+                      //                 : AppColors.kLine)
+                    ),
 
+                    // decoration: const InputDecoration(
+                    //   prefixIcon: Icon(Icons.mail_outline_rounded),
+                    //   hintStyle: TextStyle(
+                    //       fontFamily: 'Cairo', color: Colors.grey),
+                    //   hintText: 'Your Username',
+                    // ),
+                  ),
                   // AuthField(
                   //   controller: _usernameController,
                   //   hintText: 'Your Username',

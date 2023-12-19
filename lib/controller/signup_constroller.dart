@@ -14,6 +14,7 @@ class SignUpController extends GetxController {
 
   bool showPassword = true;
 
+  String? userName;
   String? userEmailAddress;
   String? userPassword;
 
