@@ -21,123 +21,230 @@ class SignUp extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
-   child: Form(
-          key: signUpController.formKey,
-          child: FadeAnimation(
-            delay: 1,
-            child: Column(
-              children: [
-                const SizedBox(height: 80),
-                Center(child: Image.asset(AppAssets.kAppLogo)),
-                const SizedBox(height: 30),
-                const Text('Sign Up',
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black)),
-                const SizedBox(height: 24),
+          child: Form(
+            key: signUpController.formKey,
+            child: FadeAnimation(
+              delay: 3,
+              child: Column(
+                children: [
+                  const SizedBox(height: 80),
+                  Center(child: Image.asset(AppAssets.kAppLogo)),
+                  const SizedBox(height: 30),
+                  const Text('Sign Up',
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)),
+                  const SizedBox(height: 24),
 
+                  Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: Card(
+                            elevation: 0,
+                            color: Colors.transparent,
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: AppColors.kOrange,
+                                border: Border.all(color: AppColors.kLine),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(AppAssets.kGoogle),
+                                  const SizedBox(width: 14),
+                                  const Text(
+                                    'with Google',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w300),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
 
+                          // child: Card(
+                          //   elevation: 0,
+                          //   color: Colors.transparent,
+                          //   child: Container(
+                          //     height: 50,
+                          //     width: 50,
+                          //     alignment: Alignment.center,
+                          //     decoration: BoxDecoration(
+                          //       color:  AppColors.kOrange,
+                          //       border:  Border.all(color: AppColors.kLine),
+                          //       borderRadius: BorderRadius.circular(10),
+                          //     ),
+                          //     child: Text("with Google"),
+                          //   ),
+                          // ),
+                        ),
 
+                        // SocialIcons(
+                        //     onTap: googleCallback,
+                        //     isGoogleIcon: true,
+                        //     child: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: [
+                        //         Image.asset(AppAssets.kGoogle),
+                        //         const SizedBox(width: 14),
+                        //         const Text(
+                        //           'with Google',
+                        //           style:
+                        //               TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+                        //         )
+                        //       ],
+                        //     )
+                        //     )
+                      ),
 
- 
+                      GestureDetector(
+                        onTap: () {},
+                        child: Card(
+                          elevation: 0,
+                          color: Colors.transparent,
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: null,
+                              border: Border.all(color: AppColors.kLine),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Image.asset(AppAssets.kFacebook),
+                          ),
+                        ),
+                      ),
 
+                      GestureDetector(
+                        onTap: () {},
+                        child: Card(
+                          elevation: 0,
+                          color: Colors.transparent,
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: null,
+                              border: Border.all(color: AppColors.kLine),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Image.asset(AppAssets.kTwitter),
+                          ),
+                        ),
+                      ),
 
-                // SocialIconRow(
-                //   facebookCallback: () {
-                //     debugPrint('Facebook');
-                //   },
-                //   googleCallback: () {
-                //     debugPrint('Google');  
-                //   },
-                //   twitterCallback: () {
-                //     debugPrint('Twitter');
-                //   },
-                // ),
-               
-               
-                const SizedBox(height: 30),
+                      // SocialIcons(
+                      //   onTap: facebookCallback,
+                      //   child: Image.asset(AppAssets.kFacebook),
+                      // ),
+                      // SocialIcons(
+                      //   onTap: twitterCallback,
+                      //   child: Image.asset(AppAssets.kTwitter),
+                      // ),
+                    ],
+                  ),
 
+                  // SocialIconRow(
+                  //   facebookCallback: () {
+                  //     debugPrint('Facebook');
+                  //   },
+                  //   googleCallback: () {
+                  //     debugPrint('Google');
+                  //   },
+                  //   twitterCallback: () {
+                  //     debugPrint('Twitter');
+                  //   },
+                  // ),
 
+                  const SizedBox(height: 30),
 
-                
-                // AuthField(
-                //   controller: _usernameController,
-                //   hintText: 'Your Username',
-                //   isFieldValidated: isNameCorrect,
-                //   keyboardType: TextInputType.name,
-                //   onChanged: (value) {
-                //     isNameCorrect = validateName(value);
-                //     setState(() {});
-                //   },
-                //   validator: (value) {
-                //     if (!validateName(value!)) {
-                //       return 'Enter a valid name';
-                //     }
-                //     return null;
-                //   },
-                // ),
-                // const SizedBox(height: 20),
-                // AuthField(
-                //   controller: _emailController,
-                //   hintText: 'Your Email',
-                //   keyboardType: TextInputType.emailAddress,
-                //   isFieldValidated: isEmailCorrect,
-                //   onChanged: (value) {
-                //     setState(() {});
-                //     isEmailCorrect = validateEmail(value);
-                //   },
-                //   validator: (value) {
-                //     if (!validateEmail(value!)) {
-                //       return 'Please enter a valid email address';
-                //     }
-                //     return null;
-                //   },
-                // ),
-                // const SizedBox(height: 20),
-                // AuthField(
-                //   hintText: 'Your Password',
-                //   controller: _passwordController,
-                //   keyboardType: TextInputType.visiblePassword,
-                //   isPasswordField: true,
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return 'Please enter your email';
-                //     } else if (value.length < 6) {
-                //       return 'Password should be at least 6 characters';
-                //     } else if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*d).+$')
-                //         .hasMatch(value)) {
-                //       return 'Password should contain at least one uppercase letter, one lowercase letter, and one digit';
-                //     }
-                //     return null;
-                //   },
-                // ),
-                // const SizedBox(height: 30),
-                // PrimaryButton(
-                //     onTap: () async {
-                //       if (_formKey.currentState!.validate()) {}
-                //     },
-                //     text: 'Sign Up'),
-                const SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Already a member?',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.kPrimary,
-                        )),
-                    // CustomTextButton(
-                    //   onPressed: () {},
-                    //   text: 'Sign In',
-                    // )
-                  ],
-                )
-              ],
+                  // AuthField(
+                  //   controller: _usernameController,
+                  //   hintText: 'Your Username',
+                  //   isFieldValidated: isNameCorrect,
+                  //   keyboardType: TextInputType.name,
+                  //   onChanged: (value) {
+                  //     isNameCorrect = validateName(value);
+                  //     setState(() {});
+                  //   },
+                  //   validator: (value) {
+                  //     if (!validateName(value!)) {
+                  //       return 'Enter a valid name';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+                  // const SizedBox(height: 20),
+                  // AuthField(
+                  //   controller: _emailController,
+                  //   hintText: 'Your Email',
+                  //   keyboardType: TextInputType.emailAddress,
+                  //   isFieldValidated: isEmailCorrect,
+                  //   onChanged: (value) {
+                  //     setState(() {});
+                  //     isEmailCorrect = validateEmail(value);
+                  //   },
+                  //   validator: (value) {
+                  //     if (!validateEmail(value!)) {
+                  //       return 'Please enter a valid email address';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+                  // const SizedBox(height: 20),
+                  // AuthField(
+                  //   hintText: 'Your Password',
+                  //   controller: _passwordController,
+                  //   keyboardType: TextInputType.visiblePassword,
+                  //   isPasswordField: true,
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Please enter your email';
+                  //     } else if (value.length < 6) {
+                  //       return 'Password should be at least 6 characters';
+                  //     } else if (!RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*d).+$')
+                  //         .hasMatch(value)) {
+                  //       return 'Password should contain at least one uppercase letter, one lowercase letter, and one digit';
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
+                  // const SizedBox(height: 30),
+                  // PrimaryButton(
+                  //     onTap: () async {
+                  //       if (_formKey.currentState!.validate()) {}
+                  //     },
+                  //     text: 'Sign Up'),
+                  const SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Already a member?',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: AppColors.kPrimary,
+                          )),
+                      // CustomTextButton(
+                      //   onPressed: () {},
+                      //   text: 'Sign In',
+                      // )
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-     
+
           //   child: Padding(
           //     padding: const EdgeInsets.symmetric(vertical: 100),
           //     child: Column(

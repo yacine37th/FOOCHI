@@ -259,7 +259,9 @@ class SocialIconRow extends StatelessWidget {
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
                     )
                   ],
-                ))),
+                )
+                )
+                ),
         SocialIcons(
           onTap: facebookCallback,
           child: Image.asset(AppAssets.kFacebook),
