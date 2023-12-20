@@ -5,15 +5,18 @@ import 'package:fluter_ecom/view/foochi_singup.dart';
 import 'package:fluter_ecom/view/signin.dart';
 import 'package:fluter_ecom/view/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 
 import 'utils/signup_bindings.dart';
 import 'utils/singin_bindings.dart';
+
 User? currentUser = FirebaseAuth.instance.currentUser;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // FacebookAuth.instance;
   // currentUser = FirebaseAuth.instance.currentUser;
   runApp(const MyApp());
 }
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-         title: 'flutter-ecom',
+      title: 'flutter-ecom',
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.cupertino,
       // theme: Themes.customLightTheme,
@@ -37,11 +40,11 @@ class MyApp extends StatelessWidget {
           binding: SignUpBinding(),
         ),
         GetPage(
-            name: "/SignIn",
-            page: () => const SignIn(),
-            binding: SignInBinding(),
-            // middlewares: [AuthMiddleware()]
-            ),
+          name: "/SignIn",
+          page: () => const SignIn(),
+          binding: SignInBinding(),
+          // middlewares: [AuthMiddleware()]
+        ),
         // GetPage(
         //     name: "/EmailVerification",
         //     page: () => const EmailVerification(),
@@ -95,6 +98,5 @@ class MyApp extends StatelessWidget {
       ],
       initialRoute: "/SignIn",
     );
- 
   }
 }

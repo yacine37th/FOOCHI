@@ -75,7 +75,9 @@ class SignIn extends StatelessWidget {
                             ),
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              signInController.signInWithFacebook();
+                            },
                             child: Card(
                               elevation: 0,
                               color: Colors.transparent,
