@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluter_ecom/firebase_options.dart';
 import 'package:fluter_ecom/view/foochi_singup.dart';
+import 'package:fluter_ecom/view/signin.dart';
 import 'package:fluter_ecom/view/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'utils/signup_bindings.dart';
+import 'utils/singin_bindings.dart';
 User? currentUser = FirebaseAuth.instance.currentUser;
 
 Future<void> main() async {
@@ -34,11 +36,12 @@ class MyApp extends StatelessWidget {
           page: () => const SignUp(),
           binding: SignUpBinding(),
         ),
-        // GetPage(
-        //     name: "/SignIn",
-        //     page: () => const SignIn(),
-        //     binding: SignInBinding(),
-        //     middlewares: [AuthMiddleware()]),
+        GetPage(
+            name: "/SignIn",
+            page: () => const SignIn(),
+            binding: SignInBinding(),
+            // middlewares: [AuthMiddleware()]
+            ),
         // GetPage(
         //     name: "/EmailVerification",
         //     page: () => const EmailVerification(),
@@ -90,7 +93,7 @@ class MyApp extends StatelessWidget {
         //   binding: OrderBookBinding(),
         // ),
       ],
-      initialRoute: "/SignUp",
+      initialRoute: "/SignIn",
     );
  
   }

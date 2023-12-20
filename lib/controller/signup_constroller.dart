@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluter_ecom/theme/main_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,9 +9,13 @@ class SignUpController extends GetxController {
   // late AnimationController animationController;
   // final Tween<double> tween = Tween<double>(begin: 1.0, end: 0.95);
   // final Duration animationDuration = const Duration(milliseconds: 300);
+  // RxDouble containerWidth = 100.0.obs;
+  // RxDouble containerHeight = 100.0.obs;
 
-
-
+  // void animateContainer() {
+  //   containerWidth.value = containerWidth.value == 100.0 ? 200.0 : 100.0;
+  //   containerHeight.value = containerHeight.value == 100.0 ? 200.0 : 100.0;
+  // }
 
   bool showPassword = true;
 
@@ -26,7 +31,9 @@ class SignUpController extends GetxController {
   createNewUser() async {
     Get.defaultDialog(
         title: "S'il vous plaît, attendez",
-        content: const CircularProgressIndicator());
+        content: const CircularProgressIndicator(
+          color: AppColors.kSecondary,
+        ));
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -39,11 +46,12 @@ class SignUpController extends GetxController {
           .doc(credential.user!.uid)
           .set({
         "userID": credential.user!.uid,
+        "userName": userName,
         "userEmail": userEmailAddress,
       });
       await FirebaseAuth.instance.currentUser?.sendEmailVerification();
       Get.back();
-      Get.toNamed("/EmailVerification");
+      // Get.toNamed("/EmailVerification");
     } on FirebaseAuthException catch (e) {
       Get.back();
 
@@ -85,38 +93,37 @@ class SignUpController extends GetxController {
     }
   }
 
+// Future<void> linkGoogleAndTwitter() async {
+//   // Trigger the Google Authentication flow.
+//   final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+//   // Obtain the auth details from the request.
+//   final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+//   // Create a new credential.
+//   final GoogleAuthCredential googleCredential = GoogleAuthProvider.credential(
+//     accessToken: googleAuth.accessToken,
+//     idToken: googleAuth.idToken,
+//   );
+//   // Sign in to Firebase with the Google [UserCredential].
+//   final UserCredential googleUserCredential =
+//     await FirebaseAuth.instance.signInWithCredential(googleCredential);
 
-Future<void> linkGoogleAndTwitter() async {
-  // Trigger the Google Authentication flow.
-  final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-  // Obtain the auth details from the request.
-  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-  // Create a new credential.
-  final GoogleAuthCredential googleCredential = GoogleAuthProvider.credential(
-    accessToken: googleAuth.accessToken,
-    idToken: googleAuth.idToken,
-  );
-  // Sign in to Firebase with the Google [UserCredential].
-  final UserCredential googleUserCredential =
-    await FirebaseAuth.instance.signInWithCredential(googleCredential);
-
-  // Now let's link Twitter to the currently signed in account.
-  // Create a [TwitterLogin] instance.
-  final TwitterLogin twitterLogin = new TwitterLogin(
-    consumerKey: consumerKey,
-    consumerSecret: consumerSecret
-  );
-  // Trigger the sign-in flow.
-  final TwitterLoginResult loginResult = await twitterLogin.authorize();
-  // Get the logged in session.
-  final TwitterSession twitterSession = loginResult.session;
-  // Create a [AuthCredential] from the access token.
-  final AuthCredential twitterAuthCredential =
-    TwitterAuthProvider.credential(
-      accessToken: twitterSession.token,
-      secret: twitterSession.secret
-     );
-  // Link the Twitter account to the Google account.
-  await googleUserCredential.user.linkWithCredential(twitterAuthCredential);
-}
+//   // Now let's link Twitter to the currently signed in account.
+//   // Create a [TwitterLogin] instance.
+//   final TwitterLogin twitterLogin = new TwitterLogin(
+//     consumerKey: consumerKey,
+//     consumerSecret: consumerSecret
+//   );
+//   // Trigger the sign-in flow.
+//   final TwitterLoginResult loginResult = await twitterLogin.authorize();
+//   // Get the logged in session.
+//   final TwitterSession twitterSession = loginResult.session;
+//   // Create a [AuthCredential] from the access token.
+//   final AuthCredential twitterAuthCredential =
+//     TwitterAuthProvider.credential(
+//       accessToken: twitterSession.token,
+//       secret: twitterSession.secret
+//      );
+//   // Link the Twitter account to the Google account.
+//   await googleUserCredential.user.linkWithCredential(twitterAuthCredential);
+// }
 }

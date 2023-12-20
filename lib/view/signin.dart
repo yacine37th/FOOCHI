@@ -7,32 +7,13 @@ import '../animation/fade_animation.dart';
 import '../controller/signup_constroller.dart';
 import '../theme/assets.dart';
 
-class SignUp extends StatelessWidget {
-  const SignUp({super.key});
+class SignIn extends StatelessWidget {
+  const SignIn({super.key});
 
   @override
   Widget build(BuildContext context) {
     SignUpController signUpController = Get.find();
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.kBackground,
-        elevation: 0,
-        leading: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: AppColors.kPrimary,
-              // size: 18,
-            )),
-        //        actions: [
-        //   Icon(Icons.favorite),
-        //   Padding(
-        //     padding: EdgeInsets.symmetric(horizontal: 16),
-        //     child: Icon(Icons.search),
-        //   ),
-        //   Icon(Icons.more_vert),
-        // ],
-      ),
       backgroundColor: AppColors.kBackground,
       body: SafeArea(
         child: ListView(
@@ -50,7 +31,7 @@ class SignUp extends StatelessWidget {
                       const SizedBox(height: 60),
                       Center(child: Image.asset(AppAssets.kAppLogo)),
                       const SizedBox(height: 30),
-                      const Text('Sign Up',
+                      const Text('Sign In',
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
@@ -88,40 +69,7 @@ class SignUp extends StatelessWidget {
                                   ),
                                 ),
                               ),
-
-                              // child: Card(
-                              //   elevation: 0,
-                              //   color: Colors.transparent,
-                              //   child: Container(
-                              //     height: 50,
-                              //     width: 50,
-                              //     alignment: Alignment.center,
-                              //     decoration: BoxDecoration(
-                              //       color:  AppColors.kOrange,
-                              //       border:  Border.all(color: AppColors.kLine),
-                              //       borderRadius: BorderRadius.circular(10),
-                              //     ),
-                              //     child: Text("with Google"),
-                              //   ),
-                              // ),
                             ),
-
-                            // SocialIcons(
-                            //     onTap: googleCallback,
-                            //     isGoogleIcon: true,
-                            //     child: Row(
-                            //       mainAxisAlignment: MainAxisAlignment.center,
-                            //       children: [
-                            //         Image.asset(AppAssets.kGoogle),
-                            //         const SizedBox(width: 14),
-                            //         const Text(
-                            //           'with Google',
-                            //           style:
-                            //               TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
-                            //         )
-                            //       ],
-                            //     )
-                            //     )
                           ),
                           GestureDetector(
                             onTap: () {},
@@ -161,6 +109,7 @@ class SignUp extends StatelessWidget {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 30 , child: Text("Or with Email"),),
                       const SizedBox(height: 30),
                       TextFormField(
                         textInputAction: TextInputAction.next,
