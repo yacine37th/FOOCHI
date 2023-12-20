@@ -44,10 +44,10 @@ class SignUp extends StatelessWidget {
               child: Form(
                 key: signUpController.formKey,
                 child: FadeAnimation(
-                  delay: 3,
+                  delay: 1,
                   child: Column(
                     children: [
-                      const SizedBox(height: 60),
+                      // const SizedBox(height: 10),
                       Center(child: Image.asset(AppAssets.kAppLogo)),
                       const SizedBox(height: 30),
                       const Text('Sign Up',
@@ -378,7 +378,9 @@ class SignUp extends StatelessWidget {
                                 color: AppColors.kPrimary,
                               )),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.offAndToNamed("SignIn");
+                            },
                             style:
                                 TextButton.styleFrom(padding: EdgeInsets.zero),
                             child: Text(

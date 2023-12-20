@@ -26,7 +26,7 @@ class SignIn extends StatelessWidget {
               child: Form(
                 key: signInController.formKey,
                 child: FadeAnimation(
-                  delay: 3,
+                  delay:2,
                   child: Column(
                     children: [
                       const SizedBox(height: 60),
@@ -110,7 +110,9 @@ class SignIn extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 30 , child: Text("Or with Email"),),
+                      const SizedBox(height: 30),
+
+                      const SizedBox(height: 30 , child: Text("Or with Email" ,style: TextStyle(fontSize: 17),),),
                       const SizedBox(height: 30),
                       TextFormField(
                         textInputAction: TextInputAction.next,
@@ -275,7 +277,9 @@ class SignIn extends StatelessWidget {
                                 color: AppColors.kPrimary,
                               )),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.toNamed("SignUp");
+                            },
                             style:
                                 TextButton.styleFrom(padding: EdgeInsets.zero),
                             child: Text(
