@@ -236,7 +236,7 @@ class SignUp extends StatelessWidget {
                           }
                           return null;
                         },
-                        initialValue: signUpController.userName,
+                        initialValue: signUpController.userEmailAddress,
                         decoration: InputDecoration(
                           hintText: 'Your Email',
                           errorMaxLines: 2,

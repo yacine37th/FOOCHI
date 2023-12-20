@@ -1,3 +1,4 @@
+import 'package:fluter_ecom/controller/signin_controller.dart';
 import 'package:fluter_ecom/theme/main_colors.dart';
 import 'package:fluter_ecom/view/social_icon.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class SignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SignUpController signUpController = Get.find();
+    SignInController signInController = Get.find();
     return Scaffold(
       backgroundColor: AppColors.kBackground,
       body: SafeArea(
@@ -23,7 +24,7 @@ class SignIn extends StatelessWidget {
             SingleChildScrollView(
               padding: const EdgeInsets.all(20),
               child: Form(
-                key: signUpController.formKey,
+                key: signInController.formKey,
                 child: FadeAnimation(
                   delay: 3,
                   child: Column(
@@ -114,64 +115,11 @@ class SignIn extends StatelessWidget {
                       TextFormField(
                         textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.emailAddress,
-                        onSaved: (username) {
-                          signUpController.userName = username;
-                        },
-                        onChanged: (username) {
-                          signUpController.userName = username.trim();
-                        },
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return "Please fill Your Username";
-                          }
-                          if (!RegExp(r'^[a-zA-Z]+$').hasMatch(val)) {
-                            return "Please fill With a valid Username";
-                          }
-                          return null;
-                        },
-                        initialValue: signUpController.userName,
-                        decoration: InputDecoration(
-                          hintText: 'Your Username',
-                          errorMaxLines: 2,
-                          prefixIcon:
-                              Icon(Icons.person, color: AppColors.kLine),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 16),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: AppColors.kLine),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: AppColors.kOrange),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: AppColors.kLine),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: AppColors.KError),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          hintStyle: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.grey),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.emailAddress,
                         onSaved: (userEmailAddress) {
-                          signUpController.userEmailAddress = userEmailAddress;
+                          signInController.userEmailAddress = userEmailAddress;
                         },
                         onChanged: (userEmailAddress) {
-                          signUpController.userEmailAddress =
+                          signInController.userEmailAddress =
                               userEmailAddress.trim();
                         },
                         validator: (val) {
@@ -185,7 +133,7 @@ class SignIn extends StatelessWidget {
                           }
                           return null;
                         },
-                        initialValue: signUpController.userName,
+                        initialValue: signInController.userEmailAddress,
                         decoration: InputDecoration(
                           hintText: 'Your Email',
                           errorMaxLines: 2,
@@ -219,16 +167,16 @@ class SignIn extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      GetBuilder<SignUpController>(
+                      GetBuilder<SignInController>(
                         builder: (contx) => TextFormField(
                           textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: contx.showPassword,
                           onSaved: (userpass) {
-                            signUpController.userPassword = userpass;
+                            signInController.userPassword = userpass;
                           },
                           onChanged: (userpass) {
-                            signUpController.userPassword = userpass.trim();
+                            signInController.userPassword = userpass.trim();
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -242,7 +190,7 @@ class SignIn extends StatelessWidget {
                             }
                             return null;
                           },
-                          initialValue: signUpController.userPassword,
+                          initialValue: signInController.userPassword,
                           decoration: InputDecoration(
                             hintText: 'Your Password',
                             errorMaxLines: 2,
@@ -288,10 +236,10 @@ class SignIn extends StatelessWidget {
                       const SizedBox(height: 30),
                       GestureDetector(
                         onTap: () {
-                          if (signUpController.formKey.currentState!
+                          if (signInController.formKey.currentState!
                               .validate()) {
-                            signUpController.formKey.currentState!.save();
-                            signUpController.createNewUser();
+                            signInController.formKey.currentState!.save();
+                            signInController.signInAUser();
                           }
                         },
                         child: Card(
@@ -308,7 +256,7 @@ class SignIn extends StatelessWidget {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: Text(
-                              "Sign Up",
+                              "Sign In",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
@@ -331,7 +279,7 @@ class SignIn extends StatelessWidget {
                             style:
                                 TextButton.styleFrom(padding: EdgeInsets.zero),
                             child: Text(
-                              "Sign In",
+                              "Sign Up",
                               style: TextStyle(
                                   color: AppColors.kPrimary, fontSize: 14),
                             ),
