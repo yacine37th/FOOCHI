@@ -161,6 +161,7 @@ class SignInController extends GetxController {
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
 
+
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
