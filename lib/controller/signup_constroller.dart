@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluter_ecom/theme/main_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get.dart';
 
 class SignUpController extends GetxController {
@@ -93,6 +94,58 @@ class SignUpController extends GetxController {
     }
   }
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+
+// Future<String> signInWithGoogle() async {
+//   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+//   final GoogleSignInAuthentication googleSignInAuthentication =
+//       await googleSignInAccount.authentication;
+
+//   final AuthCredential credential = GoogleAuthProvider.getCredential(
+//     accessToken: googleSignInAuthentication.accessToken,
+//     idToken: googleSignInAuthentication.idToken,
+//   );
+
+//   final AuthResult authResult = await _auth.signInWithCredential(credential);
+//   final FirebaseUser user = authResult.user;
+
+//   assert(!user.isAnonymous);
+//   assert(await user.getIdToken() != null);
+
+//   final FirebaseUser currentUser = await _auth.currentUser();
+//   assert(user.uid == currentUser.uid);
+
+//   return 'signInWithGoogle succeeded: $user';
+// }
+
+  Future<dynamic> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } on Exception catch (e) {
+      // TODO
+      print('exception->$e');
+    }
+  }
+
+  Future<bool> signOutFromGoogle() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      return true;
+    } on Exception catch (_) {
+      return false;
+    }
+  }
 // Future<void> linkGoogleAndTwitter() async {
 //   // Trigger the Google Authentication flow.
 //   final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();

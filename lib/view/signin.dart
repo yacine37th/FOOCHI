@@ -42,7 +42,9 @@ class SignIn extends StatelessWidget {
                         children: [
                           Expanded(
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                signInController.signInWithGoogle();
+                              },
                               child: Card(
                                 elevation: 0,
                                 color: Colors.transparent,
