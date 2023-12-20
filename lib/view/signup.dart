@@ -379,7 +379,7 @@ class SignUp extends StatelessWidget {
                               )),
                           TextButton(
                             onPressed: () {
-                              Get.offAndToNamed("SignIn");
+                              Get.back();
                             },
                             style:
                                 TextButton.styleFrom(padding: EdgeInsets.zero),
