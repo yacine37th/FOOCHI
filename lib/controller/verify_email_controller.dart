@@ -33,4 +33,5 @@ class EmailVerificationController extends GetxController {
     );
     super.onInit();
   }
+
 }

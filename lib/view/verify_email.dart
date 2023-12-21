@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controller/verify_email_controller.dart';
+import '../theme/assets.dart';
+import '../theme/main_colors.dart';
 
 class EmailVerification extends StatelessWidget {
   const EmailVerification({super.key});
@@ -10,13 +12,22 @@ class EmailVerification extends StatelessWidget {
   Widget build(BuildContext context) {
     EmailVerificationController emailVerificationController = Get.find();
     return Scaffold(
+      backgroundColor: AppColors.kBackground,
       appBar: AppBar(
-        // leading: IconButton(
-        //     onPressed: () {
-        //       navigator!.pop();
-        //     },
-        //     icon: const IconButtonBack()),
-        title: const Text("Vérification de l'E-mail"),
+        backgroundColor: AppColors.kBackground,
+        elevation: 1,
+        leading: IconButton(
+            onPressed: () {
+              navigator!.pop();
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_outlined,
+              color: AppColors.kPrimary,
+            )),
+        title: const Text(
+          "Email Verification",
+          style: TextStyle(color: AppColors.kPrimary),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -24,23 +35,46 @@ class EmailVerification extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              //  Center(child:
+              Image.asset(AppAssets.kAppLogo),
+              //  ),
+              const SizedBox(height: 20),
               const Text(
-                 "A verification email has been sent to your email address",
+                  "A verification email has been sent to your email address",
                   style: TextStyle(
                     fontSize: 20,
                   ),
                   textAlign: TextAlign.center),
               const SizedBox(
-                height: 10,
+                height: 15,
               ),
-              TextButton(
-                  onPressed: () {
-                    emailVerificationController.resendVerificationEmail();
-                  },
-                  child: const Text("Resend",
+              GestureDetector(
+                onTap: () {
+                  emailVerificationController.resendVerificationEmail();
+                },
+                child: Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Container(
+                    height: 55,
+                    alignment: Alignment.center,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: AppColors.kPrimary,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Text(
+                      "Resend",
                       style: TextStyle(
-                        fontSize: 20,
-                      )))
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

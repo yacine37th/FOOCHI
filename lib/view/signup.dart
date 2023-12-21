@@ -18,9 +18,11 @@ class SignUp extends StatelessWidget {
         backgroundColor: AppColors.kBackground,
         elevation: 0,
         leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              navigator!.pop();
+            },
             icon: Icon(
-              Icons.arrow_back_ios,
+              Icons.arrow_back_ios_outlined,
               color: AppColors.kPrimary,
               // size: 18,
             )),

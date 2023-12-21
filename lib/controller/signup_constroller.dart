@@ -52,7 +52,7 @@ class SignUpController extends GetxController {
       });
       await FirebaseAuth.instance.currentUser?.sendEmailVerification();
       Get.back();
-      // Get.toNamed("/EmailVerification");
+      Get.toNamed("/EmailVerification");
     } on FirebaseAuthException catch (e) {
       Get.back();
 
