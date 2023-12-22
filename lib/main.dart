@@ -11,7 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'middleware/app_oppend.dart';
 import 'middleware/auth_middleware.dart';
 import 'theme/assets.dart';
 import 'theme/main_colors.dart';
@@ -22,16 +24,26 @@ import 'utils/verify_email_bindings.dart';
 import 'view/foochi_onboarding_view.dart';
 import 'view/forgot_password.dart';
 import 'view/verify_email.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 User? currentUser = FirebaseAuth.instance.currentUser;
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+final Future<SharedPreferences> sahredPrefs = SharedPreferences.getInstance();
+
+bool isUserLoggedIn = false;
+
+Future<void> checkLoginStatus() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  // Retrieve the login status, defaulting to false if not found
+  isUserLoggedIn = prefs.getBool('appIsOppen') ?? false;
+  print(isUserLoggedIn);
+}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // FacebookAuth.instance;
   // currentUser = FirebaseAuth.instance.currentUser;
+  checkLoginStatus();
   runApp(const MyApp());
 }
 
@@ -69,10 +81,10 @@ class MyApp extends StatelessWidget {
         ),
 
         GetPage(
-          name: "/OnboardingView",
-          page: () => const FoochiOnboardingView(),
-          binding: OnboardingBindings(),
-        ),
+            name: "/OnboardingView",
+            page: () => const FoochiOnboardingView(),
+            binding: OnboardingBindings(),
+            middlewares: [AppIsOppen()]),
         // GetPage(
         //   name: "/HomeScreen",
         //   page: () => const HomeScreen(),
@@ -119,7 +131,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-

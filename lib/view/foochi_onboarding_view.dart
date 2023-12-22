@@ -8,6 +8,7 @@ import '../animation/OnBoardingCard.dart';
 import '../animation/custom_animated_button.dart';
 import '../animation/custom_indicator.dart';
 import '../theme/main_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FoochiOnboardingView extends StatelessWidget {
   const FoochiOnboardingView({super.key});
@@ -51,9 +52,9 @@ class FoochiOnboardingView extends StatelessWidget {
             ),
             // CustomIndicator(position: foochiOnboardingController.currentIndex),
             GetBuilder<FoochiOnboardingController>(
-            builder:   (contx)=> DotsIndicator(
+              builder: (contx) => DotsIndicator(
                 dotsCount: contx.onboardingList.length,
-                position:  contx.currentIndex,
+                position: contx.currentIndex,
                 decorator: DotsDecorator(
                   color: Colors.grey.withOpacity(0.5),
                   size: const Size.square(8.0),
@@ -67,13 +68,12 @@ class FoochiOnboardingView extends StatelessWidget {
             ),
             const SizedBox(height: 83),
             GetBuilder<FoochiOnboardingController>(
-             builder : (contx)=> CustomOutlinedButton(
+              builder: (contx) => CustomOutlinedButton(
                 width: 130,
                 onTap: () async {
-                  if (contx.currentIndex ==
-                      (contx.onboardingList.length - 1)) {
-                          final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
+                  if (contx.currentIndex == (contx.onboardingList.length - 1)) {
+                    final SharedPreferences prefs = await contx.sahredPrefs;
+                    prefs.setBool("appIsOppen", true);
                     print("Last page ");
                   } else {
                     print(contx.currentIndex);
@@ -83,8 +83,7 @@ class FoochiOnboardingView extends StatelessWidget {
                     );
                   }
                 },
-                text: contx.currentIndex ==
-                        (contx.onboardingList.length - 1)
+                text: contx.currentIndex == (contx.onboardingList.length - 1)
                     ? 'Get Started'
                     : 'Next',
               ),
