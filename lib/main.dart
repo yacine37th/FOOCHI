@@ -68,7 +68,6 @@ class MyApp extends StatelessWidget {
           page: () => const ForgotPassword(),
           binding: ForgotPasswordBinding(),
         ),
-
         GetPage(
             name: "/OnboardingView",
             page: () => const FoochiOnboardingView(),
