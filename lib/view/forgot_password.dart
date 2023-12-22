@@ -13,6 +13,8 @@ class ForgotPassword extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.kBackground,
+        elevation: 0,
         leading: IconButton(
             onPressed: () {
               navigator!.pop();
@@ -23,6 +25,7 @@ class ForgotPassword extends StatelessWidget {
               // size: 18,
             )),
       ),
+      backgroundColor: AppColors.kBackground,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -38,12 +41,17 @@ class ForgotPassword extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "نسيت كلمة المرور ؟",
+                    "Forgot your password ?",
                     style: TextStyle(
-                        fontFamily: 'Cairo', fontWeight: FontWeight.bold),
+                        fontFamily: 'Cairo',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   const Text(
-                    "أدخل بريدك الاكتروني، و سنرسل لك رابطا لادخال كلمة سر جديدة",
+                    "Enter your email, and we will send you a link to enter a new password.",
                     style: TextStyle(fontFamily: 'Cairo', fontSize: 17),
                   ),
                   const SizedBox(
@@ -51,85 +59,98 @@ class ForgotPassword extends StatelessWidget {
                   ),
                   Form(
                     key: forgotPasswordController.emailFormKey,
-                    child: Column(
-                      children: [
-                        GetBuilder<ForgotPasswordController>(
-                            builder: (context) {
-                          return TextFormField(
-                            style: const TextStyle(color: Colors.black),
-                            textInputAction: TextInputAction.done,
-                            validator: (val) {
-                              if (val!.isEmpty) {
-                                return "من فضلك املأ البريد الإلكتروني";
-                                ;
-                              }
-                              if (!RegExp(
-                                      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
-                                  .hasMatch(val)) {
-                                return "من فضلك املأ بريد إلكتروني صحيح";
-                              }
-
-                              return null;
-                            },
-                            onChanged: (emailAddress) {
-                              forgotPasswordController
-                                  .inputfgbEmail(emailAddress);
-                            },
-                            decoration: InputDecoration(
-                              hintText: 'Your Email',
-                              errorMaxLines: 2,
-                              prefixIcon:
-                                  Icon(Icons.email, color: AppColors.kLine),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 16),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: AppColors.kLine),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: AppColors.kOrange),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: AppColors.kLine),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderSide:
-                                    const BorderSide(color: AppColors.KError),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              hintStyle: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
-                                  color: Colors.grey),
+                    child: Column(children: [
+                      GetBuilder<ForgotPasswordController>(builder: (context) {
+                        return TextFormField(
+                          style: const TextStyle(color: Colors.black),
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return "Please fill out your email";
+                            }
+                            if (!RegExp(
+                                    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                                .hasMatch(val)) {
+                              return "Please fill in a valid email";
+                            }
+                            return null;
+                          },
+                          onChanged: (emailAddress) {
+                            forgotPasswordController
+                                .inputfgbEmail(emailAddress);
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Your Email',
+                            errorMaxLines: 2,
+                            prefixIcon:
+                                Icon(Icons.email, color: AppColors.kLine),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 16),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: AppColors.kLine),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                          );
-                        }),
-                        const SizedBox(
-                          height: 25,
+                            focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: AppColors.kOrange),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: AppColors.kLine),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide:
+                                  const BorderSide(color: AppColors.KError),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            hintStyle: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.grey),
+                          ),
+                        );
+                      }),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          if (forgotPasswordController
+                              .emailFormKey.currentState!
+                              .validate()) {
+                            forgotPasswordController.emailFormKey.currentState!
+                                .save();
+                            forgotPasswordController.sendEmail();
+                          }
+                        },
+                        child: Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: Container(
+                            height: 55,
+                            alignment: Alignment.center,
+                            width: double.maxFinite,
+                            decoration: BoxDecoration(
+                              color: AppColors.kPrimary,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Text(
+                              "Send link",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
                         ),
-                        TextButton(
-                            style: ButtonStyle(
-                                fixedSize: MaterialStateProperty.all(
-                                    const Size(double.maxFinite, 60))),
-                            onPressed: () {
-                              if (forgotPasswordController
-                                  .emailFormKey.currentState!
-                                  .validate()) {
-                                forgotPasswordController
-                                    .emailFormKey.currentState!
-                                    .save();
-                                forgotPasswordController.sendEmail();
-                              }
-                            },
-                            child: const Text("ارسال الرابط",
-                                style: TextStyle(fontFamily: 'Cairo'))),
-                      ],
-                    ),
+                      ),
+                    ]),
                   )
                 ],
               ),
@@ -140,22 +161,38 @@ class ForgotPassword extends StatelessWidget {
                       children: [
                         const TextSpan(
                             text:
-                                "تم ارسال بريد الكتروني لتغيير كلمة السر الى حسابك : "),
+                                "An email has been sent to change the password to your account: "),
                         TextSpan(
                             text: forgotPasswordController.fgpEmail.toString())
                       ])),
                   const SizedBox(height: 20),
-                  TextButton(
-                      style: ButtonStyle(
-                          fixedSize: MaterialStateProperty.all(
-                              const Size(double.maxFinite, 60))),
-                      onPressed: () {
-                        navigator!.pop();
-                      },
-                      child: const Text(
-                        "حسنا",
-                        style: TextStyle(fontFamily: 'Cairo'),
-                      )),
+                  GestureDetector(
+                    onTap: () {
+                      navigator!.pop();
+                    },
+                    child: Card(
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Container(
+                        height: 55,
+                        alignment: Alignment.center,
+                        width: double.maxFinite,
+                        decoration: BoxDecoration(
+                          color: AppColors.kPrimary,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Text(
+                          "DONE",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ],

@@ -251,7 +251,7 @@ class SignIn extends StatelessWidget {
           
                                  TextButton(
                             onPressed: () {
-                              Get.toNamed("SignUp");
+                              Get.toNamed("ForgotPassword");
                             },
                             style:
                                 TextButton.styleFrom(padding: EdgeInsets.zero),
