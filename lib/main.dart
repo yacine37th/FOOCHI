@@ -28,22 +28,10 @@ import 'view/verify_email.dart';
 User? currentUser = FirebaseAuth.instance.currentUser;
 SharedPreferences? sharedPreferences;
 
-bool isUserLoggedIn = false;
-
-Future<void> checkLoginStatus() async {
-  // SharedPreferences prefs = await sahredPrefs;
-
-  // Retrieve the login status, defaulting to false if not found
-  // isUserLoggedIn = prefs.getBool('appIsOppen') ?? false;
-  print(isUserLoggedIn);
-}
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // FacebookAuth.instance;
   // currentUser = FirebaseAuth.instance.currentUser;
-  // checkLoginStatus();
   sharedPreferences = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
