@@ -1,3 +1,4 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:fluter_ecom/controller/foochi_onboarding_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,7 +34,11 @@ class FoochiOnboardingView extends StatelessWidget {
                   // setState(() {
                   //   currentIndex = value;
                   // });
-                  foochiOnboardingController.setNewIndex(value);
+                  // foochiOnboardingController.setNewIndex(value);
+
+                  foochiOnboardingController.pageController.addListener(() {
+                    foochiOnboardingController.setNewIndex(value);
+                  });
                 },
                 itemBuilder: (context, index) {
                   return OnBoardingCard(
@@ -44,24 +49,45 @@ class FoochiOnboardingView extends StatelessWidget {
                 },
               ),
             ),
-            CustomIndicator(position: foochiOnboardingController.currentIndex),
+            // CustomIndicator(position: foochiOnboardingController.currentIndex),
+            GetBuilder<FoochiOnboardingController>(
+            builder:   (contx)=> DotsIndicator(
+                dotsCount: contx.onboardingList.length,
+                position:  contx.currentIndex,
+                decorator: DotsDecorator(
+                  color: Colors.grey.withOpacity(0.5),
+                  size: const Size.square(8.0),
+                  activeSize: const Size(20.0, 8.0),
+                  activeShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  activeColor: AppColors.kPrimary,
+                ),
+              ),
+            ),
             const SizedBox(height: 83),
-            CustomOutlinedButton(
-              width: 130,
-              onTap: () {
-                if (foochiOnboardingController.currentIndex ==
-                    (foochiOnboardingController.onboardingList.length - 1)) {
-                } else {
-                  foochiOnboardingController.pageController.nextPage(
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.ease,
-                  );
-                }
-              },
-              text: foochiOnboardingController.currentIndex ==
-                      (foochiOnboardingController.onboardingList.length - 1)
-                  ? 'Get Started'
-                  : 'Next',
+            GetBuilder<FoochiOnboardingController>(
+             builder : (contx)=> CustomOutlinedButton(
+                width: 130,
+                onTap: () async {
+                  if (contx.currentIndex ==
+                      (contx.onboardingList.length - 1)) {
+                          final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+                    print("Last page ");
+                  } else {
+                    print(contx.currentIndex);
+                    contx.pageController.nextPage(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.ease,
+                    );
+                  }
+                },
+                text: contx.currentIndex ==
+                        (contx.onboardingList.length - 1)
+                    ? 'Get Started'
+                    : 'Next',
+              ),
             ),
             const SizedBox(height: 20),
           ],

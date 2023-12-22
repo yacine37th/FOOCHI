@@ -3,6 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluter_ecom/firebase_options.dart';
+import 'package:fluter_ecom/utils/onboarding_bindings.dart';
 import 'package:fluter_ecom/view/foochi_singup.dart';
 import 'package:fluter_ecom/view/signin.dart';
 import 'package:fluter_ecom/view/signup.dart';
@@ -21,8 +22,10 @@ import 'utils/verify_email_bindings.dart';
 import 'view/foochi_onboarding_view.dart';
 import 'view/forgot_password.dart';
 import 'view/verify_email.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 User? currentUser = FirebaseAuth.instance.currentUser;
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,7 +71,7 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/OnboardingView",
           page: () => const FoochiOnboardingView(),
-          // binding: ForgotPasswordBinding(),
+          binding: OnboardingBindings(),
         ),
         // GetPage(
         //   name: "/HomeScreen",
@@ -116,7 +119,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 
 

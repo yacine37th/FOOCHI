@@ -10,7 +10,9 @@ class FoochiOnboardingController extends GetxController {
   void setNewIndex (value) {
     currentIndex = value ; 
     update();
+    update();
   }
+
 List<Onboarding> onboardingList = [
   Onboarding(
       title1: 'Diverse ',
