@@ -26,15 +26,15 @@ import 'view/forgot_password.dart';
 import 'view/verify_email.dart';
 
 User? currentUser = FirebaseAuth.instance.currentUser;
-final Future<SharedPreferences> sahredPrefs = SharedPreferences.getInstance();
+SharedPreferences? sharedPreferences;
 
 bool isUserLoggedIn = false;
 
 Future<void> checkLoginStatus() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+  // SharedPreferences prefs = await sahredPrefs;
 
   // Retrieve the login status, defaulting to false if not found
-  isUserLoggedIn = prefs.getBool('appIsOppen') ?? false;
+  // isUserLoggedIn = prefs.getBool('appIsOppen') ?? false;
   print(isUserLoggedIn);
 }
 
@@ -43,7 +43,8 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // FacebookAuth.instance;
   // currentUser = FirebaseAuth.instance.currentUser;
-  checkLoginStatus();
+  // checkLoginStatus();
+  sharedPreferences = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 

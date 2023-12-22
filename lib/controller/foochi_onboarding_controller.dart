@@ -13,7 +13,7 @@ class FoochiOnboardingController extends GetxController {
   void setNewIndex(value) {
     currentIndex = value;
     update();
-    update();
+    // update();
   }
 
   List<Onboarding> onboardingList = [
@@ -36,16 +36,6 @@ class FoochiOnboardingController extends GetxController {
             'With an extensive menu prepared by talented chefs, fresh quality food.',
         image: AppAssets.kOnboardingThird)
   ];
-
-
-
-  @override
-  void onInit() {
-    // TODO: implement onInit
-
-    // checkLoginStatus();
-    super.onInit();
-  }
 
   @override
   void onClose() {

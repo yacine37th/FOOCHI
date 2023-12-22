@@ -73,8 +73,9 @@ class FoochiOnboardingView extends StatelessWidget {
                 onTap: () async {
                   if (contx.currentIndex == (contx.onboardingList.length - 1)) {
                     final SharedPreferences prefs = await contx.sahredPrefs;
-                    prefs.setBool("appIsOppen", true);
+                    prefs.setString("appIsOppen", "true");
                     print("Last page ");
+                    Get.offAndToNamed("SignIn");
                   } else {
                     print(contx.currentIndex);
                     contx.pageController.nextPage(

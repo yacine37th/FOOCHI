@@ -1,14 +1,14 @@
-import 'package:fluter_ecom/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import '../main.dart';
 
 class AppIsOppen extends GetMiddleware {
   @override
-  int? get priority => 2;
+  int? get priority => 0;
   @override
   RouteSettings? redirect(String? route) {
-    if (isUserLoggedIn) {
+    if (sharedPreferences!.getString("appIsOppen")!=null) {
       //  MainFunctions.getcurrentUserInfos();
       // MainFunctions.loadTripsDriversData();
       return const RouteSettings(name: "/SignIn");
