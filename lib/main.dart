@@ -9,9 +9,11 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 
 import 'middleware/auth_middleware.dart';
+import 'utils/forgot_password_bindings.dart';
 import 'utils/signup_bindings.dart';
 import 'utils/singin_bindings.dart';
 import 'utils/verify_email_bindings.dart';
+import 'view/forgot_password.dart';
 import 'view/verify_email.dart';
 
 User? currentUser = FirebaseAuth.instance.currentUser;
@@ -51,11 +53,11 @@ class MyApp extends StatelessWidget {
             name: "/EmailVerification",
             page: () => const EmailVerification(),
             binding: EmailVerificationBinding()),
-        // GetPage(
-        //   name: "/ForgotPassword",
-        //   page: () => const ForgotPassword(),
-        //   binding: ForgotPasswordBinding(),
-        // ),
+        GetPage(
+          name: "/ForgotPassword",
+          page: () => const ForgotPassword(),
+          binding: ForgotPasswordBinding(),
+        ),
         // GetPage(
         //   name: "/HomeScreen",
         //   page: () => const HomeScreen(),

@@ -26,7 +26,7 @@ class SignIn extends StatelessWidget {
               child: Form(
                 key: signInController.formKey,
                 child: FadeAnimation(
-                  delay:2,
+                  delay: 2,
                   child: Column(
                     children: [
                       const SizedBox(height: 60),
@@ -116,7 +116,13 @@ class SignIn extends StatelessWidget {
                       ),
                       const SizedBox(height: 30),
 
-                      const SizedBox(height: 30 , child: Text("Or with Email" ,style: TextStyle(fontSize: 17),),),
+                      const SizedBox(
+                        height: 30,
+                        child: Text(
+                          "Or with Email",
+                          style: TextStyle(fontSize: 17),
+                        ),
+                      ),
                       const SizedBox(height: 30),
                       TextFormField(
                         textInputAction: TextInputAction.next,
@@ -239,7 +245,29 @@ class SignIn extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+          
+                                 TextButton(
+                            onPressed: () {
+                              Get.toNamed("SignUp");
+                            },
+                            style:
+                                TextButton.styleFrom(padding: EdgeInsets.zero),
+                            child: Text(
+                             "Forgot Password ?",
+                              style: TextStyle(
+                                  color: AppColors.kPrimary, fontSize: 14),
+                            ),
+                          )
+
+                              
+
+                                 
+                        ],
+                      ),
+                      // const SizedBox(height: 30),
                       GestureDetector(
                         onTap: () {
                           if (signInController.formKey.currentState!

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 
-import '../Themes/colors.dart';
 import '../controller/forgot_password_controller.dart';
-import 'widgets.dart';
+import '../theme/main_colors.dart';
 
 class ForgotPassword extends StatelessWidget {
   const ForgotPassword({super.key});
@@ -12,7 +10,6 @@ class ForgotPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ForgotPasswordController forgotPasswordController = Get.find();
-
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -79,26 +76,36 @@ class ForgotPassword extends StatelessWidget {
                                   .inputfgbEmail(emailAddress);
                             },
                             decoration: InputDecoration(
-                              prefixIconColor: orangeColor,
-                              focusColor: blackColor,
-                              fillColor: blackColor,
-                              disabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: greyColor)),
+                              hintText: 'Your Email',
+                              errorMaxLines: 2,
+                              prefixIcon:
+                                  Icon(Icons.email, color: AppColors.kLine),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 16),
                               enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: greyColor)),
-                              focusedBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: orangeColor)),
-                              errorBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: redColor)),
-                              focusedErrorBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(color: redColor)),
-                              hintStyle: TextStyle(
-                                  fontFamily: 'Cairo', color: greyColor),
-                              prefixIcon: ImageIcon(
-                                const Svg("assets/icons/email_icon.svg"),
-                                color: greyColor,
+                                borderSide:
+                                    const BorderSide(color: AppColors.kLine),
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                              hintText: 'البريد الإكتروني',
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: AppColors.kOrange),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              border: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: AppColors.kLine),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide:
+                                    const BorderSide(color: AppColors.KError),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              hintStyle: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.grey),
                             ),
                           );
                         }),
