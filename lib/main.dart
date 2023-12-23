@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluter_ecom/firebase_options.dart';
 import 'package:fluter_ecom/utils/onboarding_bindings.dart';
+import 'package:fluter_ecom/utils/signup_phone_bindings.dart';
 import 'package:fluter_ecom/view/foochi_singup.dart';
 import 'package:fluter_ecom/view/home.dart';
 import 'package:fluter_ecom/view/signin.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.cupertino,
       // theme: Themes.customLightTheme,
-      // textDirection: MainFunctions.textDirection,
+      // textDirection: MainFunctions.textDirection, 
       getPages: [
         GetPage(
           name: "/SignUp",
@@ -85,7 +86,7 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/PhoneSignup",
           page: () => const PhoneSignUp(),
-          // binding: HomeScreenBinding(),
+          binding: SignUpPhoneBindings(),
         ),
         // GetPage(
         //   name: "/Tasnifat",
@@ -371,3 +372,7 @@ class _MyVerifyState extends State<MyVerify> {
     );
   }
 }
+
+
+
+ 
