@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:fluter_ecom/firebase_options.dart';
 import 'package:fluter_ecom/utils/onboarding_bindings.dart';
 import 'package:fluter_ecom/view/foochi_singup.dart';
+import 'package:fluter_ecom/view/home.dart';
 import 'package:fluter_ecom/view/signin.dart';
 import 'package:fluter_ecom/view/signup.dart';
 import 'package:flutter/material.dart';
@@ -73,11 +74,11 @@ class MyApp extends StatelessWidget {
             page: () => const FoochiOnboardingView(),
             binding: OnboardingBindings(),
             middlewares: [AppIsOppen()]),
-        // GetPage(
-        //   name: "/HomeScreen",
-        //   page: () => const HomeScreen(),
-        //   binding: HomeScreenBinding(),
-        // ),
+        GetPage(
+          name: "/",
+          page: () => const Home(),
+          // binding: HomeScreenBinding(),
+        ),
         // GetPage(
         //   name: "/Tasnifat",
         //   page: () => const Tasnifat(),
