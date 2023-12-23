@@ -248,23 +248,18 @@ class SignIn extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-          
-                                 TextButton(
+                          TextButton(
                             onPressed: () {
                               Get.toNamed("ForgotPassword");
                             },
                             style:
                                 TextButton.styleFrom(padding: EdgeInsets.zero),
                             child: Text(
-                             "Forgot Password ?",
+                              "Forgot Password ?",
                               style: TextStyle(
                                   color: AppColors.kPrimary, fontSize: 14),
                             ),
                           )
-
-                              
-
-                                 
                         ],
                       ),
                       // const SizedBox(height: 30),
@@ -316,6 +311,19 @@ class SignIn extends StatelessWidget {
                                 TextButton.styleFrom(padding: EdgeInsets.zero),
                             child: Text(
                               "Sign Up",
+                              style: TextStyle(
+                                  color: AppColors.kPrimary, fontSize: 14),
+                            ),
+                          ),
+
+                            TextButton(
+                            onPressed: () {
+                              Get.toNamed("PhoneSignup");
+                            },
+                            style:
+                                TextButton.styleFrom(padding: EdgeInsets.zero),
+                            child: Text(
+                              "Sign Up with Phone",
                               style: TextStyle(
                                   color: AppColors.kPrimary, fontSize: 14),
                             ),
