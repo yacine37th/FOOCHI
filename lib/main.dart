@@ -3,6 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluter_ecom/firebase_options.dart';
+import 'package:fluter_ecom/theme/themes.dart';
 import 'package:fluter_ecom/utils/onboarding_bindings.dart';
 import 'package:fluter_ecom/utils/signup_phone_bindings.dart';
 import 'package:fluter_ecom/view/foochi_singup.dart';
@@ -11,6 +12,7 @@ import 'package:fluter_ecom/view/signin.dart';
 import 'package:fluter_ecom/view/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
@@ -58,6 +60,7 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.cupertino,
       // theme: Themes.customLightTheme,
       // textDirection: MainFunctions.textDirection,
+      theme: Themes.customLightTheme,
       getPages: [
         GetPage(
           name: "/SignUp",
@@ -131,249 +134,527 @@ class MyApp extends StatelessWidget {
         // ),
       ],
       initialRoute: "/",
+      // home: AdvancedSwitch(),
     );
   }
 }
 
-class MyPhone extends StatefulWidget {
-  const MyPhone({Key? key}) : super(key: key);
+class AdvancedSwitch extends StatefulWidget {
+  const AdvancedSwitch({
+    Key? key,
+    this.controller,
+    this.activeColor = const Color(0xFF4CAF50),
+    this.inactiveColor = const Color(0xFF9E9E9E),
+    this.activeChild,
+    this.inactiveChild,
+    this.activeImage,
+    this.inactiveImage,
+    this.borderRadius = const BorderRadius.all(const Radius.circular(15)),
+    this.width = 50.0,
+    this.height = 30.0,
+    this.enabled = true,
+    this.disabledOpacity = 0.5,
+    this.thumb,
+  }) : super(key: key);
+
+  /// Determines if widget is enabled
+  final bool enabled;
+
+  /// Determines current state.
+  final ValueNotifier<bool>? controller;
+
+  /// Determines background color for the active state.
+  final Color activeColor;
+
+  /// Determines background color for the inactive state.
+  final Color inactiveColor;
+
+  /// Determines label for the active state.
+  final Widget? activeChild;
+
+  /// Determines label for the inactive state.
+  final Widget? inactiveChild;
+
+  /// Determines background image for the active state.
+  final ImageProvider? activeImage;
+
+  /// Determines background image for the inactive state.
+  final ImageProvider? inactiveImage;
+
+  /// Determines border radius.
+  final BorderRadius borderRadius;
+
+  /// Determines width.
+  final double width;
+
+  /// Determines height.
+  final double height;
+
+  /// Determines opacity of disabled control.
+  final double disabledOpacity;
+
+  /// Thumb widget.
+  final Widget? thumb;
 
   @override
-  State<MyPhone> createState() => _MyPhoneState();
+  _AdvancedSwitchState createState() => _AdvancedSwitchState();
 }
 
-class _MyPhoneState extends State<MyPhone> {
-  TextEditingController countryController = TextEditingController();
+class _AdvancedSwitchState extends State<AdvancedSwitch>
+    with SingleTickerProviderStateMixin {
+  static const _duration = Duration(milliseconds: 250);
+  late ValueNotifier<bool> _controller;
+  late AnimationController _animationController;
+  late Animation<Offset> _slideAnimation;
+  late Animation<Color?> _colorAnimation;
+  late double _thumbSize;
 
   @override
   void initState() {
-    // TODO: implement initState
-    countryController.text = "+213";
     super.initState();
+
+    _controller = widget.controller ?? ValueNotifier<bool>(false);
+    _controller.addListener(_handleControllerValueChanged);
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: _duration,
+      value: _controller.value ? 1.0 : 0.0,
+    );
+
+    _initAnimation();
+  }
+
+  @override
+  void didUpdateWidget(covariant AdvancedSwitch oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    _initAnimation();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        margin: EdgeInsets.only(left: 25, right: 25),
-        alignment: Alignment.center,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                AppAssets.kAppLogo,
-                width: 150,
-                height: 150,
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Text(
-                "Phone Verification",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "We need to register your phone without getting started!",
-                style: TextStyle(
-                  fontSize: 16,
+    final labelSize = widget.width - _thumbSize;
+    final containerSize = labelSize * 2 + _thumbSize;
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: _handlePressed,
+        child: Opacity(
+          opacity: widget.enabled ? 1 : widget.disabledOpacity,
+          child: AnimatedBuilder(
+            animation: _animationController,
+            builder: (_, child) {
+              return ClipRRect(
+                borderRadius: widget.borderRadius,
+                clipBehavior: Clip.antiAlias,
+                child: Container(
+                  width: widget.width,
+                  height: widget.height,
+                  color: _colorAnimation.value,
+                  child: child,
                 ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                height: 55,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 40,
-                      child: TextField(
-                        controller: countryController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
+              );
+            },
+            child: Stack(
+              children: [
+                if (widget.activeImage != null || widget.inactiveImage != null)
+                  ValueListenableBuilder<bool>(
+                    valueListenable: _controller,
+                    builder: (_, __, ___) {
+                      return AnimatedCrossFade(
+                        crossFadeState: _controller.value
+                            ? CrossFadeState.showSecond
+                            : CrossFadeState.showFirst,
+                        duration: _duration,
+                        firstChild: Image(
+                          width: widget.width,
+                          height: widget.height,
+                          image: widget.inactiveImage ?? widget.activeImage!,
+                          fit: BoxFit.cover,
                         ),
-                      ),
-                    ),
-                    Text(
-                      "|",
-                      style: TextStyle(fontSize: 33, color: Colors.grey),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                        child: TextField(
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Phone",
-                      ),
-                    ))
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.green.shade600,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'verify');
+                        secondChild: Image(
+                          width: widget.width,
+                          height: widget.height,
+                          image: widget.activeImage ?? widget.inactiveImage!,
+                          fit: BoxFit.cover,
+                        ),
+                      );
                     },
-                    child: Text("Send the code")),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MyVerify extends StatefulWidget {
-  const MyVerify({Key? key}) : super(key: key);
-
-  @override
-  State<MyVerify> createState() => _MyVerifyState();
-}
-
-class _MyVerifyState extends State<MyVerify> {
-  @override
-  Widget build(BuildContext context) {
-    final defaultPinTheme = PinTheme(
-      width: 56,
-      height: 56,
-      textStyle: TextStyle(
-          fontSize: 20,
-          color: Color.fromRGBO(30, 60, 87, 1),
-          fontWeight: FontWeight.w600),
-      decoration: BoxDecoration(
-        border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
-        borderRadius: BorderRadius.circular(20),
-      ),
-    );
-
-    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
-      borderRadius: BorderRadius.circular(8),
-    );
-
-    final submittedPinTheme = defaultPinTheme.copyWith(
-      decoration: defaultPinTheme.decoration?.copyWith(
-        color: Color.fromRGBO(234, 239, 243, 1),
-      ),
-    );
-
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_rounded,
-            color: Colors.black,
-          ),
-        ),
-        elevation: 0,
-      ),
-      body: Container(
-        margin: EdgeInsets.only(left: 25, right: 25),
-        alignment: Alignment.center,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                AppAssets.kAppLogo,
-                width: 150,
-                height: 150,
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Text(
-                "Phone Verification",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "We need to register your phone without getting started!",
-                style: TextStyle(
-                  fontSize: 16,
+                  ),
+                AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, child) {
+                    return Transform.translate(
+                      offset: _slideAnimation.value,
+                      child: child,
+                    );
+                  },
+                  child: OverflowBox(
+                    minWidth: containerSize,
+                    maxWidth: containerSize,
+                    minHeight: widget.height,
+                    maxHeight: widget.height,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconTheme(
+                          data: const IconThemeData(
+                            color: Color(0xFFFFFFFF),
+                            size: 20,
+                          ),
+                          child: DefaultTextStyle(
+                            style: const TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
+                            ),
+                            child: Container(
+                              width: labelSize,
+                              height: widget.height,
+                              alignment: Alignment.center,
+                              child: widget.activeChild,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(2),
+                          width: _thumbSize - 4,
+                          height: _thumbSize - 4,
+                          child: widget.thumb ??
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFFFFFFF),
+                                  borderRadius: widget.borderRadius
+                                      .subtract(BorderRadius.circular(1)),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Color(0x42000000),
+                                      blurRadius: 8,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                        ),
+                        IconTheme(
+                          data: const IconThemeData(
+                            color: Color(0xFFFFFFFF),
+                            size: 20,
+                          ),
+                          child: DefaultTextStyle(
+                            style: const TextStyle(
+                              color: Color(0xFFFFFFFF),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12,
+                            ),
+                            child: Container(
+                              width: labelSize,
+                              height: widget.height,
+                              alignment: Alignment.center,
+                              child: widget.inactiveChild,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Pinput(
-                length: 6,
-                // defaultPinTheme: defaultPinTheme,
-                // focusedPinTheme: focusedPinTheme,
-                // submittedPinTheme: submittedPinTheme,
-
-                showCursor: true,
-                onCompleted: (pin) => print(pin),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.green.shade600,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {},
-                    child: Text("Verify Phone Number")),
-              ),
-              Row(
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          'phone',
-                          (route) => false,
-                        );
-                      },
-                      child: Text(
-                        "Edit Phone Number ?",
-                        style: TextStyle(color: Colors.black),
-                      ))
-                ],
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
+  void _initAnimation() {
+    _thumbSize = widget.height;
+    final offset = widget.width / 2 - _thumbSize / 2;
+
+    final animation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: Offset(-offset, 0),
+      end: Offset(offset, 0),
+    ).animate(animation);
+
+    _colorAnimation = ColorTween(
+      begin: widget.inactiveColor,
+      end: widget.activeColor,
+    ).animate(animation);
+  }
+
+  void _handleControllerValueChanged() {
+    if (_controller.value) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
+  }
+
+  void _handlePressed() {
+    if (widget.controller != null && widget.enabled) {
+      _controller.value = !_controller.value;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_handleControllerValueChanged);
+
+    if (widget.controller == null) {
+      _controller.dispose();
+    }
+
+    _animationController.dispose();
+
+    super.dispose();
+  }
 }
+// class MyPhone extends StatefulWidget {
+//   const MyPhone({Key? key}) : super(key: key);
+
+//   @override
+//   State<MyPhone> createState() => _MyPhoneState();
+// }
+
+// class _MyPhoneState extends State<MyPhone> {
+//   TextEditingController countryController = TextEditingController();
+
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     countryController.text = "+213";
+//     super.initState();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Container(
+//         margin: EdgeInsets.only(left: 25, right: 25),
+//         alignment: Alignment.center,
+//         child: SingleChildScrollView(
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Image.asset(
+//                 AppAssets.kAppLogo,
+//                 width: 150,
+//                 height: 150,
+//               ),
+//               SizedBox(
+//                 height: 25,
+//               ),
+//               Text(
+//                 "Phone Verification",
+//                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+//               ),
+//               SizedBox(
+//                 height: 10,
+//               ),
+//               Text(
+//                 "We need to register your phone without getting started!",
+//                 style: TextStyle(
+//                   fontSize: 16,
+//                 ),
+//                 textAlign: TextAlign.center,
+//               ),
+//               SizedBox(
+//                 height: 30,
+//               ),
+//               Container(
+//                 height: 55,
+//                 decoration: BoxDecoration(
+//                     border: Border.all(width: 1, color: Colors.grey),
+//                     borderRadius: BorderRadius.circular(10)),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     SizedBox(
+//                       width: 10,
+//                     ),
+//                     SizedBox(
+//                       width: 40,
+//                       child: TextField(
+//                         controller: countryController,
+//                         keyboardType: TextInputType.number,
+//                         decoration: InputDecoration(
+//                           border: InputBorder.none,
+//                         ),
+//                       ),
+//                     ),
+//                     Text(
+//                       "|",
+//                       style: TextStyle(fontSize: 33, color: Colors.grey),
+//                     ),
+//                     SizedBox(
+//                       width: 10,
+//                     ),
+//                     Expanded(
+//                         child: TextField(
+//                       keyboardType: TextInputType.phone,
+//                       decoration: InputDecoration(
+//                         border: InputBorder.none,
+//                         hintText: "Phone",
+//                       ),
+//                     ))
+//                   ],
+//                 ),
+//               ),
+//               SizedBox(
+//                 height: 20,
+//               ),
+//               SizedBox(
+//                 width: double.infinity,
+//                 height: 45,
+//                 child: ElevatedButton(
+//                     style: ElevatedButton.styleFrom(
+//                         primary: Colors.green.shade600,
+//                         shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(10))),
+//                     onPressed: () {
+//                       Navigator.pushNamed(context, 'verify');
+//                     },
+//                     child: Text("Send the code")),
+//               )
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class MyVerify extends StatefulWidget {
+//   const MyVerify({Key? key}) : super(key: key);
+
+//   @override
+//   State<MyVerify> createState() => _MyVerifyState();
+// }
+
+// class _MyVerifyState extends State<MyVerify> {
+//   @override
+//   Widget build(BuildContext context) {
+//     final defaultPinTheme = PinTheme(
+//       width: 56,
+//       height: 56,
+//       textStyle: TextStyle(
+//           fontSize: 20,
+//           color: Color.fromRGBO(30, 60, 87, 1),
+//           fontWeight: FontWeight.w600),
+//       decoration: BoxDecoration(
+//         border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+//         borderRadius: BorderRadius.circular(20),
+//       ),
+//     );
+
+//     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+//       border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
+//       borderRadius: BorderRadius.circular(8),
+//     );
+
+//     final submittedPinTheme = defaultPinTheme.copyWith(
+//       decoration: defaultPinTheme.decoration?.copyWith(
+//         color: Color.fromRGBO(234, 239, 243, 1),
+//       ),
+//     );
+
+//     return Scaffold(
+//       extendBodyBehindAppBar: true,
+//       appBar: AppBar(
+//         backgroundColor: Colors.transparent,
+//         leading: IconButton(
+//           onPressed: () {
+//             Navigator.pop(context);
+//           },
+//           icon: Icon(
+//             Icons.arrow_back_ios_rounded,
+//             color: Colors.black,
+//           ),
+//         ),
+//         elevation: 0,
+//       ),
+//       body: Container(
+//         margin: EdgeInsets.only(left: 25, right: 25),
+//         alignment: Alignment.center,
+//         child: SingleChildScrollView(
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               Image.asset(
+//                 AppAssets.kAppLogo,
+//                 width: 150,
+//                 height: 150,
+//               ),
+//               SizedBox(
+//                 height: 25,
+//               ),
+//               Text(
+//                 "Phone Verification",
+//                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+//               ),
+//               SizedBox(
+//                 height: 10,
+//               ),
+//               Text(
+//                 "We need to register your phone without getting started!",
+//                 style: TextStyle(
+//                   fontSize: 16,
+//                 ),
+//                 textAlign: TextAlign.center,
+//               ),
+//               SizedBox(
+//                 height: 30,
+//               ),
+//               Pinput(
+//                 length: 6,
+//                 // defaultPinTheme: defaultPinTheme,
+//                 // focusedPinTheme: focusedPinTheme,
+//                 // submittedPinTheme: submittedPinTheme,
+
+//                 showCursor: true,
+//                 onCompleted: (pin) => print(pin),
+//               ),
+//               SizedBox(
+//                 height: 20,
+//               ),
+//               SizedBox(
+//                 width: double.infinity,
+//                 height: 45,
+//                 child: ElevatedButton(
+//                     style: ElevatedButton.styleFrom(
+//                         primary: Colors.green.shade600,
+//                         shape: RoundedRectangleBorder(
+//                             borderRadius: BorderRadius.circular(10))),
+//                     onPressed: () {},
+//                     child: Text("Verify Phone Number")),
+//               ),
+//               Row(
+//                 children: [
+//                   TextButton(
+//                       onPressed: () {
+//                         Navigator.pushNamedAndRemoveUntil(
+//                           context,
+//                           'phone',
+//                           (route) => false,
+//                         );
+//                       },
+//                       child: Text(
+//                         "Edit Phone Number ?",
+//                         style: TextStyle(color: Colors.black),
+//                       ))
+//                 ],
+//               )
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+

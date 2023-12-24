@@ -46,6 +46,7 @@ dependencies:
   animate_do: ^3.1.2
   shared_preferences: ^2.2.2
   pinput: ^3.0.1
+  flutter_advanced_switch: ^3.0.1
     
 
 
