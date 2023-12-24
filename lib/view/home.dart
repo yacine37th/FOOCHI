@@ -40,7 +40,184 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.kBackground,
-      drawer: Drawer(),
+      drawer: Container(
+        width: 250,
+        child: Drawer(
+          backgroundColor: Color.fromARGB(255, 28, 28, 28),
+          child: Column(children: [
+            const SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
+              child: Row(children: [
+                Container(
+                  width: 50,
+                  height: 50,
+                  child: ProfilePicture(),
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  "${currentUserInfos.name!} ",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ]),
+            ),
+            const Divider(
+              color: Colors.white,
+            ),
+            ListTile(
+              tileColor: AppColors.transparentColor,
+              textColor: AppColors.whiteColor,
+              iconColor: AppColors.whiteColor,
+              visualDensity: VisualDensity(horizontal: -4, vertical: -4),
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+              horizontalTitleGap: 1,
+              dense: true,
+              title: const Text(
+                "Sign Out",
+                style: TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: 'Cairo'),
+              ),
+              leading: Icon(Icons.logout),
+              onTap: () {
+                // homeScreenController.signOutOfAnExistingAccount();
+              },
+            ),
+            // ListTile(
+            //   tileColor: transparentColor,
+            //   textColor: whiteColor,
+            //   iconColor: whiteColor,
+            //   visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+            //   contentPadding:
+            //       const EdgeInsets.symmetric(vertical: 0.0, horizontal: 14.0),
+            //   horizontalTitleGap: 1,
+            //   dense: true,
+            //   title: const Text(
+            //     "الرئيسية",
+            //     style: TextStyle(
+            //         fontSize: 19,
+            //         fontWeight: FontWeight.w300,
+            //         fontFamily: 'Cairo'),
+            //   ),
+            //   leading: ImageIcon(Svg("assets/icons/home_icon.svg")),
+            //   onTap: () {
+            //     homeScreenController.switchBetweenScreens(0);
+            //     Get.back();
+            //   },
+            // ),
+            // ListTile(
+            //   tileColor: transparentColor,
+            //   textColor: whiteColor,
+            //   iconColor: whiteColor,
+            //   visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+            //   contentPadding:
+            //       const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+            //   horizontalTitleGap: 1,
+            //   dense: true,
+            //   onTap: () {
+            //     homeScreenController.switchBetweenScreens(1);
+            //     Get.back();
+            //   },
+            //   title: const Text(
+            //     "التصنيفات",
+            //     style: TextStyle(
+            //         fontSize: 19,
+            //         fontWeight: FontWeight.w300,
+            //         fontFamily: 'Cairo'),
+            //   ),
+            //   leading: const ImageIcon(Svg("assets/icons/category_icon.svg")),
+            // ), //////////////////
+
+            // //////////////////
+            // ListTile(
+            //   tileColor: transparentColor,
+            //   textColor: whiteColor,
+            //   iconColor: whiteColor,
+            //   visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+            //   contentPadding:
+            //       const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+            //   horizontalTitleGap: 1,
+            //   dense: true,
+            //   title: const Text(
+            //     "الصفحة الشخصية",
+            //     style: TextStyle(
+            //         fontSize: 19,
+            //         fontWeight: FontWeight.w300,
+            //         fontFamily: 'Cairo'),
+            //   ),
+            //   leading: const ImageIcon(Svg("assets/icons/myaccount_icon.svg")),
+            //   onTap: () {
+            //     homeScreenController.switchBetweenScreens(2);
+            //     Get.back();
+            //   },
+            // ),
+
+            // ListTile(
+            //   tileColor: transparentColor,
+            //   textColor: whiteColor,
+            //   iconColor: whiteColor,
+            //   visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+            //   contentPadding:
+            //       const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+            //   horizontalTitleGap: 1,
+            //   dense: true,
+            //   onTap: () {
+            //     Get.toNamed("/RequestedBooks", arguments: {
+            //       "0": AppBarType.maktabati,
+            //       "1": maktabatiController.maktabati
+            //     });
+            //   },
+            //   title: const Text(
+            //     "مكتبتي",
+            //     style: TextStyle(
+            //         fontSize: 19,
+            //         fontWeight: FontWeight.w300,
+            //         fontFamily: 'Cairo'),
+            //   ),
+            //   leading: const ImageIcon(Svg("assets/icons/maktabati_icon.svg")),
+            // ),
+            // //////////////////
+
+            // const ListTile(
+            //   tileColor: transparentColor,
+            //   textColor: whiteColor,
+            //   iconColor: whiteColor,
+            //   visualDensity: VisualDensity(horizontal: -4, vertical: -4),
+            //   contentPadding:
+            //       EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+            //   horizontalTitleGap: 1,
+            //   dense: true,
+            //   title: Text(
+            //     "مكتبتي",
+            //     style: TextStyle(fontSize: 19, fontWeight: FontWeight.w300),
+            //   ),
+            //   leading: Icon(Icons.account_circle_outlined),
+            // ),
+            //////////////////
+            // const ListTile(
+            //   tileColor: transparentColor,
+            //   textColor: whiteColor,
+            //   iconColor: whiteColor,
+            //   visualDensity: VisualDensity(horizontal: -4, vertical: -4),
+            //   contentPadding:
+            //       EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
+            //   horizontalTitleGap: 1,
+            //   dense: true,
+            //   title: Text(
+            //     "كيف احصل على كتابي ؟",
+            //     style: TextStyle(fontSize: 19, fontWeight: FontWeight.w300),
+            //   ),
+            //   leading: Icon(Icons.info_outline),
+            // ),
+
+            //////////////////
+            /////////////
+            const Spacer(),
+          ]),
+        ),
+      ),
       appBar: AppBar(
         elevation: 1,
         backgroundColor: AppColors.kBackground,
@@ -96,7 +273,7 @@ class _HomeState extends State<Home> {
                     height: 30,
                   ),
                   Text(
-                    'Food Delivery',
+                    'Foochi Food',
                     style: TextStyle(
                         color: Colors.grey[80],
                         fontWeight: FontWeight.bold,

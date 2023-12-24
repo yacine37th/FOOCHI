@@ -7,6 +7,9 @@ class AppColors {
   static const Color kOrange = Color(0xFFEF8829);
   static const Color kLine = Color(0xFFE6DCCD);
   static const Color KError = Color.fromARGB(255, 194, 5, 5);
+
+  static const Color transparentColor = Color.fromARGB(0, 0, 0, 0);
+  static const Color whiteColor = Color.fromARGB(255, 255, 255, 255);
 }
 
 List<Color> profilColors = [
