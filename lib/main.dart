@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.cupertino,
       // theme: Themes.customLightTheme,
-      // textDirection: MainFunctions.textDirection, 
+      // textDirection: MainFunctions.textDirection,
       getPages: [
         GetPage(
           name: "/SignUp",
@@ -62,8 +62,7 @@ class MyApp extends StatelessWidget {
             name: "/SignIn",
             page: () => const SignIn(),
             binding: SignInBinding(),
-            // middlewares: [AuthMiddleware()]
-            ),
+            middlewares: [AuthMiddleware()]),
         GetPage(
             name: "/EmailVerification",
             page: () => const EmailVerification(),
@@ -80,7 +79,7 @@ class MyApp extends StatelessWidget {
             middlewares: [AppIsOppen()]),
         GetPage(
           name: "/",
-          page: () => const Home(),
+          page: () =>  HomePage(),
           // binding: HomeScreenBinding(),
         ),
         GetPage(
@@ -125,7 +124,7 @@ class MyApp extends StatelessWidget {
         //   binding: OrderBookBinding(),
         // ),
       ],
-      initialRoute: "/OnboardingView",
+      initialRoute: "/",
     );
   }
 }
@@ -372,7 +371,3 @@ class _MyVerifyState extends State<MyVerify> {
     );
   }
 }
-
-
-
- 

@@ -66,6 +66,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '148313253920',
     projectId: 'fouchifood',
     storageBucket: 'fouchifood.appspot.com',
+    androidClientId: '148313253920-hglk4n3jkf2am9lubcrvtkbpdq3ambho.apps.googleusercontent.com',
+    iosClientId: '148313253920-k7sh1rrpjgv1udgk43j2obv4gpsfthue.apps.googleusercontent.com',
     iosBundleId: 'com.example.fluterEcom',
   );
 
@@ -75,6 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '148313253920',
     projectId: 'fouchifood',
     storageBucket: 'fouchifood.appspot.com',
+    androidClientId: '148313253920-hglk4n3jkf2am9lubcrvtkbpdq3ambho.apps.googleusercontent.com',
+    iosClientId: '148313253920-ib4he0u5nltlag6vjgnf5dop7n0k2ec7.apps.googleusercontent.com',
     iosBundleId: 'com.example.fluterEcom.RunnerTests',
   );
 }

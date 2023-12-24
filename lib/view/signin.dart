@@ -316,18 +316,18 @@ class SignIn extends StatelessWidget {
                             ),
                           ),
 
-                            TextButton(
-                            onPressed: () {
-                              Get.toNamed("PhoneSignup");
-                            },
-                            style:
-                                TextButton.styleFrom(padding: EdgeInsets.zero),
-                            child: Text(
-                              "Sign Up with Phone",
-                              style: TextStyle(
-                                  color: AppColors.kPrimary, fontSize: 14),
-                            ),
-                          )
+                          //   TextButton(
+                          //   onPressed: () {
+                          //     Get.toNamed("PhoneSignup");
+                          //   },
+                          //   style:
+                          //       TextButton.styleFrom(padding: EdgeInsets.zero),
+                          //   child: Text(
+                          //     "Sign Up with Phone",
+                          //     style: TextStyle(
+                          //         color: AppColors.kPrimary, fontSize: 14),
+                          //   ),
+                          // )
                         ],
                       )
                     ],

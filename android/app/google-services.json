@@ -12,7 +12,20 @@
           "package_name": "com.example.fluter_ecom"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "148313253920-hglk4n3jkf2am9lubcrvtkbpdq3ambho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fluter_ecom",
+            "certificate_hash": "9945fe8c6ac89decc15459cf91883503c9cf7a7a"
+          }
+        },
+        {
+          "client_id": "148313253920-f8b3amuss5e3b1ql5nc6alj5vd4vtst2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAN8q1xk-mvZ3aSU6IPx11Sv7-RSfAcIII"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148313253920-f8b3amuss5e3b1ql5nc6alj5vd4vtst2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "148313253920-ib4he0u5nltlag6vjgnf5dop7n0k2ec7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fluterEcom.RunnerTests"
+              }
+            }
+          ]
         }
       }
     }
