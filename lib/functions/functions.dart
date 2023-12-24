@@ -1,11 +1,44 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../main.dart';
+import '../model/user_model.dart';
 import '../theme/main_colors.dart';
 
 class MainFunctions {
+  static Color generatePresizedColor(int namelength) {
+    return profilColors[((namelength - 3) % 8).floor()];
+  }
+
+  static getcurrentUserInfos() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(currentUser!.uid)
+        .get()
+        .then(
+      (value) async {
+        currentUserInfos = UserModel(
+          uID: value["userID"],
+          email: value["userEmail"],
+          name: value["userName"],
+        );
+        // if (value.data()!.containsKey("userIsSubbed")) {
+        //   currentUserInfos.isSubbed = value["userIsSubbed"];
+        //   if (currentUserInfos.isSubbed) {
+        //     print(value["userSubEndingingDay"]);
+        //     currentUserInfos.subStartingDay = dateFormat.format(DateTime.parse(
+        //         value["userSubStartingDay"].toDate().toString()));
+        //     currentUserInfos.subEndingingDay = dateFormat.format(DateTime.parse(
+        //         value["userSubEndingingDay"].toDate().toString()));
+        //   }
+        // }
+      },
+    );
+    print("/////////////////");
+  }
+
   static waitingBar(String text, Color? color) {
     Get.defaultDialog(
         title: text,

@@ -16,8 +16,10 @@ import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'functions/functions.dart';
 import 'middleware/app_oppend.dart';
 import 'middleware/auth_middleware.dart';
+import 'model/user_model.dart';
 import 'theme/assets.dart';
 import 'theme/main_colors.dart';
 import 'utils/forgot_password_bindings.dart';
@@ -31,11 +33,15 @@ import 'view/verify_email.dart';
 
 User? currentUser = FirebaseAuth.instance.currentUser;
 SharedPreferences? sharedPreferences;
+UserModel currentUserInfos = UserModel(uID: "", email: "", name: "");
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // currentUser = FirebaseAuth.instance.currentUser;
+  currentUser = FirebaseAuth.instance.currentUser;
+  if (currentUser != null) {
+    await MainFunctions.getcurrentUserInfos();
+  }
   sharedPreferences = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
@@ -79,7 +85,7 @@ class MyApp extends StatelessWidget {
             middlewares: [AppIsOppen()]),
         GetPage(
           name: "/",
-          page: () =>  HomePage(),
+          page: () => Home(),
           // binding: HomeScreenBinding(),
         ),
         GetPage(
