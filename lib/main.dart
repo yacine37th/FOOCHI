@@ -17,6 +17,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 
 import 'functions/functions.dart';
 import 'middleware/app_oppend.dart';
@@ -25,6 +26,7 @@ import 'model/user_model.dart';
 import 'theme/assets.dart';
 import 'theme/main_colors.dart';
 import 'utils/forgot_password_bindings.dart';
+import 'utils/home_bindings.dart';
 import 'utils/signup_bindings.dart';
 import 'utils/singin_bindings.dart';
 import 'utils/verify_email_bindings.dart';
@@ -89,7 +91,7 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/",
           page: () => Home(),
-          // binding: HomeScreenBinding(),
+          binding: HomeBinding(),
         ),
         GetPage(
           name: "/PhoneSignup",
@@ -134,287 +136,350 @@ class MyApp extends StatelessWidget {
         // ),
       ],
       initialRoute: "/",
-      // home: AdvancedSwitch(),
+      // home: APP(),
     );
   }
 }
-
-class AdvancedSwitch extends StatefulWidget {
-  const AdvancedSwitch({
-    Key? key,
-    this.controller,
-    this.activeColor = const Color(0xFF4CAF50),
-    this.inactiveColor = const Color(0xFF9E9E9E),
-    this.activeChild,
-    this.inactiveChild,
-    this.activeImage,
-    this.inactiveImage,
-    this.borderRadius = const BorderRadius.all(const Radius.circular(15)),
-    this.width = 50.0,
-    this.height = 30.0,
-    this.enabled = true,
-    this.disabledOpacity = 0.5,
-    this.thumb,
-  }) : super(key: key);
-
-  /// Determines if widget is enabled
-  final bool enabled;
-
-  /// Determines current state.
-  final ValueNotifier<bool>? controller;
-
-  /// Determines background color for the active state.
-  final Color activeColor;
-
-  /// Determines background color for the inactive state.
-  final Color inactiveColor;
-
-  /// Determines label for the active state.
-  final Widget? activeChild;
-
-  /// Determines label for the inactive state.
-  final Widget? inactiveChild;
-
-  /// Determines background image for the active state.
-  final ImageProvider? activeImage;
-
-  /// Determines background image for the inactive state.
-  final ImageProvider? inactiveImage;
-
-  /// Determines border radius.
-  final BorderRadius borderRadius;
-
-  /// Determines width.
-  final double width;
-
-  /// Determines height.
-  final double height;
-
-  /// Determines opacity of disabled control.
-  final double disabledOpacity;
-
-  /// Thumb widget.
-  final Widget? thumb;
+class APP extends StatefulWidget {
+  const APP({super.key});
 
   @override
-  _AdvancedSwitchState createState() => _AdvancedSwitchState();
+  State<APP> createState() => _APPState();
 }
 
-class _AdvancedSwitchState extends State<AdvancedSwitch>
-    with SingleTickerProviderStateMixin {
-  static const _duration = Duration(milliseconds: 250);
-  late ValueNotifier<bool> _controller;
-  late AnimationController _animationController;
-  late Animation<Offset> _slideAnimation;
-  late Animation<Color?> _colorAnimation;
-  late double _thumbSize;
+class _APPState extends State<APP> {
+   final _controller00 = ValueNotifier<bool>(false);
+  final _controller01 = ValueNotifier<bool>(false);
+  final _controller02 = ValueNotifier<bool>(false);
+  final _controller03 = ValueNotifier<bool>(false);
+  final _controller04 = ValueNotifier<bool>(false);
+  final _controller05 = ValueNotifier<bool>(false);
+  final _controller06 = ValueNotifier<bool>(false);
+  final _controller07 = ValueNotifier<bool>(false);
+  final _controller08 = ValueNotifier<bool>(false);
+  final _controller09 = ValueNotifier<bool>(false);
+  final _controller10 = ValueNotifier<bool>(false);
+  final _controller11 = ValueNotifier<bool>(false);
+  final _controller12 = ValueNotifier<bool>(false);
+  final _controller13 = ValueNotifier<bool>(false);
+  final _controller14 = ValueNotifier<bool>(false);
+  final _controller15 = ValueNotifier<bool>(false);
+   bool _enabled = false;
+  bool _themeDark = false;
 
   @override
   void initState() {
     super.initState();
 
-    _controller = widget.controller ?? ValueNotifier<bool>(false);
-    _controller.addListener(_handleControllerValueChanged);
-
-    _animationController = AnimationController(
-      vsync: this,
-      duration: _duration,
-      value: _controller.value ? 1.0 : 0.0,
+    _controller00.addListener(() {
+      setState(() {
+        if (_controller00.value) {
+          _themeDark = true;
+        } else {
+          _themeDark = false;
+        }
+      });
+    });
+  }
+  
+  Widget _buildLabel(String value) {
+    return Container(
+      margin: EdgeInsets.only(
+        top: 25,
+        bottom: 5,
+      ),
+      child: Text(
+        '$value',
+        style: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: 16,
+          color: Colors.grey,
+        ),
+      ),
     );
-
-    _initAnimation();
   }
 
   @override
-  void didUpdateWidget(covariant AdvancedSwitch oldWidget) {
-    super.didUpdateWidget(oldWidget);
+  void dispose() {
+    _controller01.dispose();
+    _controller02.dispose();
+    _controller03.dispose();
+    _controller04.dispose();
+    _controller05.dispose();
+    _controller06.dispose();
+    _controller07.dispose();
+    _controller08.dispose();
+    _controller09.dispose();
+    _controller10.dispose();
+    _controller11.dispose();
+    _controller12.dispose();
+    _controller13.dispose();
+    _controller14.dispose();
+    _controller15.dispose();
 
-    _initAnimation();
+    super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
-    final labelSize = widget.width - _thumbSize;
-    final containerSize = labelSize * 2 + _thumbSize;
-
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: _handlePressed,
-        child: Opacity(
-          opacity: widget.enabled ? 1 : widget.disabledOpacity,
-          child: AnimatedBuilder(
-            animation: _animationController,
-            builder: (_, child) {
-              return ClipRRect(
-                borderRadius: widget.borderRadius,
-                clipBehavior: Clip.antiAlias,
-                child: Container(
-                  width: widget.width,
-                  height: widget.height,
-                  color: _colorAnimation.value,
-                  child: child,
-                ),
-              );
-            },
-            child: Stack(
+    return  MaterialApp(
+      theme: _themeDark ? ThemeData.dark() : ThemeData.light(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Advanced Switch Example'),
+        ),
+        body: Container(
+          width: double.infinity,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+              vertical: 40,
+            ),
+            physics: ClampingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (widget.activeImage != null || widget.inactiveImage != null)
-                  ValueListenableBuilder<bool>(
-                    valueListenable: _controller,
-                    builder: (_, __, ___) {
-                      return AnimatedCrossFade(
-                        crossFadeState: _controller.value
-                            ? CrossFadeState.showSecond
-                            : CrossFadeState.showFirst,
-                        duration: _duration,
-                        firstChild: Image(
-                          width: widget.width,
-                          height: widget.height,
-                          image: widget.inactiveImage ?? widget.activeImage!,
-                          fit: BoxFit.cover,
-                        ),
-                        secondChild: Image(
-                          width: widget.width,
-                          height: widget.height,
-                          image: widget.activeImage ?? widget.inactiveImage!,
-                          fit: BoxFit.cover,
-                        ),
-                      );
+                _buildLabel('Switch Theme'),
+                AdvancedSwitch(
+                  controller: _controller00,
+                  thumb: ValueListenableBuilder<bool>(
+                    valueListenable: _controller00,
+                    builder: (_, value, __) {
+                      return Icon(
+                          value ? Icons.lightbulb : Icons.lightbulb_outline);
                     },
                   ),
-                AnimatedBuilder(
-                  animation: _animationController,
-                  builder: (context, child) {
-                    return Transform.translate(
-                      offset: _slideAnimation.value,
-                      child: child,
-                    );
-                  },
-                  child: OverflowBox(
-                    minWidth: containerSize,
-                    maxWidth: containerSize,
-                    minHeight: widget.height,
-                    maxHeight: widget.height,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconTheme(
-                          data: const IconThemeData(
-                            color: Color(0xFFFFFFFF),
-                            size: 20,
-                          ),
-                          child: DefaultTextStyle(
-                            style: const TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
-                            ),
-                            child: Container(
-                              width: labelSize,
-                              height: widget.height,
-                              alignment: Alignment.center,
-                              child: widget.activeChild,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.all(2),
-                          width: _thumbSize - 4,
-                          height: _thumbSize - 4,
-                          child: widget.thumb ??
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFFFFFFF),
-                                  borderRadius: widget.borderRadius
-                                      .subtract(BorderRadius.circular(1)),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: Color(0x42000000),
-                                      blurRadius: 8,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                        ),
-                        IconTheme(
-                          data: const IconThemeData(
-                            color: Color(0xFFFFFFFF),
-                            size: 20,
-                          ),
-                          child: DefaultTextStyle(
-                            style: const TextStyle(
-                              color: Color(0xFFFFFFFF),
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12,
-                            ),
-                            child: Container(
-                              width: labelSize,
-                              height: widget.height,
-                              alignment: Alignment.center,
-                              child: widget.inactiveChild,
-                            ),
-                          ),
-                        ),
-                      ],
+                ),
+                UnconstrainedBox(
+                  child: AdvancedSwitch(
+                    controller: _controller01,
+                    width: 110,
+                    enabled: false,
+                    inactiveColor: Colors.red,
+                    activeColor: Colors.green,
+                    activeChild: Text(
+                      'File selected',
+                      style: TextStyle(
+                        color: Colors.black87,
+                      ),
+                    ),
+                    inactiveChild: Text(
+                      'No File Selected',
+                      style: TextStyle(
+                        color: Colors.black87,
+                      ),
                     ),
                   ),
+                ),
+                _buildLabel('Default Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AdvancedSwitch(
+                      controller: _controller01,
+                    ),
+                    SizedBox(width: 25),
+                    AdvancedSwitch(
+                      controller: _controller01,
+                      thumb: ValueListenableBuilder<bool>(
+                        valueListenable: _controller01,
+                        builder: (_, value, __) {
+                          return Icon(value
+                              ? Icons.cloud_upload
+                              : Icons.cloud_download);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                _buildLabel('Disabled Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AdvancedSwitch(
+                      enabled: _enabled,
+                      controller: ValueNotifier(false),
+                    ),
+                    SizedBox(width: 25),
+                    AdvancedSwitch(
+                      enabled: _enabled,
+                      controller: ValueNotifier(true),
+                    ),
+                    SizedBox(width: 25),
+                    ElevatedButton(
+                      onPressed: () => setState(() => _enabled = !_enabled),
+                      child: Text('Enable/Disable'),
+                    )
+                  ],
+                ),
+                _buildLabel('Color/Icon/Image Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AdvancedSwitch(
+                      activeColor: Colors.yellow,
+                      inactiveColor: Colors.indigo,
+                      activeChild: Text('Yellow'),
+                      inactiveChild: Text('Indigo'),
+                      width: 80,
+                      controller: _controller03,
+                    ),
+                    AdvancedSwitch(
+                      activeChild: Icon(
+                        Icons.terrain,
+                        color: Colors.blue,
+                      ),
+                      inactiveChild: Icon(Icons.cloud),
+                      activeColor: Colors.yellowAccent,
+                      inactiveColor: Colors.deepPurple,
+                      width: 60,
+                      controller: _controller15,
+                    ),
+                    AdvancedSwitch(
+                      controller: _controller13,
+                      activeImage: AssetImage('assets/images/day_sky.png'),
+                      inactiveImage: AssetImage('assets/images/night_sky.jpg'),
+                    ),
+                    AdvancedSwitch(
+                      controller: _controller14,
+                      width: 80,
+                      activeChild: Text('DAY'),
+                      inactiveChild: Text('NIGHT'),
+                      activeImage: AssetImage('assets/images/day_sky.png'),
+                      inactiveImage: AssetImage('assets/images/night_sky.jpg'),
+                    ),
+                  ],
+                ),
+                _buildLabel('ON/OFF Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AdvancedSwitch(
+                      activeChild: Text('1'),
+                      inactiveChild: Text('0'),
+                      width: 70,
+                      controller: _controller02,
+                    ),
+                    AdvancedSwitch(
+                      activeChild: Text('ON'),
+                      inactiveChild: Text('OFF'),
+                      borderRadius: BorderRadius.circular(5),
+                      width: 76,
+                      controller: _controller04,
+                    ),
+                    AdvancedSwitch(
+                      activeChild: Text('true'),
+                      inactiveChild: Text('false'),
+                      borderRadius: BorderRadius.zero,
+                      width: 76,
+                      controller: _controller05,
+                    ),
+                  ],
+                ),
+                _buildLabel('XXS/XS Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AdvancedSwitch(
+                      width: 16,
+                      height: 8,
+                      controller: _controller06,
+                    ),
+                    AdvancedSwitch(
+                      width: 32,
+                      height: 16,
+                      controller: _controller07,
+                    ),
+                  ],
+                ),
+                _buildLabel('S/M/L Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AdvancedSwitch(
+                      width: 48,
+                      height: 24,
+                      controller: _controller08,
+                    ),
+                    AdvancedSwitch(
+                      width: 56,
+                      height: 28,
+                      controller: _controller09,
+                    ),
+                    AdvancedSwitch(
+                      width: 72,
+                      height: 36,
+                      controller: _controller10,
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                  ],
+                ),
+                _buildLabel('XL/XXL Switch'),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    AdvancedSwitch(
+                      width: 96,
+                      height: 48,
+                      controller: _controller11,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    AdvancedSwitch(
+                      width: 112,
+                      height: 56,
+                      controller: _controller12,
+                      borderRadius: BorderRadius.circular(29),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-
-  void _initAnimation() {
-    _thumbSize = widget.height;
-    final offset = widget.width / 2 - _thumbSize / 2;
-
-    final animation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    );
-
-    _slideAnimation = Tween<Offset>(
-      begin: Offset(-offset, 0),
-      end: Offset(offset, 0),
-    ).animate(animation);
-
-    _colorAnimation = ColorTween(
-      begin: widget.inactiveColor,
-      end: widget.activeColor,
-    ).animate(animation);
-  }
-
-  void _handleControllerValueChanged() {
-    if (_controller.value) {
-      _animationController.forward();
-    } else {
-      _animationController.reverse();
-    }
-  }
-
-  void _handlePressed() {
-    if (widget.controller != null && widget.enabled) {
-      _controller.value = !_controller.value;
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.removeListener(_handleControllerValueChanged);
-
-    if (widget.controller == null) {
-      _controller.dispose();
-    }
-
-    _animationController.dispose();
-
-    super.dispose();
+    );;
   }
 }
+// class CustomLiteRollingSwitch extends StatefulWidget {
+//   const CustomLiteRollingSwitch({super.key});
+
+//   @override
+//   State<CustomLiteRollingSwitch> createState() =>
+//       _CustomLiteRollingSwitchState();
+// }
+
+// class _CustomLiteRollingSwitchState extends State<CustomLiteRollingSwitch> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: LiteRollingSwitch(
+//           value: true,
+//           // textOn: 'disponible',
+          
+//           // textOff: 'ocupado',
+//           animationDuration: Duration(milliseconds: 250),
+//           colorOn: Colors.greenAccent[700]!,
+//           colorOff: Colors.redAccent[700]!,
+//           iconOn: Icons.done,
+//           iconOff: Icons.remove_circle_outline,
+//           textSize: 16.0,
+//           onChanged: (bool state) {
+//             //Use it to manage the different states
+//             print('Current State of SWITCH IS: state');
+//           },
+//           onTap: () {},
+//           onDoubleTap: () {},
+//           onSwipe: () {},
+//         ),
+//       ),
+//     );
+//   }
+// }
+
 // class MyPhone extends StatefulWidget {
 //   const MyPhone({Key? key}) : super(key: key);
 

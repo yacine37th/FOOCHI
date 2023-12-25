@@ -1,5 +1,7 @@
+import 'package:fluter_ecom/controller/home_controller.dart';
 import 'package:fluter_ecom/main.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:get/get.dart';
 
 import '../theme/main_colors.dart';
@@ -38,6 +40,7 @@ class _HomeState extends State<Home> {
   int selectedCategory = 0;
   @override
   Widget build(BuildContext context) {
+    HomeController homeController = Get.find();
     return Scaffold(
       backgroundColor: AppColors.kBackground,
       drawer: Container(
@@ -46,6 +49,24 @@ class _HomeState extends State<Home> {
           backgroundColor: Color.fromARGB(255, 28, 28, 28),
           child: Column(children: [
             const SizedBox(height: 20),
+            // const SizedBox(height: 20),
+            // const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GetBuilder<HomeController>(
+                    builder: (contx) => AdvancedSwitch(
+                      activeChild: Icon(Icons.dark_mode),
+                      inactiveChild: Icon(Icons.sunny),
+                      width: 70,
+                      controller: homeController.controller02,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Padding(
               padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
               child: Row(children: [
