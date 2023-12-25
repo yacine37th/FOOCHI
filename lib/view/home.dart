@@ -281,88 +281,109 @@ class _HomeState extends State<Home> {
           // ),
         ],
       ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    'Foochi Food',
-                    style: TextStyle(
-                        color: Colors.grey[80],
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    height: 50,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: categories.length,
-                        itemBuilder: (context, index) => makeCategory(
-                            title: categories[index], index: index)),
-                    // child: ListView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   children: <Widget>[
-                    //     FadeAnimation(1, makeCategory(title: 'Pizaa')),
-                    //     FadeAnimation(1.3, makeCategory(title: 'Burgers')),
-                    //     FadeAnimation(1.4, makeCategory(title: 'Kebab')),
-                    //     FadeAnimation(1.5, makeCategory(title: 'Desert')),
-                    //     FadeAnimation(1.6, makeCategory(title: 'Salad')),
-                    //   ],
-                    // ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
+      body:
+      
+       GetBuilder<HomeController>(
+        builder: (contx) => contx.usersRef.isEmpty
+            ? CircularProgressIndicator()
+            : ListView.builder(
+                itemCount: contx.usersRef.length,
+                itemBuilder: (context, index) {
+                  return Row(children: [
+                    Text("${contx.usersRef.values.elementAt(index).name}"),
+                    SizedBox(
+                      width: 15,
+                      // height: 15,
+                    ),
+                    Text("${contx.usersRef.values.elementAt(index).email}"),
+                    // Text("${homeController.usersRef.values.elementAt(index).uID}")
+                  ]);
+                },
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Free Delivery',
-                style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: foods.length,
-                    itemBuilder: (context, index) => makeItem(
-                        image: foods[index]["image"],
-                        isFavorite: foods[index]["isFavorite"],
-                        index: index)),
-                // child: ListView(
-                //   scrollDirection: Axis.horizontal,
-                //   children: <Widget>[
-                //     FadeAnimation(1.4, makeItem(image: 'assets/images/one.jpg')),
-                //     FadeAnimation(1.5, makeItem(image: 'assets/images/two.jpg')),
-                //     FadeAnimation(1.6, makeItem(image: 'assets/images/three.jpg')),
-                //   ],
-                // ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            )
-          ],
-        ),
       ),
+      // SafeArea(
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.start,
+      //     children: <Widget>[
+
+      //       Padding(
+      //         padding: EdgeInsets.symmetric(horizontal: 20.0),
+      //         child: Column(
+      //           crossAxisAlignment: CrossAxisAlignment.start,
+      //           children: <Widget>[
+      //             SizedBox(
+      //               height: 30,
+      //             ),
+      //             Text(
+      //               'Foochi Food',
+      //               style: TextStyle(
+      //                   color: Colors.grey[80],
+      //                   fontWeight: FontWeight.bold,
+      //                   fontSize: 30),
+      //             ),
+      //             SizedBox(
+      //               height: 20,
+      //             ),
+      //             Container(
+      //               height: 50,
+      //               child: ListView.builder(
+      //                   scrollDirection: Axis.horizontal,
+      //                   itemCount: categories.length,
+      //                   itemBuilder: (context, index) => makeCategory(
+      //                       title: categories[index], index: index)),
+      //               // child: ListView(
+      //               //   scrollDirection: Axis.horizontal,
+      //               //   children: <Widget>[
+      //               //     FadeAnimation(1, makeCategory(title: 'Pizaa')),
+      //               //     FadeAnimation(1.3, makeCategory(title: 'Burgers')),
+      //               //     FadeAnimation(1.4, makeCategory(title: 'Kebab')),
+      //               //     FadeAnimation(1.5, makeCategory(title: 'Desert')),
+      //               //     FadeAnimation(1.6, makeCategory(title: 'Salad')),
+      //               //   ],
+      //               // ),
+      //             ),
+      //             SizedBox(
+      //               height: 10,
+      //             ),
+      //           ],
+      //         ),
+      //       ),
+      //       Padding(
+      //         padding: EdgeInsets.all(20),
+      //         child: Text(
+      //           'Free Delivery',
+      //           style: TextStyle(
+      //               color: Colors.grey[700],
+      //               fontSize: 20,
+      //               fontWeight: FontWeight.bold),
+      //         ),
+      //       ),
+      //       Expanded(
+      //         child: Padding(
+      //           padding: EdgeInsets.symmetric(horizontal: 20.0),
+      //           child: ListView.builder(
+      //               scrollDirection: Axis.horizontal,
+      //               itemCount: foods.length,
+      //               itemBuilder: (context, index) => makeItem(
+      //                   image: foods[index]["image"],
+      //                   isFavorite: foods[index]["isFavorite"],
+      //                   index: index)),
+      //           // child: ListView(
+      //           //   scrollDirection: Axis.horizontal,
+      //           //   children: <Widget>[
+      //           //     FadeAnimation(1.4, makeItem(image: 'assets/images/one.jpg')),
+      //           //     FadeAnimation(1.5, makeItem(image: 'assets/images/two.jpg')),
+      //           //     FadeAnimation(1.6, makeItem(image: 'assets/images/three.jpg')),
+      //           //   ],
+      //           // ),
+      //         ),
+      //       ),
+      //       SizedBox(
+      //         height: 30,
+      //       )
+      //     ],
+      //   ),
+      // ),
     );
   }
 

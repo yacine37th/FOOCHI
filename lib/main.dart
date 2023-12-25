@@ -62,7 +62,6 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.cupertino,
       // theme: Themes.customLightTheme,
       // textDirection: MainFunctions.textDirection,
-      theme: Themes.customLightTheme,
       getPages: [
         GetPage(
           name: "/SignUp",

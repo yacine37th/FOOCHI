@@ -48,6 +48,7 @@ dependencies:
   pinput: ^3.0.1
   flutter_advanced_switch: ^3.0.1
   lite_rolling_switch: ^1.0.1
+  animated_theme_switcher: ^2.0.10
     
 
 
