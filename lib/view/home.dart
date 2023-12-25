@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:get/get.dart';
 
+import '../theme/colors.dart';
 import '../theme/main_colors.dart';
 import 'widgets.dart';
 
@@ -368,26 +369,185 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                'Free Delivery',
-                style: TextStyle(
-                    color: Colors.grey[700],
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    'Free Delivery',
+                    style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: GetBuilder<HomeController>(
+                      builder: (contx) => TextButton.icon(
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(transparentColor),
+                              iconColor:
+                                  MaterialStateProperty.all(AppColors.kPrimary),
+                              overlayColor: MaterialStateColor.resolveWith(
+                                  (states) =>
+                                      AppColors.kPrimary.withOpacity(0.1)),
+                              foregroundColor: MaterialStateProperty.all(
+                                  AppColors.kPrimary)),
+                          onPressed: () {
+                            // Get.toNamed("/RequestedBooks", arguments: {
+                            //   "0": AppBarType.mostRecentBooks,
+                            //   "1": homeRa2isiyaController.mostRecentBooks
+                            // });
+                          },
+                          icon: const Text("See more",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 19,
+                                fontFamily: 'Cairo Bold',
+                              )),
+                          label: const Icon(Icons.arrow_forward_ios))
+
+                      //  TextButton(
+                      //   style: ButtonStyle(
+                      //     // backgroundColor: MaterialStateProperty.all(Colors.red),
+                      //   // animationDuration: Duration(milliseconds: 1000),
+                      //   // overlayColor: MaterialStatePropertyAll( AppColors.kPrimary),
+                      //   // textStyle: MaterialStatePropertyAll(MaterialStateTextStyle.resolveWith((states) => )),
+
+                      //           // backgroundColor: MaterialStateProperty.all(
+                      //           //   // contx.isPressed ? Colors.blue : null,
+                      //           // ),
+                      //           // foregroundColor: MaterialStateProperty.all(
+                      //           //   contx.isPressed ? Colors.white : Colors.black,
+                      //           // ),
+
+                      //   ),
+                      //   onPressed: (){
+                      //     contx.isPressed = !contx.isPressed ;
+                      //   },
+                      //   child: Text("See more",style: TextStyle(color: AppColors.kPrimary),),
+                      //   // 'Free Delivery',
+                      //   // style: TextStyle(
+                      //   //     color: Colors.grey[700],
+                      //   //     fontSize: 20,
+                      //   //     fontWeight: FontWeight.bold),
+                      // ),
+
+                      ),
+                ),
+              ],
             ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: foods.length,
-                    itemBuilder: (context, index) => makeItem(
-                        image: foods[index]["image"],
-                        isFavorite: foods[index]["isFavorite"],
-                        index: index)),
+                    itemBuilder: (context, index) => AspectRatio(
+                          aspectRatio: 1 / 1.5,
+                          child: GestureDetector(
+                            child: Container(
+                              margin: EdgeInsets.only(right: 20),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  image: DecorationImage(
+                                    image: AssetImage(foods[index]["image"]),
+                                    fit: BoxFit.cover,
+                                  )),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.bottomCenter,
+                                        stops: [
+                                          .2,
+                                          .9
+                                        ],
+                                        colors: [
+                                          Colors.black.withOpacity(.9),
+                                          Colors.black.withOpacity(.3),
+                                        ])),
+                                child: Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            foods[index]["isFavorite"] =
+                                                !foods[index]["isFavorite"];
+                                          });
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: AnimatedContainer(
+                                              duration:
+                                                  Duration(milliseconds: 300),
+                                              padding: EdgeInsets.all(5),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  border: Border.all(
+                                                    width: 1.5,
+                                                    color: foods[index]
+                                                            ["isFavorite"]
+                                                        ? Colors.red
+                                                        : Colors.transparent,
+                                                  )),
+                                              child: foods[index]["isFavorite"]
+                                                  ? Icon(
+                                                      Icons.favorite,
+                                                      color: Colors.red,
+                                                    )
+                                                  : Icon(
+                                                      Icons.favorite,
+                                                      color: Colors.white,
+                                                    )),
+                                        ),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            "\$ 15.00",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 40,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            "Vegetarian Pizza",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                    //  makeItem(
+                    //     image: foods[index]["image"],
+                    //     isFavorite: foods[index]["isFavorite"],
+                    //     index: index)
+
+                    ),
                 // child: ListView(
                 //   scrollDirection: Axis.horizontal,
                 //   children: <Widget>[

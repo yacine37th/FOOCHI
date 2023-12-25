@@ -8,7 +8,7 @@ class HomeController extends GetxController {
   final controller02 = ValueNotifier<bool>(false);
   Map<String, UserModel> usersRef = {};
   Map<String, CategoryModel> categories = {};
-
+  bool isPressed =false;
   getUsers() async {
     await FirebaseFirestore.instance
         .collection("users")
