@@ -26,21 +26,26 @@ class HomeController extends GetxController {
     print("users /////////////////////////////");
     update();
   }
-getCategories() async {
+
+  getCategories() async {
     await FirebaseFirestore.instance
         .collection("categories")
         .get()
         .then((value) async {
-          for (int index = 0; index < value.docs.length; index++) {
-            categories.addAll({
-value.docs[index].id :CategoryModel(name: value.docs[index]["categoryName"]) 
-            });
-          }
+      for (int index = 0; index < value.docs.length; index++) {
+        categories.addAll({
+          value.docs[index].id: CategoryModel(
+              uID: value.docs[index]["categoryName"],
+              name: value.docs[index]["categoryName"])
+        });
+      }
     });
-}
+  }
+
   @override
   void onInit() {
     getUsers();
+    getCategories();
     super.onInit();
   }
 }

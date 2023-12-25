@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> categories = ["Pizza", "Burgers", "Kebab", "Desert", "Salad"];
+  // List<String> categories = ["Pizza", "Burgers", "Kebab", "Desert", "Salad"];
   List<dynamic> foods = [
     {
       "image": "assets/images/one.jpg",
@@ -281,14 +281,10 @@ class _HomeState extends State<Home> {
           // ),
         ],
       ),
-      body:
-      
-    
-      SafeArea(
+      body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
@@ -309,11 +305,45 @@ class _HomeState extends State<Home> {
                   ),
                   Container(
                     height: 50,
-                    child: ListView.builder(
+                    child: GetBuilder<HomeController>(
+                      builder: (contx) => ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: categories.length,
-                        itemBuilder: (context, index) => makeCategory(
-                            title: categories[index], index: index)),
+                        itemCount: contx.categories.length,
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () {
+                            // setState(() {
+                            //   selectedCategory = index;
+                            // });
+                          },
+                          child: AnimatedContainer(
+                            width: 120,
+                            duration: Duration(milliseconds: 300),
+                            margin: EdgeInsets.only(right: 10),
+                            decoration: BoxDecoration(
+                              color: selectedCategory == index
+                                  ? Colors.yellow[700]
+                                  : Colors.grey[300],
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "${contx.categories.values.elementAt(index).name}",
+                                style: TextStyle(
+                                    color: selectedCategory == index
+                                        ? Colors.black
+                                        : Colors.grey[700],
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        // makeCategory(
+                        //     title: homeController.categories[index],
+                        //     index: index)
+                      ),
+                    ),
                     // child: ListView(
                     //   scrollDirection: Axis.horizontal,
                     //   children: <Widget>[
