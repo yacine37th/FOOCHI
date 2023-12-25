@@ -306,43 +306,50 @@ class _HomeState extends State<Home> {
                   Container(
                     height: 50,
                     child: GetBuilder<HomeController>(
-                      builder: (contx) => ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: contx.categories.length,
-                        itemBuilder: (context, index) => GestureDetector(
-                          onTap: () {
-                            // setState(() {
-                            //   selectedCategory = index;
-                            // });
-                          },
-                          child: AnimatedContainer(
-                            width: 120,
-                            duration: Duration(milliseconds: 300),
-                            margin: EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
-                              color: selectedCategory == index
-                                  ? Colors.yellow[700]
-                                  : Colors.grey[300],
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "${contx.categories.values.elementAt(index).name}",
-                                style: TextStyle(
+                      builder: (contx) => contx.categories.isEmpty
+                          ? Center(
+                              child: CircularProgressIndicator(
+                              backgroundColor: AppColors.kBackground,
+                              color: AppColors.kOrange,
+                            ))
+                          : ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemCount: contx.categories.length,
+                              itemBuilder: (context, index) => GestureDetector(
+                                onTap: () {
+                                  // setState(() {
+                                  //   selectedCategory = index;
+                                  // });
+                                },
+                                child: AnimatedContainer(
+                                  width: 120,
+                                  duration: Duration(milliseconds: 300),
+                                  margin: EdgeInsets.only(right: 10),
+                                  decoration: BoxDecoration(
                                     color: selectedCategory == index
-                                        ? Colors.black
-                                        : Colors.grey[700],
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600),
+                                        ? Colors.yellow[700]
+                                        : Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "${contx.categories.values.elementAt(index).name}",
+                                      style: TextStyle(
+                                          color: selectedCategory == index
+                                              ? Colors.black
+                                              : Colors.grey[700],
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
 
-                        // makeCategory(
-                        //     title: homeController.categories[index],
-                        //     index: index)
-                      ),
+                              // makeCategory(
+                              //     title: homeController.categories[index],
+                              //     index: index)
+                            ),
                     ),
                     // child: ListView(
                     //   scrollDirection: Axis.horizontal,
