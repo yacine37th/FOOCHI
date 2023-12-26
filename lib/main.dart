@@ -134,7 +134,7 @@ class MyApp extends StatelessWidget {
         //   binding: OrderBookBinding(),
         // ),
       ],
-      initialRoute: "/",
+      initialRoute: "/OnboardingView",
       // home: APP(),
     );
   }

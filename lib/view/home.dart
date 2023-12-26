@@ -2,6 +2,7 @@ import 'package:fluter_ecom/controller/home_controller.dart';
 import 'package:fluter_ecom/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 
 import '../theme/colors.dart';
@@ -42,6 +43,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     HomeController homeController = Get.find();
+    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+
     return Scaffold(
       backgroundColor: AppColors.kBackground,
       drawer: Container(
