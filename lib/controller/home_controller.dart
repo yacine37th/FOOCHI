@@ -47,7 +47,7 @@ class HomeController extends GetxController {
   getFood() async {
     await FirebaseFirestore.instance
         .collection("food")
-        .limit(2)
+        // .limit(2)
         .get()
         .then((value) async {
       for (int index = 0; index < value.docs.length; index++) {
@@ -61,12 +61,67 @@ class HomeController extends GetxController {
       }
     });
   }
+//////// fetch when scrolling to bottom
+
+//  await FirebaseFirestore.instance
+//               .collection("books")
+//               .orderBy("bookDateAdded", descending: true)
+//               .startAfterDocument(await FirebaseFirestore.instance
+//                   .collection("books")
+//                   .doc(requestedBooks.values.last.id)
+//                   .get())
+//               .limit(9)
+//               .get()
+//               .then((value) {
+//             if (value.docs.isEmpty) {
+//               getMore = false;
+//               print("*******dddddd***********");
+//             }
+//             for (int index = 0; index < value.docs.length; index++) {
+//               requestedBooks.addAll({
+//                 value.docs[index].id: BookModel(
+//                     id: value.docs[index].id,
+//                     authorName: value.docs[index]["bookAuthorName"],
+//                     authorId: value.docs[index]["bookAuthorID"],
+//                     ratings: value.docs[index]["bookRatings"].toDouble(),
+//                     reads: value.docs[index]["bookReads"],
+//                     title: value.docs[index]["bookTitle"],
+//                     category: value.docs[index]["bookCategory"],
+//                     thumbnail: value.docs[index]["bookThumnail"],
+//                     aboutBook: value.docs[index]["bookAbout"],
+//                     url: value.docs[index]["bookURL"],
+//                     publishingHouse: value.docs[index]["bookPublishingHouse"],
+//                     price: value.docs[index]["bookPrice"].toDouble())
+//               });
+//             }
+
+//             print("AppBarType.mostRecentBooks");
+//           });
+
+  ScrollController? scrollController;
+  var getMore = true;
+  var isFetching = false;
+
+  void _scrollListener() async {
+    print("******************");
+    if (getMore) {
+      if (scrollController?.position.pixels ==
+              scrollController?.position.maxScrollExtent &&
+          isFetching == false) {
+        isFetching = true;
+        // await getRequestedBooks();
+        isFetching = false;
+      }
+    }
+  }
 
   @override
   void onInit() {
     getUsers();
     getCategories();
     getFood();
+    scrollController = ScrollController()..addListener(_scrollListener);
+
     super.onInit();
   }
 }
