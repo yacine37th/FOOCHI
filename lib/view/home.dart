@@ -381,7 +381,7 @@ class _HomeState extends State<Home> {
                     'Free Delivery',
                     style: TextStyle(
                         color: Colors.grey[700],
-                        fontSize: 20,
+                        fontSize: 19,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -408,10 +408,13 @@ class _HomeState extends State<Home> {
                           icon: const Text("See more",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 19,
+                                fontSize: 16,
                                 fontFamily: 'Cairo Bold',
                               )),
-                          label: const Icon(Icons.arrow_forward_ios))
+                          label: const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 19,
+                          ))
 
                       //  TextButton(
                       //   style: ButtonStyle(
@@ -446,111 +449,117 @@ class _HomeState extends State<Home> {
             Expanded(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: ListView.builder(
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: foods.length,
-                    itemBuilder: (context, index) => AspectRatio(
-                          aspectRatio: 1 / 1.5,
-                          child: GestureDetector(
-                            child: Container(
-                              margin: EdgeInsets.only(right: 20),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                    image: AssetImage(foods[index]["image"]),
-                                    fit: BoxFit.cover,
-                                  )),
+                child: GetBuilder<HomeController>(
+                  builder: (contx) => ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: contx.foods.length,
+                      itemBuilder: (context, index) => AspectRatio(
+                            aspectRatio: 1 / 1.5,
+                            child: GestureDetector(
                               child: Container(
+                                margin: EdgeInsets.only(right: 20),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
-                                    gradient: LinearGradient(
-                                        begin: Alignment.bottomCenter,
-                                        stops: [
-                                          .2,
-                                          .9
-                                        ],
-                                        colors: [
-                                          Colors.black.withOpacity(.9),
-                                          Colors.black.withOpacity(.3),
-                                        ])),
-                                child: Padding(
-                                  padding: EdgeInsets.all(20.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            foods[index]["isFavorite"] =
-                                                !foods[index]["isFavorite"];
-                                          });
-                                        },
-                                        child: Align(
-                                          alignment: Alignment.topRight,
-                                          child: AnimatedContainer(
-                                              duration:
-                                                  Duration(milliseconds: 300),
-                                              padding: EdgeInsets.all(5),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                  border: Border.all(
-                                                    width: 1.5,
-                                                    color: foods[index]
-                                                            ["isFavorite"]
-                                                        ? Colors.red
-                                                        : Colors.transparent,
-                                                  )),
-                                              child: foods[index]["isFavorite"]
-                                                  ? Icon(
-                                                      Icons.favorite,
-                                                      color: Colors.red,
-                                                    )
-                                                  : Icon(
-                                                      Icons.favorite,
-                                                      color: Colors.white,
-                                                    )),
-                                        ),
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                        "${contx.foods.values.elementAt(index).image}",
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            "\$ 15.00",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 40,
-                                                fontWeight: FontWeight.bold),
+                                      fit: BoxFit.cover,
+                                    )),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.bottomCenter,
+                                          stops: [
+                                            .2,
+                                            .9
+                                          ],
+                                          colors: [
+                                            Colors.black.withOpacity(.9),
+                                            Colors.black.withOpacity(.3),
+                                          ])),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(20.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              foods[index]["isFavorite"] =
+                                                  !foods[index]["isFavorite"];
+                                            });
+                                          },
+                                          child: Align(
+                                            alignment: Alignment.topRight,
+                                            child: AnimatedContainer(
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                padding: EdgeInsets.all(5),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12),
+                                                    border: Border.all(
+                                                      width: 1.5,
+                                                      color: foods[index]
+                                                              ["isFavorite"]
+                                                          ? Colors.red
+                                                          : Colors.transparent,
+                                                    )),
+                                                child: foods[index]
+                                                        ["isFavorite"]
+                                                    ? Icon(
+                                                        Icons.favorite,
+                                                        color: Colors.red,
+                                                      )
+                                                    : Icon(
+                                                        Icons.favorite,
+                                                        color: Colors.white,
+                                                      )),
                                           ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            "Vegetarian Pizza",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 20),
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              "\$ ${contx.foods.values.elementAt(index).price}.00",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 40,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              "${contx.foods.values.elementAt(index).name}",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                    //  makeItem(
-                    //     image: foods[index]["image"],
-                    //     isFavorite: foods[index]["isFavorite"],
-                    //     index: index)
+                          )
+                      //  makeItem(
+                      //     image: foods[index]["image"],
+                      //     isFavorite: foods[index]["isFavorite"],
+                      //     index: index)
 
-                    ),
+                      ),
+                ),
                 // child: ListView(
                 //   scrollDirection: Axis.horizontal,
                 //   children: <Widget>[
