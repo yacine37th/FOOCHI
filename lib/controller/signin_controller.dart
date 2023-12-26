@@ -4,6 +4,9 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
+import '../functions/functions.dart';
+import '../main.dart';
+
 class SignInController extends GetxController {
   final formKey = GlobalKey<FormState>();
   bool showPassword = true;
@@ -31,7 +34,7 @@ class SignInController extends GetxController {
           email: userEmailAddress!, password: userPassword!);
       print("credential");
       print(credential);
-      // currentUser = FirebaseAuth.instance.currentUser;
+      currentUser = FirebaseAuth.instance.currentUser;
 
       // var queries = await FirebaseFirestore.instance
       //     .collection("Users")
@@ -91,10 +94,8 @@ class SignInController extends GetxController {
       //   tempMyTransmitterTrips.add(tripTemp);
       // });
 
-      // await MainFunctions.getcurrentUserInfos();
-      print("doneeee");
+      await MainFunctions.getcurrentUserInfos();
       Get.back();
-      // Get.offAndToNamed("/");
       if (credential.user!.emailVerified) {
         Get.offAndToNamed("/");
       } else {
@@ -160,7 +161,6 @@ class SignInController extends GetxController {
 
       final GoogleSignInAuthentication? googleAuth =
           await googleUser?.authentication;
-
 
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
