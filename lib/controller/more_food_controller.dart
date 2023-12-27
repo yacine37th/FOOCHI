@@ -21,7 +21,7 @@ class MoreFoodController extends GetxController {
       if (value.docs.isEmpty) {
         getMore = false;
         print("*******dddddd***********");
-      } 
+      }
       for (int index = 0; index < value.docs.length; index++) {
         foods.addAll({
           value.docs[index].id: FoodModel(
@@ -33,7 +33,9 @@ class MoreFoodController extends GetxController {
       }
       // print("AppBarType.mostRecentBooks");
     });
-
+    print(
+        "fetch////////////////////////////////////////////////////////////////////////");
+    print("fetch");
     isFetching = false;
 
     update();

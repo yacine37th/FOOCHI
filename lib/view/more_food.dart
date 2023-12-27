@@ -11,6 +11,9 @@ class MoreFood extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MoreFoodController moreFoodController = Get.find();
+    double screenWidth(BuildContext context) {
+  return MediaQuery.of(context).size.width;
+}
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.kBackground,
@@ -40,133 +43,203 @@ class MoreFood extends StatelessWidget {
             child: Text("No Food to display"),
           );
         } else {
-          return ListView(
-            physics: const BouncingScrollPhysics(),
+          return GridView.builder(
             controller: contx.scrollController,
-            // itemBuilder: (context, index) => Text("{contx.foods.values.elementAt(index).name}"),
-            children: [
-              Container(
-                height: double.infinity,
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
+            physics: BouncingScrollPhysics(),
+            gridDelegate:
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            itemCount: contx.foods.length,
+            padding: EdgeInsets.all(2.0),
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                onTap: () {},
+                child: Padding(
+                  padding: EdgeInsets.all(5),
+                  child: Container(
+                    width: (screenWidth(context) / 2) - 15,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      image: DecorationImage(
+                        image: NetworkImage("${contx.foods.values.elementAt(index).image}"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                          gradient: new LinearGradient(
+                              colors: [
+                                Colors.black,
+                                const Color(0x19000000),
+                              ],
+                              begin: const FractionalOffset(0.0, 1.0),
+                              end: const FractionalOffset(0.0, 0.0),
+                              stops: [0.0, 1.0],
+                              tileMode: TileMode.clamp),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                "${contx.foods.values.elementAt(index).name}",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white),
+                              ),
+                              Text(
+                                'Rs. ${contx.foods.values.elementAt(index).price}',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ), /* add child content here */
                   ),
-                  itemCount: contx.foods.length,
-                  itemBuilder: (context, index) {
-                    return Text("{contx.foods.values.elementAt(index).name}");
-                  },
                 ),
-              ),
-            ],
-            // children: [
-            //   GridView.builder(
-            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //       crossAxisCount: 2,
-            //       crossAxisSpacing: 8,
-            //       mainAxisSpacing: 8,
-            //       childAspectRatio: 0.8,
-            //     ),
-            //     itemCount: contx.foods.length,
-            //     itemBuilder: (context, index) => Text("{contx.foods.values.elementAt(index).name}"),
-            //     // Card(
-            //     //   elevation: 4,
-            //     //   shape: RoundedRectangleBorder(
-            //     //       borderRadius: BorderRadius.circular(8)),
-            //     //   child: Column(
-            //     //     crossAxisAlignment: CrossAxisAlignment.stretch,
-            //     //     children: [
-            //     //       Expanded(
-            //     //         child: ClipRRect(
-            //     //           borderRadius:
-            //     //               BorderRadius.vertical(top: Radius.circular(8)),
-            //     //           child: Image.network(
-            //     //             "${contx.foods.values.elementAt(index).image}",
-            //     //             fit: BoxFit.cover,
-            //     //           ),
-            //     //         ),
-            //     //       ),
-            //     //       Padding(
-            //     //         padding: const EdgeInsets.all(8.0),
-            //     //         child: Text(
-            //     //           '${contx.foods.values.elementAt(index).name}',
-            //     //           style: TextStyle(
-            //     //               fontSize: 16, fontWeight: FontWeight.bold),
-            //     //         ),
-            //     //       ),
-            //     //     ],
-            //     //   ),
-            //     // ),
-
-            //   )
-            // ],
-
-            // children: [
-            //   GridView.builder(
-            //     physics: const NeverScrollableScrollPhysics(),
-            //     padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-            //     shrinkWrap: true,
-            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //         crossAxisCount: 3,
-            //         crossAxisSpacing: 12,
-            //         mainAxisSpacing: 12,
-            //         childAspectRatio: 0.77
-            //         ),
-            //     itemCount: contx.foods.length,
-            //     itemBuilder: (context, index) {
-            //       return InkWell(
-            //         onTap: () {
-            //           // Get.toNamed("/BookDetails",
-            //           //     arguments: requestedBooksController
-            //           //         .requestedBooks.values
-            //           //         .elementAt(index));
-            //         },
-            //         child: Container(
-            //           decoration: BoxDecoration(
-            //               borderRadius:
-            //                   const BorderRadius.all(Radius.circular(5)),
-            //               border: Border.all(color: AppColors.kPrimary)),
-            //           child: ClipRRect(
-            //             borderRadius: BorderRadius.circular(5),
-            //             child: CachedNetworkImage(
-            //               imageUrl:
-            //                   "${contx.foods.values.elementAt(index).image}",
-            //               fit: BoxFit.cover,
-            //               progressIndicatorBuilder:
-            //                   (context, child, loadingProgress) {
-            //                 return Center(
-            //                   child: CircularProgressIndicator(
-            //                       value: loadingProgress.progress),
-            //                 );
-            //               },
-            //             ),
-            //           ),
-            //         ),
-            //         //  BookThumnail(
-            //         //     url: requestedBooksController.requestedBooks.values
-            //         //         .elementAt(index)
-            //         //         .thumbnail!),
-            //       );
-            //     },
-            //   ),
-            //   Builder(
-            //     builder: (context) {
-            //       if (moreFoodController.isFetching) {
-            //         return Column(
-            //           children: const [
-            //             SizedBox(height: 60),
-            //             Center(child: CircularProgressIndicator()),
-            //             SizedBox(height: 60)
-            //           ],
-            //         );
-            //       } else {
-            //         return const SizedBox();
-            //       }
-            //     },
-            //   )
-            // ],
+              );
+            },
           );
+
+          //  ListView(
+          //   physics: const BouncingScrollPhysics(),
+          //   controller: contx.scrollController,
+          //   // itemBuilder: (context, index) => Text("{contx.foods.values.elementAt(index).name}"),
+          //   children: [
+          //     Container(
+          //       height: double.infinity,
+          //       child: GridView.builder(
+          //         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //           crossAxisCount: 2,
+          //           crossAxisSpacing: 8,
+          //           mainAxisSpacing: 8,
+          //         ),
+          //         itemCount: contx.foods.length,
+          //         itemBuilder: (context, index) {
+          //           return Text("{contx.foods.values.elementAt(index).name}");
+          //         },
+          //       ),
+          //     ),
+          //   ],
+          //   // children: [
+          //   //   GridView.builder(
+          //   //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //   //       crossAxisCount: 2,
+          //   //       crossAxisSpacing: 8,
+          //   //       mainAxisSpacing: 8,
+          //   //       childAspectRatio: 0.8,
+          //   //     ),
+          //   //     itemCount: contx.foods.length,
+          //   //     itemBuilder: (context, index) => Text("{contx.foods.values.elementAt(index).name}"),
+          //   //     // Card(
+          //   //     //   elevation: 4,
+          //   //     //   shape: RoundedRectangleBorder(
+          //   //     //       borderRadius: BorderRadius.circular(8)),
+          //   //     //   child: Column(
+          //   //     //     crossAxisAlignment: CrossAxisAlignment.stretch,
+          //   //     //     children: [
+          //   //     //       Expanded(
+          //   //     //         child: ClipRRect(
+          //   //     //           borderRadius:
+          //   //     //               BorderRadius.vertical(top: Radius.circular(8)),
+          //   //     //           child: Image.network(
+          //   //     //             "${contx.foods.values.elementAt(index).image}",
+          //   //     //             fit: BoxFit.cover,
+          //   //     //           ),
+          //   //     //         ),
+          //   //     //       ),
+          //   //     //       Padding(
+          //   //     //         padding: const EdgeInsets.all(8.0),
+          //   //     //         child: Text(
+          //   //     //           '${contx.foods.values.elementAt(index).name}',
+          //   //     //           style: TextStyle(
+          //   //     //               fontSize: 16, fontWeight: FontWeight.bold),
+          //   //     //         ),
+          //   //     //       ),
+          //   //     //     ],
+          //   //     //   ),
+          //   //     // ),
+
+          //   //   )
+          //   // ],
+
+          //   // children: [
+          //   //   GridView.builder(
+          //   //     physics: const NeverScrollableScrollPhysics(),
+          //   //     padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+          //   //     shrinkWrap: true,
+          //   //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          //   //         crossAxisCount: 3,
+          //   //         crossAxisSpacing: 12,
+          //   //         mainAxisSpacing: 12,
+          //   //         childAspectRatio: 0.77
+          //   //         ),
+          //   //     itemCount: contx.foods.length,
+          //   //     itemBuilder: (context, index) {
+          //   //       return InkWell(
+          //   //         onTap: () {
+          //   //           // Get.toNamed("/BookDetails",
+          //   //           //     arguments: requestedBooksController
+          //   //           //         .requestedBooks.values
+          //   //           //         .elementAt(index));
+          //   //         },
+          //   //         child: Container(
+          //   //           decoration: BoxDecoration(
+          //   //               borderRadius:
+          //   //                   const BorderRadius.all(Radius.circular(5)),
+          //   //               border: Border.all(color: AppColors.kPrimary)),
+          //   //           child: ClipRRect(
+          //   //             borderRadius: BorderRadius.circular(5),
+          //   //             child: CachedNetworkImage(
+          //   //               imageUrl:
+          //   //                   "${contx.foods.values.elementAt(index).image}",
+          //   //               fit: BoxFit.cover,
+          //   //               progressIndicatorBuilder:
+          //   //                   (context, child, loadingProgress) {
+          //   //                 return Center(
+          //   //                   child: CircularProgressIndicator(
+          //   //                       value: loadingProgress.progress),
+          //   //                 );
+          //   //               },
+          //   //             ),
+          //   //           ),
+          //   //         ),
+          //   //         //  BookThumnail(
+          //   //         //     url: requestedBooksController.requestedBooks.values
+          //   //         //         .elementAt(index)
+          //   //         //         .thumbnail!),
+          //   //       );
+          //   //     },
+          //   //   ),
+          //   //   Builder(
+          //   //     builder: (context) {
+          //   //       if (moreFoodController.isFetching) {
+          //   //         return Column(
+          //   //           children: const [
+          //   //             SizedBox(height: 60),
+          //   //             Center(child: CircularProgressIndicator()),
+          //   //             SizedBox(height: 60)
+          //   //           ],
+          //   //         );
+          //   //       } else {
+          //   //         return const SizedBox();
+          //   //       }
+          //   //     },
+          //   //   )
+          //   // ],
+          // );
 
 //          ListView.builder(
 //           physics: const BouncingScrollPhysics(),
