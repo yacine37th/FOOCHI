@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluter_ecom/model/category_model.dart';
 import 'package:fluter_ecom/model/food_model.dart';
 import 'package:fluter_ecom/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../main.dart';
 
 class HomeController extends GetxController {
   final controller02 = ValueNotifier<bool>(false);
@@ -86,6 +89,15 @@ class HomeController extends GetxController {
     //   }
     // });
   }
+////////Signout
+ signOutOfAnExistingAccount() async {
+    await FirebaseAuth.instance.signOut().then((value) {
+      currentUser = null;
+
+      Get.offAllNamed("/SignIn");
+    });
+  }
+
 
 //  await FirebaseFirestore.instance
 //               .collection("books")

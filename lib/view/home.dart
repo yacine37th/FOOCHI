@@ -108,37 +108,11 @@ class _HomeState extends State<Home> {
               ),
               leading: Icon(Icons.logout),
               onTap: () {
-                // homeScreenController.signOutOfAnExistingAccount();
+                homeController.signOutOfAnExistingAccount();
               },
             ),
 
-            SizedBox(
-              height: 100,
-              width: 100,
-              child: Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  Container(
-                    height: 100,
-                    width: 100,
-                    decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: NetworkImage(
-                              "https://images.unsplash.com/photo-1458071103673-6a6e4c4a3413?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
-                            ),
-                            fit: BoxFit.cover)),
-                  ),
-                  // Container(
-                  //   height: 25,
-                  //   width: 25,
-                  //   decoration: const BoxDecoration(
-                  //       color: Colors.green, shape: BoxShape.circle),
-                  // )
-                ],
-              ),
-            ),
-
+          
             // ListTile(
             //   tileColor: transparentColor,
             //   textColor: whiteColor,
