@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../model/food_model.dart';
 
 class MoreFoodController extends GetxController {
-  Map<String, FoodModel> foods = Get.arguments["0"];
+  Map<String, FoodModel> moreFood = Get.arguments["0"];
   getRequestedBooks() async {
     isFetching = true;
     await FirebaseFirestore.instance
@@ -13,7 +13,7 @@ class MoreFoodController extends GetxController {
         // .orderBy("bookDateAdded", descending: true)
         .startAfterDocument(await FirebaseFirestore.instance
             .collection("food")
-            .doc(foods.values.last.uID)
+            .doc(moreFood.values.last.uID)
             .get())
         .limit(9)
         .get()
@@ -23,7 +23,7 @@ class MoreFoodController extends GetxController {
         print("*******dddddd***********");
       }
       for (int index = 0; index < value.docs.length; index++) {
-        foods.addAll({
+        moreFood.addAll({
           value.docs[index].id: FoodModel(
               uID: value.docs[index].id,
               name: value.docs[index]["foodName"],
@@ -69,7 +69,7 @@ class MoreFoodController extends GetxController {
     scrollController = ScrollController()..addListener(_scrollListener);
 
     getRequestedBooks();
-    print(foods.length);
+    print(moreFood.length);
 
     super.onInit();
   }

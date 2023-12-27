@@ -38,7 +38,7 @@ class MoreFood extends StatelessWidget {
       ),
       backgroundColor: AppColors.kBackground,
       body: GetBuilder<MoreFoodController>(builder: (contx) {
-        if (contx.foods.isEmpty) {
+        if (contx.moreFood.isEmpty) {
           return const Center(
             child: Text("No Food to display"),
           );
@@ -48,7 +48,7 @@ class MoreFood extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            itemCount: contx.foods.length,
+            itemCount: contx.moreFood.length,
             padding: EdgeInsets.all(2.0),
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
@@ -62,7 +62,7 @@ class MoreFood extends StatelessWidget {
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(15.0)),
                       image: DecorationImage(
-                        image: NetworkImage("${contx.foods.values.elementAt(index).image}"),
+                        image: NetworkImage("${contx.moreFood.values.elementAt(index).image}"),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -89,14 +89,14 @@ class MoreFood extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                "${contx.foods.values.elementAt(index).name}",
+                                "${contx.moreFood.values.elementAt(index).name}",
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
                                     color: Colors.white),
                               ),
                               Text(
-                                'Rs. ${contx.foods.values.elementAt(index).price}',
+                                'Rs. ${contx.moreFood.values.elementAt(index).price}',
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w200,
@@ -116,7 +116,7 @@ class MoreFood extends StatelessWidget {
           //  ListView(
           //   physics: const BouncingScrollPhysics(),
           //   controller: contx.scrollController,
-          //   // itemBuilder: (context, index) => Text("{contx.foods.values.elementAt(index).name}"),
+          //   // itemBuilder: (context, index) => Text("{contx.moreFood.values.elementAt(index).name}"),
           //   children: [
           //     Container(
           //       height: double.infinity,
@@ -126,9 +126,9 @@ class MoreFood extends StatelessWidget {
           //           crossAxisSpacing: 8,
           //           mainAxisSpacing: 8,
           //         ),
-          //         itemCount: contx.foods.length,
+          //         itemCount: contx.moreFood.length,
           //         itemBuilder: (context, index) {
-          //           return Text("{contx.foods.values.elementAt(index).name}");
+          //           return Text("{contx.moreFood.values.elementAt(index).name}");
           //         },
           //       ),
           //     ),
@@ -141,8 +141,8 @@ class MoreFood extends StatelessWidget {
           //   //       mainAxisSpacing: 8,
           //   //       childAspectRatio: 0.8,
           //   //     ),
-          //   //     itemCount: contx.foods.length,
-          //   //     itemBuilder: (context, index) => Text("{contx.foods.values.elementAt(index).name}"),
+          //   //     itemCount: contx.moreFood.length,
+          //   //     itemBuilder: (context, index) => Text("{contx.moreFood.values.elementAt(index).name}"),
           //   //     // Card(
           //   //     //   elevation: 4,
           //   //     //   shape: RoundedRectangleBorder(
@@ -155,7 +155,7 @@ class MoreFood extends StatelessWidget {
           //   //     //           borderRadius:
           //   //     //               BorderRadius.vertical(top: Radius.circular(8)),
           //   //     //           child: Image.network(
-          //   //     //             "${contx.foods.values.elementAt(index).image}",
+          //   //     //             "${contx.moreFood.values.elementAt(index).image}",
           //   //     //             fit: BoxFit.cover,
           //   //     //           ),
           //   //     //         ),
@@ -163,7 +163,7 @@ class MoreFood extends StatelessWidget {
           //   //     //       Padding(
           //   //     //         padding: const EdgeInsets.all(8.0),
           //   //     //         child: Text(
-          //   //     //           '${contx.foods.values.elementAt(index).name}',
+          //   //     //           '${contx.moreFood.values.elementAt(index).name}',
           //   //     //           style: TextStyle(
           //   //     //               fontSize: 16, fontWeight: FontWeight.bold),
           //   //     //         ),
@@ -186,7 +186,7 @@ class MoreFood extends StatelessWidget {
           //   //         mainAxisSpacing: 12,
           //   //         childAspectRatio: 0.77
           //   //         ),
-          //   //     itemCount: contx.foods.length,
+          //   //     itemCount: contx.moreFood.length,
           //   //     itemBuilder: (context, index) {
           //   //       return InkWell(
           //   //         onTap: () {
@@ -204,7 +204,7 @@ class MoreFood extends StatelessWidget {
           //   //             borderRadius: BorderRadius.circular(5),
           //   //             child: CachedNetworkImage(
           //   //               imageUrl:
-          //   //                   "${contx.foods.values.elementAt(index).image}",
+          //   //                   "${contx.moreFood.values.elementAt(index).image}",
           //   //               fit: BoxFit.cover,
           //   //               progressIndicatorBuilder:
           //   //                   (context, child, loadingProgress) {
@@ -244,7 +244,7 @@ class MoreFood extends StatelessWidget {
 //          ListView.builder(
 //           physics: const BouncingScrollPhysics(),
 //           controller: contx.scrollController,
-//           itemCount: contx.foods.length,
+//           itemCount: contx.moreFood.length,
 //           itemBuilder: (context, index) => GridView(
 //             gridDelegate: null,
 //             children: [
@@ -252,7 +252,7 @@ class MoreFood extends StatelessWidget {
 //               aspectRatio: 1 / 1.5,
 //               child: GestureDetector(
 //                 // onTap: (){
-//                 //   print(contx.foods.values.elementAt(index).name);
+//                 //   print(contx.moreFood.values.elementAt(index).name);
 //                 // },
 //                 child: Container(
 //                   margin: EdgeInsets.only(right: 20),
@@ -260,7 +260,7 @@ class MoreFood extends StatelessWidget {
 //                       borderRadius: BorderRadius.circular(20),
 //                       image: DecorationImage(
 //                         image: NetworkImage(
-//                           "${contx.foods.values.elementAt(index).image}",
+//                           "${contx.moreFood.values.elementAt(index).image}",
 //                         ),
 //                         fit: BoxFit.cover,
 //                       )),
@@ -284,8 +284,8 @@ class MoreFood extends StatelessWidget {
 //                           GestureDetector(
 //                             onTap: () {
 //                               // setState(() {
-//                               //   foods[index]["isFavorite"] =
-//                               //       !foods[index]["isFavorite"];
+//                               //   moreFood[index]["isFavorite"] =
+//                               //       !moreFood[index]["isFavorite"];
 //                               // });
 //                             },
 //                             child: Align(
@@ -298,7 +298,7 @@ class MoreFood extends StatelessWidget {
 //                                       border: Border.all(
 //                                         width: 1.5,
 //                                         color:
-//                                             //  foods[index]
+//                                             //  moreFood[index]
 //                                             //         ["isFavorite"]
 //                                             //     ?
 //                                             const Color.fromRGBO(244, 67, 54, 1)
@@ -306,7 +306,7 @@ class MoreFood extends StatelessWidget {
 //                                         ,
 //                                       )),
 //                                   child:
-//                                       // foods[index]
+//                                       // moreFood[index]
 //                                       //         ["isFavorite"]
 //                                       //     ?
 //                                       Icon(
@@ -324,7 +324,7 @@ class MoreFood extends StatelessWidget {
 //                             crossAxisAlignment: CrossAxisAlignment.start,
 //                             children: <Widget>[
 //                               Text(
-//                                 "\$ ${contx.foods.values.elementAt(index).price}.00",
+//                                 "\$ ${contx.moreFood.values.elementAt(index).price}.00",
 //                                 style: TextStyle(
 //                                     color: Colors.white,
 //                                     fontSize: 40,
@@ -334,7 +334,7 @@ class MoreFood extends StatelessWidget {
 //                                 height: 10,
 //                               ),
 //                               Text(
-//                                 "${contx.foods.values.elementAt(index).name}",
+//                                 "${contx.moreFood.values.elementAt(index).name}",
 //                                 style:
 //                                     TextStyle(color: Colors.white, fontSize: 20),
 //                               )

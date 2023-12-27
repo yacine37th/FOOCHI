@@ -50,7 +50,7 @@ class HomeController extends GetxController {
   getFood() async {
     await FirebaseFirestore.instance
         .collection("food")
-        .limit(8)
+        .limit(6)
         .get()
         .then((value) async {
       for (int index = 0; index < value.docs.length; index++) {
@@ -93,7 +93,6 @@ class HomeController extends GetxController {
  signOutOfAnExistingAccount() async {
     await FirebaseAuth.instance.signOut().then((value) {
       currentUser = null;
-
       Get.offAllNamed("/SignIn");
     });
   }
