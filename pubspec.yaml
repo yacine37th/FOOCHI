@@ -50,6 +50,7 @@ dependencies:
   lite_rolling_switch: ^1.0.1
   animated_theme_switcher: ^2.0.10
   flutter_windowmanager: ^0.2.0
+  cached_network_image: ^3.3.0
     
 
 

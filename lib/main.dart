@@ -4,10 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluter_ecom/firebase_options.dart';
 import 'package:fluter_ecom/theme/themes.dart';
+import 'package:fluter_ecom/utils/more_food_bindings.dart';
 import 'package:fluter_ecom/utils/onboarding_bindings.dart';
 import 'package:fluter_ecom/utils/signup_phone_bindings.dart';
 import 'package:fluter_ecom/view/foochi_singup.dart';
 import 'package:fluter_ecom/view/home.dart';
+import 'package:fluter_ecom/view/more_food.dart';
 import 'package:fluter_ecom/view/signin.dart';
 import 'package:fluter_ecom/view/signup.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +99,11 @@ class MyApp extends StatelessWidget {
           page: () => const PhoneSignUp(),
           binding: SignUpPhoneBindings(),
         ),
+         GetPage(
+          name: "/MoreFood",
+          page: () => const MoreFood(),
+          binding: MoreFoodBindings(),
+        ),
         // GetPage(
         //   name: "/Tasnifat",
         //   page: () => const Tasnifat(),
@@ -135,7 +142,6 @@ class MyApp extends StatelessWidget {
         // ),
       ],
       initialRoute: "/OnboardingView",
-      // home: APP(),
     );
   }
 }

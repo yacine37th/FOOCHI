@@ -400,10 +400,10 @@ class _HomeState extends State<Home> {
                               foregroundColor: MaterialStateProperty.all(
                                   AppColors.kPrimary)),
                           onPressed: () {
-                            // Get.toNamed("/RequestedBooks", arguments: {
-                            //   "0": AppBarType.mostRecentBooks,
-                            //   "1": homeRa2isiyaController.mostRecentBooks
-                            // });
+                            Get.toNamed("/MoreFood", arguments: {
+                              // "0": AppBarType.mostRecentBooks,
+                              "0": homeController.foods,
+                            });
                           },
                           icon: const Text("See more",
                               style: TextStyle(
