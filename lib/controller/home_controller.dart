@@ -47,7 +47,7 @@ class HomeController extends GetxController {
   getFood() async {
     await FirebaseFirestore.instance
         .collection("food")
-        // .limit(2)
+        .limit(8)
         .get()
         .then((value) async {
       for (int index = 0; index < value.docs.length; index++) {
@@ -61,7 +61,31 @@ class HomeController extends GetxController {
       }
     });
   }
+
 //////// fetch when scrolling to bottom
+  putFood() async {
+    for (int i = 0; i < 18; i++) {
+      final doc = FirebaseFirestore.instance.collection("food").doc();
+     await doc.set({
+        "foodName": "Pizza grecque ${i}",
+        "foodImage":
+            "https://cdn.shopify.com/s/files/1/0570/1831/9042/files/margharita-pizza.jpg?v=1653400814",
+        "foodID": doc.id,
+        "foodPrice": 14 + i as int,
+      });
+    }
+    //     .then((value) async {
+    //   for (int index = 0; index < value.docs.length; index++) {
+    //     foods.addAll({
+    //       value.docs[index].id: FoodModel(
+    //           uID: value.docs[index].id,
+    //           name: value.docs[index]["foodName"],
+    //           price: value.docs[index]["foodPrice"],
+    //           image: value.docs[index]["foodImage"])
+    //     });
+    //   }
+    // });
+  }
 
 //  await FirebaseFirestore.instance
 //               .collection("books")
@@ -121,7 +145,7 @@ class HomeController extends GetxController {
     getCategories();
     getFood();
     scrollController = ScrollController()..addListener(_scrollListener);
-
+// putFood();
     super.onInit();
   }
 }

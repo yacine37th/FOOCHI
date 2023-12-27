@@ -493,10 +493,10 @@ class _HomeState extends State<Home> {
                                       children: <Widget>[
                                         GestureDetector(
                                           onTap: () {
-                                            setState(() {
-                                              foods[index]["isFavorite"] =
-                                                  !foods[index]["isFavorite"];
-                                            });
+                                            // setState(() {
+                                            //   foods[index]["isFavorite"] =
+                                            //       !foods[index]["isFavorite"];
+                                            // });
                                           },
                                           child: Align(
                                             alignment: Alignment.topRight,
@@ -510,21 +510,27 @@ class _HomeState extends State<Home> {
                                                             12),
                                                     border: Border.all(
                                                       width: 1.5,
-                                                      color: foods[index]
-                                                              ["isFavorite"]
-                                                          ? Colors.red
-                                                          : Colors.transparent,
+                                                      color:
+                                                      //  foods[index]
+                                                      //         ["isFavorite"]
+                                                      //     ? 
+                                                          Colors.red
+                                                          // : 
+                                                          // Colors.transparent,
                                                     )),
-                                                child: foods[index]
-                                                        ["isFavorite"]
-                                                    ? Icon(
+                                                child:
+                                                //  foods[index]
+                                                //         ["isFavorite"]
+                                                //     ? 
+                                                    Icon(
                                                         Icons.favorite,
                                                         color: Colors.red,
                                                       )
-                                                    : Icon(
-                                                        Icons.favorite,
-                                                        color: Colors.white,
-                                                      )),
+                                                    // : Icon(
+                                                      //   Icons.favorite,
+                                                      //   color: Colors.white,
+                                                      // )
+                                                      ),
                                           ),
                                         ),
                                         Column(

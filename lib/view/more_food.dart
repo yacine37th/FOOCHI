@@ -43,42 +43,65 @@ class MoreFood extends StatelessWidget {
           return ListView(
             physics: const BouncingScrollPhysics(),
             controller: contx.scrollController,
+            // itemBuilder: (context, index) => Text("{contx.foods.values.elementAt(index).name}"),
             children: [
-              GridView.builder(
-  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 0.8,
-          ),
-               itemCount: contx.foods.length,
-               itemBuilder: (context, index) =>Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
-              child: Image.network(
-                "${contx.foods.values.elementAt(index).image}",
-                fit: BoxFit.cover,
+              Container(
+                height: double.infinity,
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                  ),
+                  itemCount: contx.foods.length,
+                  itemBuilder: (context, index) {
+                    return Text("{contx.foods.values.elementAt(index).name}");
+                  },
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              '${contx.foods.values.elementAt(index).name}',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
-      ),
-    ),
-               )
             ],
+            // children: [
+            //   GridView.builder(
+            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 2,
+            //       crossAxisSpacing: 8,
+            //       mainAxisSpacing: 8,
+            //       childAspectRatio: 0.8,
+            //     ),
+            //     itemCount: contx.foods.length,
+            //     itemBuilder: (context, index) => Text("{contx.foods.values.elementAt(index).name}"),
+            //     // Card(
+            //     //   elevation: 4,
+            //     //   shape: RoundedRectangleBorder(
+            //     //       borderRadius: BorderRadius.circular(8)),
+            //     //   child: Column(
+            //     //     crossAxisAlignment: CrossAxisAlignment.stretch,
+            //     //     children: [
+            //     //       Expanded(
+            //     //         child: ClipRRect(
+            //     //           borderRadius:
+            //     //               BorderRadius.vertical(top: Radius.circular(8)),
+            //     //           child: Image.network(
+            //     //             "${contx.foods.values.elementAt(index).image}",
+            //     //             fit: BoxFit.cover,
+            //     //           ),
+            //     //         ),
+            //     //       ),
+            //     //       Padding(
+            //     //         padding: const EdgeInsets.all(8.0),
+            //     //         child: Text(
+            //     //           '${contx.foods.values.elementAt(index).name}',
+            //     //           style: TextStyle(
+            //     //               fontSize: 16, fontWeight: FontWeight.bold),
+            //     //         ),
+            //     //       ),
+            //     //     ],
+            //     //   ),
+            //     // ),
+
+            //   )
+            // ],
+
             // children: [
             //   GridView.builder(
             //     physics: const NeverScrollableScrollPhysics(),
@@ -143,7 +166,6 @@ class MoreFood extends StatelessWidget {
             //     },
             //   )
             // ],
-        
           );
 
 //          ListView.builder(
