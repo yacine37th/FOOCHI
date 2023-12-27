@@ -5,6 +5,7 @@ import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 
+import '../functions/functions.dart';
 import '../theme/colors.dart';
 import '../theme/main_colors.dart';
 import 'widgets.dart';
@@ -110,6 +111,34 @@ class _HomeState extends State<Home> {
                 // homeScreenController.signOutOfAnExistingAccount();
               },
             ),
+
+            SizedBox(
+              height: 100,
+              width: 100,
+              child: Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  Container(
+                    height: 100,
+                    width: 100,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: NetworkImage(
+                              "https://images.unsplash.com/photo-1458071103673-6a6e4c4a3413?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+                            ),
+                            fit: BoxFit.cover)),
+                  ),
+                  // Container(
+                  //   height: 25,
+                  //   width: 25,
+                  //   decoration: const BoxDecoration(
+                  //       color: Colors.green, shape: BoxShape.circle),
+                  // )
+                ],
+              ),
+            ),
+
             // ListTile(
             //   tileColor: transparentColor,
             //   textColor: whiteColor,
@@ -259,10 +288,22 @@ class _HomeState extends State<Home> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
+                child: SizedBox(
+                  height: 45,
                   width: 45,
-                  height: 50,
-                  child: ProfilePicture(),
+                  child: Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      Container(
+                        height: 45,
+                        width: 45,
+                        child: ProfilePicture(),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -509,28 +550,28 @@ class _HomeState extends State<Home> {
                                                         BorderRadius.circular(
                                                             12),
                                                     border: Border.all(
-                                                      width: 1.5,
-                                                      color:
-                                                      //  foods[index]
-                                                      //         ["isFavorite"]
-                                                      //     ? 
-                                                          Colors.red
-                                                          // : 
-                                                          // Colors.transparent,
-                                                    )),
+                                                        width: 1.5,
+                                                        color:
+                                                            //  foods[index]
+                                                            //         ["isFavorite"]
+                                                            //     ?
+                                                            Colors.red
+                                                        // :
+                                                        // Colors.transparent,
+                                                        )),
                                                 child:
-                                                //  foods[index]
-                                                //         ["isFavorite"]
-                                                //     ? 
+                                                    //  foods[index]
+                                                    //         ["isFavorite"]
+                                                    //     ?
                                                     Icon(
-                                                        Icons.favorite,
-                                                        color: Colors.red,
-                                                      )
-                                                    // : Icon(
-                                                      //   Icons.favorite,
-                                                      //   color: Colors.white,
-                                                      // )
-                                                      ),
+                                                  Icons.favorite,
+                                                  color: Colors.red,
+                                                )
+                                                // : Icon(
+                                                //   Icons.favorite,
+                                                //   color: Colors.white,
+                                                // )
+                                                ),
                                           ),
                                         ),
                                         Column(
@@ -706,23 +747,25 @@ class _HomeState extends State<Home> {
   }
 }
 
+//  GetBuilder<HomeController>(
+//       builder: (contx) => contx.usersRef.isEmpty
+//           ? CircularProgressIndicator()
+//           : ListView.builder(
+//               itemCount: contx.usersRef.length,
+//               itemBuilder: (context, index) {
+//                 return Row(children: [
+//                   Text("${contx.usersRef.values.elementAt(index).name}"),
+//                   SizedBox(
+//                     width: 15,
+//                     // height: 15,
+//                   ),
+//                   Text("${contx.usersRef.values.elementAt(index).email}"),
+//                   // Text("${homeController.usersRef.values.elementAt(index).uID}")
+//                 ]);
+//               },
+//             ),
+//     ),
 
-
-  //  GetBuilder<HomeController>(
-  //       builder: (contx) => contx.usersRef.isEmpty
-  //           ? CircularProgressIndicator()
-  //           : ListView.builder(
-  //               itemCount: contx.usersRef.length,
-  //               itemBuilder: (context, index) {
-  //                 return Row(children: [
-  //                   Text("${contx.usersRef.values.elementAt(index).name}"),
-  //                   SizedBox(
-  //                     width: 15,
-  //                     // height: 15,
-  //                   ),
-  //                   Text("${contx.usersRef.values.elementAt(index).email}"),
-  //                   // Text("${homeController.usersRef.values.elementAt(index).uID}")
-  //                 ]);
-  //               },
-  //             ),
-  //     ),
+Color generatePresizedColor(int namelength) {
+  return profilColors[((namelength - 3) % 8).floor()];
+}
