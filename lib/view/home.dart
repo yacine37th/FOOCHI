@@ -286,26 +286,24 @@ class _HomeState extends State<Home> {
                   color: Colors.grey[800],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 45,
-                  width: 45,
-                  child: Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      Container(
-                        height: 45,
-                        width: 45,
-                        child: ProfilePicture(),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                        ),
+              SizedBox(
+                height: 48,
+                width: 48,
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    Container(
+                      height: 48,
+                      width: 48,
+                      child: ProfilePicture(),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
+              SizedBox(width: 8,)
             ],
           ),
           // Text(
