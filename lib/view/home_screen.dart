@@ -1,8 +1,11 @@
 import 'package:fluter_ecom/theme/main_colors.dart';
 import 'package:fluter_ecom/view/home.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+
+import '../controller/home_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -38,18 +41,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    HomeController homeController = Get.find();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+
+      // appBar: AppBar(),
+      // drawer: Drawer(),
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 20,
-        title: const Text('GoogleNavBar'),
-      ),
+      
+      
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.kBackground,
           boxShadow: [
             BoxShadow(
               blurRadius: 20,
@@ -68,11 +74,13 @@ class _HomeScreenState extends State<HomeScreen> {
               iconSize: 24,
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               duration: Duration(milliseconds: 400),
-              tabBackgroundColor: AppColors.kPrimary,
+              tabBackgroundColor: const Color.fromRGBO(132, 189, 147, 1),
               color: AppColors.kSecondary,
               tabs: [
                 GButton(
                   icon: LineIcons.home,
+                  iconActiveColor: Colors.white,
+                  active: true,
                   text: 'Home',
                 ),
                 GButton(

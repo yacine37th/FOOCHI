@@ -5,7 +5,6 @@ import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 
-import '../functions/functions.dart';
 import '../theme/colors.dart';
 import '../theme/main_colors.dart';
 import 'widgets.dart';
@@ -48,14 +47,12 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       backgroundColor: AppColors.kBackground,
-      drawer: Container(
-        width: 250,
-        child: Drawer(
+      drawer: Stack(
+        children:[
+           Drawer(
           backgroundColor: Color.fromARGB(255, 28, 28, 28),
           child: Column(children: [
             const SizedBox(height: 20),
-            // const SizedBox(height: 20),
-            // const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -111,142 +108,14 @@ class _HomeState extends State<Home> {
                 homeController.signOutOfAnExistingAccount();
               },
             ),
-
-            // ListTile(
-            //   tileColor: transparentColor,
-            //   textColor: whiteColor,
-            //   iconColor: whiteColor,
-            //   visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-            //   contentPadding:
-            //       const EdgeInsets.symmetric(vertical: 0.0, horizontal: 14.0),
-            //   horizontalTitleGap: 1,
-            //   dense: true,
-            //   title: const Text(
-            //     "الرئيسية",
-            //     style: TextStyle(
-            //         fontSize: 19,
-            //         fontWeight: FontWeight.w300,
-            //         fontFamily: 'Cairo'),
-            //   ),
-            //   leading: ImageIcon(Svg("assets/icons/home_icon.svg")),
-            //   onTap: () {
-            //     homeScreenController.switchBetweenScreens(0);
-            //     Get.back();
-            //   },
-            // ),
-            // ListTile(
-            //   tileColor: transparentColor,
-            //   textColor: whiteColor,
-            //   iconColor: whiteColor,
-            //   visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-            //   contentPadding:
-            //       const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-            //   horizontalTitleGap: 1,
-            //   dense: true,
-            //   onTap: () {
-            //     homeScreenController.switchBetweenScreens(1);
-            //     Get.back();
-            //   },
-            //   title: const Text(
-            //     "التصنيفات",
-            //     style: TextStyle(
-            //         fontSize: 19,
-            //         fontWeight: FontWeight.w300,
-            //         fontFamily: 'Cairo'),
-            //   ),
-            //   leading: const ImageIcon(Svg("assets/icons/category_icon.svg")),
-            // ), //////////////////
-
-            // //////////////////
-            // ListTile(
-            //   tileColor: transparentColor,
-            //   textColor: whiteColor,
-            //   iconColor: whiteColor,
-            //   visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-            //   contentPadding:
-            //       const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-            //   horizontalTitleGap: 1,
-            //   dense: true,
-            //   title: const Text(
-            //     "الصفحة الشخصية",
-            //     style: TextStyle(
-            //         fontSize: 19,
-            //         fontWeight: FontWeight.w300,
-            //         fontFamily: 'Cairo'),
-            //   ),
-            //   leading: const ImageIcon(Svg("assets/icons/myaccount_icon.svg")),
-            //   onTap: () {
-            //     homeScreenController.switchBetweenScreens(2);
-            //     Get.back();
-            //   },
-            // ),
-
-            // ListTile(
-            //   tileColor: transparentColor,
-            //   textColor: whiteColor,
-            //   iconColor: whiteColor,
-            //   visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
-            //   contentPadding:
-            //       const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-            //   horizontalTitleGap: 1,
-            //   dense: true,
-            //   onTap: () {
-            //     Get.toNamed("/RequestedBooks", arguments: {
-            //       "0": AppBarType.maktabati,
-            //       "1": maktabatiController.maktabati
-            //     });
-            //   },
-            //   title: const Text(
-            //     "مكتبتي",
-            //     style: TextStyle(
-            //         fontSize: 19,
-            //         fontWeight: FontWeight.w300,
-            //         fontFamily: 'Cairo'),
-            //   ),
-            //   leading: const ImageIcon(Svg("assets/icons/maktabati_icon.svg")),
-            // ),
-            // //////////////////
-
-            // const ListTile(
-            //   tileColor: transparentColor,
-            //   textColor: whiteColor,
-            //   iconColor: whiteColor,
-            //   visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-            //   contentPadding:
-            //       EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-            //   horizontalTitleGap: 1,
-            //   dense: true,
-            //   title: Text(
-            //     "مكتبتي",
-            //     style: TextStyle(fontSize: 19, fontWeight: FontWeight.w300),
-            //   ),
-            //   leading: Icon(Icons.account_circle_outlined),
-            // ),
-            //////////////////
-            // const ListTile(
-            //   tileColor: transparentColor,
-            //   textColor: whiteColor,
-            //   iconColor: whiteColor,
-            //   visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-            //   contentPadding:
-            //       EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-            //   horizontalTitleGap: 1,
-            //   dense: true,
-            //   title: Text(
-            //     "كيف احصل على كتابي ؟",
-            //     style: TextStyle(fontSize: 19, fontWeight: FontWeight.w300),
-            //   ),
-            //   leading: Icon(Icons.info_outline),
-            // ),
-
-            //////////////////
-            /////////////
             const Spacer(),
           ]),
         ),
-      ),
+      
+        ]),
       appBar: AppBar(
-        elevation: 1,
+        // elevation: 1,
+        elevation: 0,
         backgroundColor: AppColors.kBackground,
         iconTheme: IconThemeData(color: Colors.black),
         actions: <Widget>[
@@ -298,6 +167,12 @@ class _HomeState extends State<Home> {
           //   // ),
           // ),
         ],
+        bottom: PreferredSize(
+            preferredSize: Size(0, 0),
+            child: Container(
+              color: AppColors.kPrimary,
+              height: 1,
+            )),
       ),
       body: SafeArea(
         child: Column(
@@ -572,7 +447,7 @@ class _HomeState extends State<Home> {
                                               "\$ ${contx.foods.values.elementAt(index).price}.00",
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 40,
+                                                  fontSize: 22,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             SizedBox(
@@ -582,7 +457,7 @@ class _HomeState extends State<Home> {
                                               "${contx.foods.values.elementAt(index).name}",
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 20),
+                                                  fontSize: 18),
                                             )
                                           ],
                                         )
