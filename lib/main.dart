@@ -3,12 +3,11 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluter_ecom/firebase_options.dart';
-import 'package:fluter_ecom/theme/themes.dart';
+import 'package:fluter_ecom/utils/home_screen_bindings.dart';
 import 'package:fluter_ecom/utils/more_food_bindings.dart';
 import 'package:fluter_ecom/utils/onboarding_bindings.dart';
 import 'package:fluter_ecom/utils/signup_phone_bindings.dart';
-import 'package:fluter_ecom/view/foochi_singup.dart';
-import 'package:fluter_ecom/view/home.dart';
+import 'package:fluter_ecom/view/home_screen.dart';
 import 'package:fluter_ecom/view/more_food.dart';
 import 'package:fluter_ecom/view/signin.dart';
 import 'package:fluter_ecom/view/signup.dart';
@@ -92,8 +91,8 @@ class MyApp extends StatelessWidget {
             middlewares: [AppIsOppen()]),
         GetPage(
           name: "/",
-          page: () => Home(),
-          binding: HomeBinding(),
+          page: () => HomeScreen(),
+          binding: HomeScreenBindings(),
         ),
         GetPage(
           name: "/PhoneSignup",
@@ -143,6 +142,7 @@ class MyApp extends StatelessWidget {
         // ),
       ],
       initialRoute: "/OnboardingView",
+      // home:HomeScreen()
     );
   }
 }
