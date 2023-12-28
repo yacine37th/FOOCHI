@@ -112,7 +112,6 @@ class _HomeState extends State<Home> {
               },
             ),
 
-          
             // ListTile(
             //   tileColor: transparentColor,
             //   textColor: whiteColor,
@@ -277,7 +276,9 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              SizedBox(width: 8,)
+              SizedBox(
+                width: 8,
+              )
             ],
           ),
           // Text(
@@ -506,6 +507,10 @@ class _HomeState extends State<Home> {
                                       children: <Widget>[
                                         GestureDetector(
                                           onTap: () {
+                                            //  onTap: () {
+                                            homeController.addToFavoris(
+                                                "${homeController.foods.values.elementAt(index).uID}");
+
                                             // setState(() {
                                             //   foods[index]["isFavorite"] =
                                             //       !foods[index]["isFavorite"];
@@ -522,15 +527,23 @@ class _HomeState extends State<Home> {
                                                         BorderRadius.circular(
                                                             12),
                                                     border: Border.all(
-                                                        width: 1.5,
-                                                        color:
-                                                            //  foods[index]
-                                                            //         ["isFavorite"]
-                                                            //     ?
-                                                            Colors.red
-                                                        // :
-                                                        // Colors.transparent,
-                                                        )),
+                                                      width: 1.5,
+                                                      color: currentUserInfos
+                                                              .foodFavoris!
+                                                              .contains(
+                                                                  homeController
+                                                                      .foods
+                                                                      .values
+                                                                      .elementAt(
+                                                                          index)
+                                                                      .uID)
+                                                          ?
+                                                          //  foods[index]
+                                                          //         ["isFavorite"]
+                                                          //     ?
+                                                          Colors.red
+                                                          : Colors.transparent,
+                                                    )),
                                                 child:
                                                     //  foods[index]
                                                     //         ["isFavorite"]

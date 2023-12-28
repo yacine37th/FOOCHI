@@ -24,7 +24,8 @@ class HomeController extends GetxController {
           value.docs[index].id: UserModel(
               uID: value.docs[index].id,
               email: value.docs[index]["userEmail"],
-              name: value.docs[index]["userName"])
+              name: value.docs[index]["userName"],
+              foodFavoris: ["${value.docs[index]["userFavorisFood"]}"])
         });
       }
     });
@@ -69,7 +70,7 @@ class HomeController extends GetxController {
   putFood() async {
     for (int i = 0; i < 18; i++) {
       final doc = FirebaseFirestore.instance.collection("food").doc();
-     await doc.set({
+      await doc.set({
         "foodName": "Pizza grecque ${i}",
         "foodImage":
             "https://cdn.shopify.com/s/files/1/0570/1831/9042/files/margharita-pizza.jpg?v=1653400814",
@@ -89,14 +90,25 @@ class HomeController extends GetxController {
     //   }
     // });
   }
+
 ////////Signout
- signOutOfAnExistingAccount() async {
+  signOutOfAnExistingAccount() async {
     await FirebaseAuth.instance.signOut().then((value) {
       currentUser = null;
       Get.offAllNamed("/SignIn");
     });
   }
 
+//////add to Favoris
+  addToFavoris(String foodID) async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(currentUser!.uid)
+        .update({
+      "userFavorisFood": FieldValue.arrayUnion([foodID])
+    });
+    update();
+  }
 
 //  await FirebaseFirestore.instance
 //               .collection("books")

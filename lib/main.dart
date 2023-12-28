@@ -39,7 +39,8 @@ import 'view/verify_email.dart';
 
 User? currentUser = FirebaseAuth.instance.currentUser;
 SharedPreferences? sharedPreferences;
-UserModel currentUserInfos = UserModel(uID: "", email: "", name: "");
+UserModel currentUserInfos =
+    UserModel(uID: "", email: "", name: "", foodFavoris: [""]);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -99,7 +100,7 @@ class MyApp extends StatelessWidget {
           page: () => const PhoneSignUp(),
           binding: SignUpPhoneBindings(),
         ),
-         GetPage(
+        GetPage(
           name: "/MoreFood",
           page: () => const MoreFood(),
           binding: MoreFoodBindings(),
@@ -145,6 +146,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class APP extends StatefulWidget {
   const APP({super.key});
 
@@ -153,7 +155,7 @@ class APP extends StatefulWidget {
 }
 
 class _APPState extends State<APP> {
-   final _controller00 = ValueNotifier<bool>(false);
+  final _controller00 = ValueNotifier<bool>(false);
   final _controller01 = ValueNotifier<bool>(false);
   final _controller02 = ValueNotifier<bool>(false);
   final _controller03 = ValueNotifier<bool>(false);
@@ -169,7 +171,7 @@ class _APPState extends State<APP> {
   final _controller13 = ValueNotifier<bool>(false);
   final _controller14 = ValueNotifier<bool>(false);
   final _controller15 = ValueNotifier<bool>(false);
-   bool _enabled = false;
+  bool _enabled = false;
   bool _themeDark = false;
 
   @override
@@ -186,7 +188,7 @@ class _APPState extends State<APP> {
       });
     });
   }
-  
+
   Widget _buildLabel(String value) {
     return Container(
       margin: EdgeInsets.only(
@@ -224,9 +226,10 @@ class _APPState extends State<APP> {
 
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       theme: _themeDark ? ThemeData.dark() : ThemeData.light(),
       home: Scaffold(
         appBar: AppBar(
@@ -445,7 +448,8 @@ class _APPState extends State<APP> {
           ),
         ),
       ),
-    );;
+    );
+    ;
   }
 }
 // class CustomLiteRollingSwitch extends StatefulWidget {
