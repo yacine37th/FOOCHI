@@ -27,9 +27,11 @@ class Profil extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                 decoration: BoxDecoration(
-                    color: lightBlueColor,
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(color: Colors.red)),
+                  color: lightBlueColor,
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(color: AppColors.kPrimary),
+                  //  Border.all(color: Colors.red)
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

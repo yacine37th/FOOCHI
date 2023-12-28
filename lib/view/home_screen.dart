@@ -187,12 +187,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     text: 'Likes',
                   ),
                   GButton(
-                    icon: LineIcons.search,
-                    text: 'Search',
+                    icon: LineIcons.shoppingCart,
+                    text: 'cart',
                   ),
                   GButton(
                     icon: LineIcons.user,
-                    text: 'Profile',
+                    text: 'Profil',
                   ),
                 ],
                 selectedIndex: homeScreenController.currentBottomBarIndex(),
