@@ -505,58 +505,59 @@ class _HomeState extends State<Home> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        GestureDetector(
-                                          onTap: () {
-                                            //  onTap: () {
-                                            homeController.addToFavoris(
-                                                "${homeController.foods.values.elementAt(index).uID}");
-
-                                            // setState(() {
-                                            //   foods[index]["isFavorite"] =
-                                            //       !foods[index]["isFavorite"];
-                                            // });
-                                          },
-                                          child: Align(
-                                            alignment: Alignment.topRight,
-                                            child: AnimatedContainer(
-                                                duration:
-                                                    Duration(milliseconds: 300),
-                                                padding: EdgeInsets.all(5),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12),
-                                                    border: Border.all(
-                                                      width: 1.5,
-                                                      color: currentUserInfos
-                                                              .foodFavoris!
-                                                              .contains(
-                                                                  homeController
-                                                                      .foods
-                                                                      .values
-                                                                      .elementAt(
-                                                                          index)
-                                                                      .uID)
-                                                          ?
-                                                          //  foods[index]
-                                                          //         ["isFavorite"]
-                                                          //     ?
-                                                          Colors.red
-                                                          : Colors.transparent,
-                                                    )),
-                                                child:
-                                                    //  foods[index]
-                                                    //         ["isFavorite"]
-                                                    //     ?
-                                                    Icon(
-                                                  Icons.favorite,
-                                                  color: Colors.red,
-                                                )
-                                                // : Icon(
-                                                //   Icons.favorite,
-                                                //   color: Colors.white,
-                                                // )
-                                                ),
+                                        GetBuilder<HomeController>(
+                                          builder: (contx) => GestureDetector(
+                                            onTap: () {
+                                              homeController.addToFavoris(
+                                                  "${homeController.foods.values.elementAt(index).uID}");
+                                              if (currentUserInfos.foodFavoris
+                                                  .contains(homeController
+                                                      .foods.values
+                                                      .elementAt(index)
+                                                      .uID)) {}
+                                            },
+                                            child: Align(
+                                              alignment: Alignment.topRight,
+                                              child: AnimatedContainer(
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  padding: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              12),
+                                                      border: Border.all(
+                                                        width: 1.5,
+                                                        color: currentUserInfos
+                                                                .foodFavoris
+                                                                .contains(
+                                                                    homeController
+                                                                        .foods
+                                                                        .values
+                                                                        .elementAt(
+                                                                            index)
+                                                                        .uID)
+                                                            ? Colors.red
+                                                            : Colors
+                                                                .transparent,
+                                                      )),
+                                                  child: currentUserInfos
+                                                          .foodFavoris
+                                                          .contains(
+                                                              homeController
+                                                                  .foods.values
+                                                                  .elementAt(
+                                                                      index)
+                                                                  .uID)
+                                                      ? Icon(
+                                                          Icons.favorite,
+                                                          color: Colors.red,
+                                                        )
+                                                      : Icon(
+                                                          Icons.favorite,
+                                                          color: Colors.white,
+                                                        )),
+                                            ),
                                           ),
                                         ),
                                         Column(

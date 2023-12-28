@@ -23,7 +23,7 @@ class MainFunctions {
           uID: value["userID"],
           email: value["userEmail"],
           name: value["userName"],
-          foodFavoris: ["${value["userFavorisFood"]}"],
+          foodFavoris: value["userFavorisFood"],
         );
         // if (value.data()!.containsKey("userIsSubbed")) {
         //   currentUserInfos.isSubbed = value["userIsSubbed"];

@@ -46,6 +46,7 @@ class HomeController extends GetxController {
         });
       }
     });
+    update();
   }
 
   getFood() async {
@@ -64,6 +65,7 @@ class HomeController extends GetxController {
         });
       }
     });
+    update();
   }
 
 //////// fetch when scrolling to bottom
@@ -107,6 +109,18 @@ class HomeController extends GetxController {
         .update({
       "userFavorisFood": FieldValue.arrayUnion([foodID])
     });
+    currentUserInfos.foodFavoris.add(foodID);
+    update();
+  }
+
+  removeFromFavoris(String foodID) async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(currentUser!.uid)
+        .update({
+      "userFavorisFood": FieldValue.arrayRemove([foodID])
+    });
+    currentUserInfos.foodFavoris.remove(foodID);
     update();
   }
 
@@ -164,11 +178,11 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    getUsers();
+    // getUsers();
     getCategories();
     getFood();
     scrollController = ScrollController()..addListener(_scrollListener);
-// putFood();
+    // putFood();
     super.onInit();
   }
 }
