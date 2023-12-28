@@ -1,6 +1,7 @@
 import 'package:fluter_ecom/controller/favoris_page_controller.dart';
 import 'package:fluter_ecom/controller/home_controller.dart';
 import 'package:fluter_ecom/view/favoris_page.dart';
+import 'package:fluter_ecom/view/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -34,7 +35,8 @@ class HomeScreenController extends GetxController {
     Home(),
     FavorisPage(),
     Home(),
-    Home(),
+    Profil(),
+
     // Tasnifat(),
     // MyAccount(),
     // MaxSubscription()

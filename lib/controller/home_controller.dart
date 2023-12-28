@@ -37,7 +37,7 @@ class HomeController extends GetxController {
     update();
   }
 
-  getCategories() async {
+ Future getCategories() async {
     await FirebaseFirestore.instance
         .collection("categories")
         .get()
@@ -53,7 +53,8 @@ class HomeController extends GetxController {
     update();
   }
 
-  getFood() async {
+ Future getFood() async {
+    foods.clear();
     await FirebaseFirestore.instance
         .collection("food")
         .limit(6)
@@ -69,10 +70,11 @@ class HomeController extends GetxController {
         });
       }
     });
+    print("1");
     update();
   }
 
-//////// fetch when scrolling to bottom
+///////////add to dataBase
   putFood() async {
     for (int i = 0; i < 18; i++) {
       final doc = FirebaseFirestore.instance.collection("food").doc();
@@ -84,17 +86,6 @@ class HomeController extends GetxController {
         "foodPrice": 14 + i as int,
       });
     }
-    //     .then((value) async {
-    //   for (int index = 0; index < value.docs.length; index++) {
-    //     foods.addAll({
-    //       value.docs[index].id: FoodModel(
-    //           uID: value.docs[index].id,
-    //           name: value.docs[index]["foodName"],
-    //           price: value.docs[index]["foodPrice"],
-    //           image: value.docs[index]["foodImage"])
-    //     });
-    //   }
-    // });
   }
 
 ////////Signout
@@ -175,30 +166,10 @@ class HomeController extends GetxController {
 //             print("AppBarType.mostRecentBooks");
 //           });
 
-  // ScrollController? scrollController;
-  // var getMore = true;
-  // var isFetching = false;
-
-  // void _scrollListener() async {
-  //   print("******************");
-  //   if (getMore) {
-  //     if (scrollController?.position.pixels ==
-  //             scrollController?.position.maxScrollExtent &&
-  //         isFetching == false) {
-  //       isFetching = true;
-  //       // await getRequestedBooks();
-  //       isFetching = false;
-  //     }
-  //   }
-  // }
-
   @override
   void onInit() {
-    // getUsers();
     getCategories();
     getFood();
-    // scrollController = ScrollController()..addListener(_scrollListener);
-    // putFood();
     super.onInit();
   }
 }

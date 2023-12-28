@@ -26,22 +26,21 @@ class MoreFood extends StatelessWidget {
             icon: Icon(
               Icons.arrow_back_ios_outlined,
               color: AppColors.kPrimary,
-              // size: 18,
             )),
-        //        actions: [
-        //   Icon(Icons.favorite),
-        //   Padding(
-        //     padding: EdgeInsets.symmetric(horizontal: 16),
-        //     child: Icon(Icons.search),
-        //   ),
-        //   Icon(Icons.more_vert),
-        // ],
       ),
       backgroundColor: AppColors.kBackground,
       body: GetBuilder<MoreFoodController>(builder: (contx) {
         if (contx.moreFood.isEmpty) {
           return const Center(
             child: Text("No Food to display"),
+          );
+        } else if (contx.isFetching) {
+          return Column(
+            children: const [
+              SizedBox(height: 60),
+              Center(child: CircularProgressIndicator()),
+              SizedBox(height: 60)
+            ],
           );
         } else {
           return GridView.builder(
