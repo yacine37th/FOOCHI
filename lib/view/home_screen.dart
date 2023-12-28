@@ -51,7 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
   //   ),
   // ];
 
-  
   @override
   Widget build(BuildContext context) {
     HomeScreenController homeScreenController = Get.find();
@@ -151,61 +150,63 @@ class _HomeScreenState extends State<HomeScreen> {
       // body: Center(
       //   child: _widgetOptions.elementAt(_selectedIndex),
       // ),
-      bottomNavigationBar:  GetBuilder<HomeScreenController>(builder: (contx) =>Container(
-        decoration: BoxDecoration(
-          color: AppColors.kBackground,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 20,
-              color: Colors.black.withOpacity(.1),
-            )
-          ],
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-            child: GNav(
-              rippleColor: AppColors.kPrimary,
-              hoverColor: AppColors.kPrimary,
-              gap: 8,
-              activeColor: AppColors.whiteColor,
-              iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              duration: Duration(milliseconds: 400),
-              tabBackgroundColor: const Color.fromRGBO(132, 189, 147, 1),
-              color: AppColors.kSecondary,
-              tabs: [
-                GButton(
-                  icon: LineIcons.home,
-                  iconActiveColor: Colors.white,
-                  active: true,
-                  text: 'Home',
-                ),
-                GButton(
-                  icon: LineIcons.heart,
-                  text: 'Likes',
-                ),
-                GButton(
-                  icon: LineIcons.search,
-                  text: 'Search',
-                ),
-                GButton(
-                  icon: LineIcons.user,
-                  text: 'Profile',
-                ),
-              ],
-              selectedIndex: homeScreenController.currentBottomBarIndex(),
-              onTabChange: (index) {
+      bottomNavigationBar: GetBuilder<HomeScreenController>(
+        builder: (contx) => Container(
+          decoration: BoxDecoration(
+            color: AppColors.kBackground,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 20,
+                color: Colors.black.withOpacity(.1),
+              )
+            ],
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+              child: GNav(
+                rippleColor: AppColors.kPrimary,
+                hoverColor: AppColors.kPrimary,
+                gap: 8,
+                activeColor: AppColors.whiteColor,
+                iconSize: 24,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                duration: Duration(milliseconds: 400),
+                tabBackgroundColor: const Color.fromRGBO(132, 189, 147, 1),
+                color: AppColors.kSecondary,
+                tabs: [
+                  GButton(
+                    icon: LineIcons.home,
+                    iconActiveColor: Colors.white,
+                    active: true,
+                    text: 'Home',
+                  ),
+                  GButton(
+                    icon: LineIcons.heart,
+                    text: 'Likes',
+                  ),
+                  GButton(
+                    icon: LineIcons.search,
+                    text: 'Search',
+                  ),
+                  GButton(
+                    icon: LineIcons.user,
+                    text: 'Profile',
+                  ),
+                ],
+                selectedIndex: homeScreenController.currentBottomBarIndex(),
+                onTabChange: (index) {
                   homeScreenController.switchBetweenScreens(index);
-                // setState(() {
-                //   _selectedIndex = index;
-                // });
-              },
+                  // setState(() {
+                  //   _selectedIndex = index;
+                  // });
+                },
+              ),
             ),
           ),
         ),
       ),
-  ),
     );
   }
 }

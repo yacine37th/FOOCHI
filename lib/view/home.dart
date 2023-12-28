@@ -44,12 +44,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     HomeController homeController = Get.find();
     FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
-
     return Scaffold(
       backgroundColor: AppColors.kBackground,
-       appBar: AppBar(
+      appBar: AppBar(
         // elevation: 1,
-         leading: IconButton(
+        leading: IconButton(
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
