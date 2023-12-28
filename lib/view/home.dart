@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluter_ecom/controller/favoris_page_controller.dart';
 import 'package:fluter_ecom/controller/home_controller.dart';
 import 'package:fluter_ecom/main.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
 
+import '../model/food_model.dart';
 import '../theme/colors.dart';
 import '../theme/main_colors.dart';
 import 'widgets.dart';
@@ -43,6 +46,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     HomeController homeController = Get.find();
+    FavorisPageController favorisPageController = Get.find();
     FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
     return Scaffold(
       backgroundColor: AppColors.kBackground,
@@ -87,22 +91,6 @@ class _HomeState extends State<Home> {
               )
             ],
           ),
-          // Text(
-          //   "${currentUserInfos.name}",
-          //   style: TextStyle(color: Colors.black),
-          // ),
-          // Padding(
-          //   padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
-          //   child: Container(
-          //     width: 50,
-          //     height: 50,
-          //     child: ProfilePicture(),
-          //   ),
-          //   // Text(
-          //   //   "${currentUserInfos.firstName!} ${currentUserInfos.lastName!}",
-          //   //   style: TextStyle(color: whiteColor),
-          //   // ),
-          // ),
         ],
         bottom: PreferredSize(
             preferredSize: Size(0, 0),
@@ -147,11 +135,7 @@ class _HomeState extends State<Home> {
                               scrollDirection: Axis.horizontal,
                               itemCount: contx.categories.length,
                               itemBuilder: (context, index) => GestureDetector(
-                                onTap: () {
-                                  // setState(() {
-                                  //   selectedCategory = index;
-                                  // });
-                                },
+                                onTap: () {},
                                 child: AnimatedContainer(
                                   width: 120,
                                   duration: Duration(milliseconds: 300),
@@ -175,22 +159,8 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),
                               ),
-
-                              // makeCategory(
-                              //     title: homeController.categories[index],
-                              //     index: index)
                             ),
                     ),
-                    // child: ListView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   children: <Widget>[
-                    //     FadeAnimation(1, makeCategory(title: 'Pizaa')),
-                    //     FadeAnimation(1.3, makeCategory(title: 'Burgers')),
-                    //     FadeAnimation(1.4, makeCategory(title: 'Kebab')),
-                    //     FadeAnimation(1.5, makeCategory(title: 'Desert')),
-                    //     FadeAnimation(1.6, makeCategory(title: 'Salad')),
-                    //   ],
-                    // ),
                   ),
                   SizedBox(
                     height: 10,
@@ -319,17 +289,21 @@ class _HomeState extends State<Home> {
                                       children: <Widget>[
                                         GetBuilder<HomeController>(
                                           builder: (contx) => GestureDetector(
-                                            onTap: () {
+                                            onTap: () async {
                                               if (currentUserInfos.foodFavoris
                                                   .contains(homeController
                                                       .foods.values
                                                       .elementAt(index)
                                                       .uID)) {
                                                 homeController.removeFromFavoris(
-                                                    "${homeController.foods.values.elementAt(index).uID}");
+                                                    "${homeController.foods.values.elementAt(index).uID}",
+                                                    homeController.foods.values
+                                                        .elementAt(index));
                                               } else {
                                                 homeController.addToFavoris(
-                                                    "${homeController.foods.values.elementAt(index).uID}");
+                                                    "${homeController.foods.values.elementAt(index).uID}",
+                                                    homeController.foods.values
+                                                        .elementAt(index));
                                               }
                                             },
                                             child: Align(

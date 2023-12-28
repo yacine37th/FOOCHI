@@ -19,27 +19,12 @@ class FavorisPageController extends GetxController {
             price: doc["foodPrice"],
             image: doc["foodImage"])
       });
-      //     .then((value) async {
-      //   for (int index = 0; index < value.docs.length; index++) {
-      //     favorisFood.addAll({
-      //       value.docs[index].id: FoodModel(
-      //           uID: value.docs[index].id,
-      //           name: value.docs[index]["foodName"],
-      //           price: value.docs[index]["foodPrice"],
-      //           image: value.docs[index]["foodImage"])
-      //     });
-      //   }
-      // });
-    }
-    for (var i = 0; i < favorisFood.length; i++) {
-      print(favorisFood.values.elementAt(i).name);
     }
     update();
   }
 
-@override
+  @override
   void onInit() {
-    // TODO: implement onInit
     getFavoris();
     super.onInit();
   }

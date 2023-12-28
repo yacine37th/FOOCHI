@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluter_ecom/controller/favoris_page_controller.dart';
 import 'package:fluter_ecom/model/category_model.dart';
 import 'package:fluter_ecom/model/food_model.dart';
 import 'package:fluter_ecom/model/user_model.dart';
@@ -10,6 +11,9 @@ import '../main.dart';
 
 class HomeController extends GetxController {
   final controller02 = ValueNotifier<bool>(false);
+  FavorisPageController favorisPageController =
+      Get.put(FavorisPageController());
+
   Map<String, UserModel> usersRef = {};
   Map<String, CategoryModel> categories = {};
   Map<String, FoodModel> foods = {};
@@ -102,7 +106,7 @@ class HomeController extends GetxController {
   }
 
 //////add to Favoris
-  addToFavoris(String foodID) async {
+  addToFavoris(String foodID, FoodModel food) async {
     await FirebaseFirestore.instance
         .collection("users")
         .doc(currentUser!.uid)
@@ -110,10 +114,20 @@ class HomeController extends GetxController {
       "userFavorisFood": FieldValue.arrayUnion([foodID])
     });
     currentUserInfos.foodFavoris.add(foodID);
+    var doc =
+        await FirebaseFirestore.instance.collection("food").doc(food.uID).get();
+    favorisPageController.favorisFood.addAll({
+      doc.id: FoodModel(
+          uID: doc.id,
+          name: doc["foodName"],
+          price: doc["foodPrice"],
+          image: doc["foodImage"])
+    });
+    // favorisPageController.favoris.add(foodID);
     update();
   }
 
-  removeFromFavoris(String foodID) async {
+  removeFromFavoris(String foodID, FoodModel food) async {
     await FirebaseFirestore.instance
         .collection("users")
         .doc(currentUser!.uid)
@@ -121,6 +135,8 @@ class HomeController extends GetxController {
       "userFavorisFood": FieldValue.arrayRemove([foodID])
     });
     currentUserInfos.foodFavoris.remove(foodID);
+    favorisPageController.favoris.remove(foodID);
+    favorisPageController.favorisFood.remove(foodID);
     update();
   }
 

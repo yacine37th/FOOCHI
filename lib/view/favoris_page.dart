@@ -18,7 +18,10 @@ class FavorisPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.kBackground,
       appBar: AppBar(
-        title: const Text("favorites" ,style: TextStyle(color: AppColors.kPrimary ),),
+        title: const Text(
+          "favorites",
+          style: TextStyle(color: AppColors.kPrimary),
+        ),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
