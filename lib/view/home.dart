@@ -47,7 +47,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     HomeController homeController = Get.find();
     FavorisPageController favorisPageController = Get.find();
-    FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
+    ////// TO STOP THE SCREENSHOT AND SCREEN RECORDING 
+    // FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
     return Scaffold(
       backgroundColor: AppColors.kBackground,
       appBar: AppBar(
