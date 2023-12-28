@@ -106,7 +106,7 @@ class SignInController extends GetxController {
       print(e);
       if (e.code == 'user-not-found') {
         Get.defaultDialog(
-          title: "Compte non trouvé",
+          title: "Account not found",
           content: const Icon(
             Icons.report_problem,
             color: Colors.red,
@@ -117,7 +117,18 @@ class SignInController extends GetxController {
         );
       } else if (e.code == 'wrong-password') {
         Get.defaultDialog(
-          title: "Veuillez vérifier votre mot de passe",
+          title: "Invalid Password please try again",
+          content: const Icon(
+            Icons.report_problem,
+            color: Colors.red,
+          ),
+          onConfirm: () {
+            Get.back();
+          },
+        );
+      } else if (e.code == "auth/invalid-credential") {
+        Get.defaultDialog(
+          title: "Invalid Password please try again",
           content: const Icon(
             Icons.report_problem,
             color: Colors.red,
@@ -127,6 +138,7 @@ class SignInController extends GetxController {
           },
         );
       }
+      // auth/invalid-credential
       // else {
       //   print("///////");
       //   Get.defaultDialog(
