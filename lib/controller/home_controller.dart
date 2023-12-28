@@ -159,29 +159,29 @@ class HomeController extends GetxController {
 //             print("AppBarType.mostRecentBooks");
 //           });
 
-  ScrollController? scrollController;
-  var getMore = true;
-  var isFetching = false;
+  // ScrollController? scrollController;
+  // var getMore = true;
+  // var isFetching = false;
 
-  void _scrollListener() async {
-    print("******************");
-    if (getMore) {
-      if (scrollController?.position.pixels ==
-              scrollController?.position.maxScrollExtent &&
-          isFetching == false) {
-        isFetching = true;
-        // await getRequestedBooks();
-        isFetching = false;
-      }
-    }
-  }
+  // void _scrollListener() async {
+  //   print("******************");
+  //   if (getMore) {
+  //     if (scrollController?.position.pixels ==
+  //             scrollController?.position.maxScrollExtent &&
+  //         isFetching == false) {
+  //       isFetching = true;
+  //       // await getRequestedBooks();
+  //       isFetching = false;
+  //     }
+  //   }
+  // }
 
   @override
   void onInit() {
     // getUsers();
     getCategories();
     getFood();
-    scrollController = ScrollController()..addListener(_scrollListener);
+    // scrollController = ScrollController()..addListener(_scrollListener);
     // putFood();
     super.onInit();
   }

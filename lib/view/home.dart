@@ -47,74 +47,13 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       backgroundColor: AppColors.kBackground,
-      drawer: Stack(
-        children:[
-           Drawer(
-          backgroundColor: Color.fromARGB(255, 28, 28, 28),
-          child: Column(children: [
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GetBuilder<HomeController>(
-                    builder: (contx) => AdvancedSwitch(
-                      activeChild: Icon(Icons.dark_mode),
-                      inactiveChild: Icon(Icons.sunny),
-                      width: 70,
-                      controller: homeController.controller02,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(5, 20, 5, 5),
-              child: Row(children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  child: ProfilePicture(),
-                ),
-                const SizedBox(width: 5),
-                Text(
-                  "${currentUserInfos.name!} ",
-                  style: TextStyle(color: Colors.white),
-                ),
-              ]),
-            ),
-            const Divider(
-              color: Colors.white,
-            ),
-            ListTile(
-              tileColor: AppColors.transparentColor,
-              textColor: AppColors.whiteColor,
-              iconColor: AppColors.whiteColor,
-              visualDensity: VisualDensity(horizontal: -4, vertical: -4),
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-              horizontalTitleGap: 1,
-              dense: true,
-              title: const Text(
-                "Sign Out",
-                style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: 'Cairo'),
-              ),
-              leading: Icon(Icons.logout),
-              onTap: () {
-                homeController.signOutOfAnExistingAccount();
-              },
-            ),
-            const Spacer(),
-          ]),
-        ),
-      
-        ]),
-      appBar: AppBar(
+       appBar: AppBar(
         // elevation: 1,
+         leading: IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(Icons.menu)),
         elevation: 0,
         backgroundColor: AppColors.kBackground,
         iconTheme: IconThemeData(color: Colors.black),
