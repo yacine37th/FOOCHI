@@ -12,8 +12,9 @@ class MoreFood extends StatelessWidget {
   Widget build(BuildContext context) {
     MoreFoodController moreFoodController = Get.find();
     double screenWidth(BuildContext context) {
-  return MediaQuery.of(context).size.width;
-}
+      return MediaQuery.of(context).size.width;
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.kBackground,
@@ -62,7 +63,8 @@ class MoreFood extends StatelessWidget {
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(15.0)),
                       image: DecorationImage(
-                        image: NetworkImage("${contx.moreFood.values.elementAt(index).image}"),
+                        image: NetworkImage(
+                            "${contx.moreFood.values.elementAt(index).image}"),
                         fit: BoxFit.cover,
                       ),
                     ),

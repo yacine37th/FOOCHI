@@ -47,7 +47,6 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: AppColors.kBackground,
       appBar: AppBar(
-        // elevation: 1,
         leading: IconButton(
             onPressed: () {
               Scaffold.of(context).openDrawer();
