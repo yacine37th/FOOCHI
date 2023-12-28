@@ -508,13 +508,17 @@ class _HomeState extends State<Home> {
                                         GetBuilder<HomeController>(
                                           builder: (contx) => GestureDetector(
                                             onTap: () {
-                                              homeController.addToFavoris(
-                                                  "${homeController.foods.values.elementAt(index).uID}");
                                               if (currentUserInfos.foodFavoris
                                                   .contains(homeController
                                                       .foods.values
                                                       .elementAt(index)
-                                                      .uID)) {}
+                                                      .uID)) {
+                                                homeController.removeFromFavoris(
+                                                    "${homeController.foods.values.elementAt(index).uID}");
+                                              } else {
+                                                homeController.addToFavoris(
+                                                    "${homeController.foods.values.elementAt(index).uID}");
+                                              }
                                             },
                                             child: Align(
                                               alignment: Alignment.topRight,
