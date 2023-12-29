@@ -188,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   GButton(
                     icon: LineIcons.shoppingCart,
-                    text: 'cart',
+                    text: 'Cart',
                   ),
                   GButton(
                     icon: LineIcons.user,

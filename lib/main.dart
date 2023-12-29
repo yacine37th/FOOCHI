@@ -59,399 +59,975 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'flutter-ecom',
-      debugShowCheckedModeBanner: false,
-      defaultTransition: Transition.cupertino,
-      // theme: Themes.customLightTheme,
-      // textDirection: MainFunctions.textDirection,
-      getPages: [
-        GetPage(
-          name: "/SignUp",
-          page: () => const SignUp(),
-          binding: SignUpBinding(),
-        ),
-        GetPage(
-            name: "/SignIn",
-            page: () => const SignIn(),
-            binding: SignInBinding(),
-            middlewares: [AuthMiddleware()]),
-        GetPage(
-            name: "/EmailVerification",
-            page: () => const EmailVerification(),
-            binding: EmailVerificationBinding()),
-        GetPage(
-          name: "/ForgotPassword",
-          page: () => const ForgotPassword(),
-          binding: ForgotPasswordBinding(),
-        ),
-        GetPage(
-            name: "/OnboardingView",
-            page: () => const FoochiOnboardingView(),
-            binding: OnboardingBindings(),
-            middlewares: [AppIsOppen()]),
-        GetPage(
-          name: "/",
-          page: () => HomeScreen(),
-          binding: HomeScreenBindings(),
-        ),
-        GetPage(
-          name: "/PhoneSignup",
-          page: () => const PhoneSignUp(),
-          binding: SignUpPhoneBindings(),
-        ),
-        GetPage(
-          name: "/MoreFood",
-          page: () => const MoreFood(),
-          binding: MoreFoodBindings(),
-        ),
-        // GetPage(
-        //   name: "/Tasnifat",
-        //   page: () => const Tasnifat(),
-        //   binding: TasnifatBinding(),
-        // ),
-        // GetPage(
-        //   name: "/BookDetails",
-        //   page: () => const BookDetails(),
-        //   binding: BookDetailsBinding(),
-        // ),
-        // GetPage(
-        //   name: "/BookContent",
-        //   page: () => const BookContent(),
-        // ),
-        // GetPage(
-        //   name: "/RequestedBooks",
-        //   page: () => const RequestedBooks(),
-        //   binding: RequestedBooksBinding(),
-        // ),
-        // GetPage(
-        //   name: "/SearchScreen",
-        //   page: () => const SearchScreen(),
-        //   transition: Transition.fadeIn,
-        //   transitionDuration: const Duration(milliseconds: 250),
-        //   binding: SearchBinding(),
-        // ),
-        // GetPage(
-        //   name: "/AuthorScreen",
-        //   page: () => const AuthorScreen(),
-        //   binding: AuthorScreenBinding(),
-        // ),
-        // GetPage(
-        //   name: "/OrderBook",
-        //   page: () => const OrderBook(),
-        //   binding: OrderBookBinding(),
-        // ),
-      ],
-      initialRoute: "/OnboardingView",
-      // home:HomeScreen()
-    );
+        title: 'flutter-ecom',
+        debugShowCheckedModeBanner: false,
+        defaultTransition: Transition.cupertino,
+        // theme: Themes.customLightTheme,
+        // textDirection: MainFunctions.textDirection,
+        getPages: [
+          GetPage(
+            name: "/SignUp",
+            page: () => const SignUp(),
+            binding: SignUpBinding(),
+          ),
+          GetPage(
+              name: "/SignIn",
+              page: () => const SignIn(),
+              binding: SignInBinding(),
+              middlewares: [AuthMiddleware()]),
+          GetPage(
+              name: "/EmailVerification",
+              page: () => const EmailVerification(),
+              binding: EmailVerificationBinding()),
+          GetPage(
+            name: "/ForgotPassword",
+            page: () => const ForgotPassword(),
+            binding: ForgotPasswordBinding(),
+          ),
+          GetPage(
+              name: "/OnboardingView",
+              page: () => const FoochiOnboardingView(),
+              binding: OnboardingBindings(),
+              middlewares: [AppIsOppen()]),
+          GetPage(
+            name: "/",
+            page: () => HomeScreen(),
+            binding: HomeScreenBindings(),
+          ),
+          GetPage(
+            name: "/PhoneSignup",
+            page: () => const PhoneSignUp(),
+            binding: SignUpPhoneBindings(),
+          ),
+          GetPage(
+            name: "/MoreFood",
+            page: () => const MoreFood(),
+            binding: MoreFoodBindings(),
+          ),
+          // GetPage(
+          //   name: "/Tasnifat",
+          //   page: () => const Tasnifat(),
+          //   binding: TasnifatBinding(),
+          // ),
+          // GetPage(
+          //   name: "/BookDetails",
+          //   page: () => const BookDetails(),
+          //   binding: BookDetailsBinding(),
+          // ),
+          // GetPage(
+          //   name: "/BookContent",
+          //   page: () => const BookContent(),
+          // ),
+          // GetPage(
+          //   name: "/RequestedBooks",
+          //   page: () => const RequestedBooks(),
+          //   binding: RequestedBooksBinding(),
+          // ),
+          // GetPage(
+          //   name: "/SearchScreen",
+          //   page: () => const SearchScreen(),
+          //   transition: Transition.fadeIn,
+          //   transitionDuration: const Duration(milliseconds: 250),
+          //   binding: SearchBinding(),
+          // ),
+          // GetPage(
+          //   name: "/AuthorScreen",
+          //   page: () => const AuthorScreen(),
+          //   binding: AuthorScreenBinding(),
+          // ),
+          // GetPage(
+          //   name: "/OrderBook",
+          //   page: () => const OrderBook(),
+          //   binding: OrderBookBinding(),
+          // ),
+        ],
+        // initialRoute: "/OnboardingView",
+        home: FoodDetailView(
+          food: Food(
+              foodImageName:
+                  "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
+              foodId: 15,
+              foodName: 'Burgersdsd',
+              foodCategory: 'Burger',
+              foodPrice: '182'),
+        ));
   }
 }
 
-class APP extends StatefulWidget {
-  const APP({super.key});
+class Food {
+  int foodId;
+  String foodName;
+  String foodImageName;
+  String foodCategory;
+  String foodPrice;
 
-  @override
-  State<APP> createState() => _APPState();
+  Food(
+      {required this.foodId,
+      required this.foodName,
+      required this.foodImageName,
+      required this.foodCategory,
+      required this.foodPrice});
 }
 
-class _APPState extends State<APP> {
-  final _controller00 = ValueNotifier<bool>(false);
-  final _controller01 = ValueNotifier<bool>(false);
-  final _controller02 = ValueNotifier<bool>(false);
-  final _controller03 = ValueNotifier<bool>(false);
-  final _controller04 = ValueNotifier<bool>(false);
-  final _controller05 = ValueNotifier<bool>(false);
-  final _controller06 = ValueNotifier<bool>(false);
-  final _controller07 = ValueNotifier<bool>(false);
-  final _controller08 = ValueNotifier<bool>(false);
-  final _controller09 = ValueNotifier<bool>(false);
-  final _controller10 = ValueNotifier<bool>(false);
-  final _controller11 = ValueNotifier<bool>(false);
-  final _controller12 = ValueNotifier<bool>(false);
-  final _controller13 = ValueNotifier<bool>(false);
-  final _controller14 = ValueNotifier<bool>(false);
-  final _controller15 = ValueNotifier<bool>(false);
-  bool _enabled = false;
-  bool _themeDark = false;
+class FoodDetailView extends StatefulWidget {
+  Food food;
+  FoodDetailView({required this.food});
 
   @override
-  void initState() {
-    super.initState();
+  _FoodDetailViewState createState() => _FoodDetailViewState();
+}
 
-    _controller00.addListener(() {
-      setState(() {
-        if (_controller00.value) {
-          _themeDark = true;
-        } else {
-          _themeDark = false;
-        }
-      });
-    });
-  }
-
-  Widget _buildLabel(String value) {
-    return Container(
-      margin: EdgeInsets.only(
-        top: 25,
-        bottom: 5,
-      ),
-      child: Text(
-        '$value',
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 16,
-          color: Colors.grey,
+class _FoodDetailViewState extends State<FoodDetailView> {
+  @override
+  Widget build(BuildContext context) {
+    // SizeConfig().init(context);
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            FoodImage(food: widget.food),
+            DetailWidget(
+              food: widget.food,
+            ),
+          ],
         ),
       ),
     );
   }
+}
 
-  @override
-  void dispose() {
-    _controller01.dispose();
-    _controller02.dispose();
-    _controller03.dispose();
-    _controller04.dispose();
-    _controller05.dispose();
-    _controller06.dispose();
-    _controller07.dispose();
-    _controller08.dispose();
-    _controller09.dispose();
-    _controller10.dispose();
-    _controller11.dispose();
-    _controller12.dispose();
-    _controller13.dispose();
-    _controller14.dispose();
-    _controller15.dispose();
-
-    super.dispose();
-  }
+class FoodDescription extends StatelessWidget {
+  const FoodDescription({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: _themeDark ? ThemeData.dark() : ThemeData.light(),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Advanced Switch Example'),
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Padding(
+      padding: EdgeInsets.only(top: screenHeight! / 45.54),
+
+      /// 15.0
+      child: Container(
+        child: Text(
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud eslednjn",
+          style: TextStyle(color: Colors.black38),
+          textAlign: TextAlign.justify,
         ),
-        body: Container(
-          width: double.infinity,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              vertical: 40,
+      ),
+    );
+  }
+}
+
+class FoodName extends StatefulWidget {
+  Food food;
+  FoodName({required this.food});
+
+  @override
+  _FoodNameState createState() => _FoodNameState();
+}
+
+class _FoodNameState extends State<FoodName> {
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Row(children: [
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text("${widget.food.foodName}",
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: screenHeight! / 22.77,
+                fontFamily: "Roboto")),
+
+        /// 30
+        Text("Category", style: TextStyle(color: Colors.black45, fontSize: 18)),
+      ]),
+      Spacer(),
+      Text(
+        "\$${widget.food.foodPrice}",
+        style:
+            TextStyle(color: Colors.black87, fontSize: screenHeight! / 22.77),
+      ),
+
+      /// 30
+    ]);
+  }
+}
+
+class DetailWidget extends StatefulWidget {
+  Food food;
+  DetailWidget({required this.food});
+
+  @override
+  _DetailWidgetState createState() => _DetailWidgetState();
+}
+
+class _DetailWidgetState extends State<DetailWidget> {
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+      margin: EdgeInsets.only(top: screenHeight! * 0.35),
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black54, blurRadius: 10, offset: Offset(0, -1))
+          ]),
+      child: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          children: [
+            Container(
+              width: screenWidth! / 3.43,
+
+              /// 120.0
+              height: screenHeight! / 227.67,
+
+              /// 3.0
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.black12),
             ),
-            physics: ClampingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _buildLabel('Switch Theme'),
-                AdvancedSwitch(
-                  controller: _controller00,
-                  thumb: ValueListenableBuilder<bool>(
-                    valueListenable: _controller00,
-                    builder: (_, value, __) {
-                      return Icon(
-                          value ? Icons.lightbulb : Icons.lightbulb_outline);
-                    },
-                  ),
-                ),
-                UnconstrainedBox(
-                  child: AdvancedSwitch(
-                    controller: _controller01,
-                    width: 110,
-                    enabled: false,
-                    inactiveColor: Colors.red,
-                    activeColor: Colors.green,
-                    activeChild: Text(
-                      'File selected',
-                      style: TextStyle(
-                        color: Colors.black87,
-                      ),
-                    ),
-                    inactiveChild: Text(
-                      'No File Selected',
-                      style: TextStyle(
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ),
-                ),
-                _buildLabel('Default Switch'),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    AdvancedSwitch(
-                      controller: _controller01,
-                    ),
-                    SizedBox(width: 25),
-                    AdvancedSwitch(
-                      controller: _controller01,
-                      thumb: ValueListenableBuilder<bool>(
-                        valueListenable: _controller01,
-                        builder: (_, value, __) {
-                          return Icon(value
-                              ? Icons.cloud_upload
-                              : Icons.cloud_download);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                _buildLabel('Disabled Switch'),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    AdvancedSwitch(
-                      enabled: _enabled,
-                      controller: ValueNotifier(false),
-                    ),
-                    SizedBox(width: 25),
-                    AdvancedSwitch(
-                      enabled: _enabled,
-                      controller: ValueNotifier(true),
-                    ),
-                    SizedBox(width: 25),
-                    ElevatedButton(
-                      onPressed: () => setState(() => _enabled = !_enabled),
-                      child: Text('Enable/Disable'),
-                    )
-                  ],
-                ),
-                _buildLabel('Color/Icon/Image Switch'),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    AdvancedSwitch(
-                      activeColor: Colors.yellow,
-                      inactiveColor: Colors.indigo,
-                      activeChild: Text('Yellow'),
-                      inactiveChild: Text('Indigo'),
-                      width: 80,
-                      controller: _controller03,
-                    ),
-                    AdvancedSwitch(
-                      activeChild: Icon(
-                        Icons.terrain,
-                        color: Colors.blue,
-                      ),
-                      inactiveChild: Icon(Icons.cloud),
-                      activeColor: Colors.yellowAccent,
-                      inactiveColor: Colors.deepPurple,
-                      width: 60,
-                      controller: _controller15,
-                    ),
-                    AdvancedSwitch(
-                      controller: _controller13,
-                      activeImage: AssetImage('assets/images/day_sky.png'),
-                      inactiveImage: AssetImage('assets/images/night_sky.jpg'),
-                    ),
-                    AdvancedSwitch(
-                      controller: _controller14,
-                      width: 80,
-                      activeChild: Text('DAY'),
-                      inactiveChild: Text('NIGHT'),
-                      activeImage: AssetImage('assets/images/day_sky.png'),
-                      inactiveImage: AssetImage('assets/images/night_sky.jpg'),
-                    ),
-                  ],
-                ),
-                _buildLabel('ON/OFF Switch'),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    AdvancedSwitch(
-                      activeChild: Text('1'),
-                      inactiveChild: Text('0'),
-                      width: 70,
-                      controller: _controller02,
-                    ),
-                    AdvancedSwitch(
-                      activeChild: Text('ON'),
-                      inactiveChild: Text('OFF'),
-                      borderRadius: BorderRadius.circular(5),
-                      width: 76,
-                      controller: _controller04,
-                    ),
-                    AdvancedSwitch(
-                      activeChild: Text('true'),
-                      inactiveChild: Text('false'),
-                      borderRadius: BorderRadius.zero,
-                      width: 76,
-                      controller: _controller05,
-                    ),
-                  ],
-                ),
-                _buildLabel('XXS/XS Switch'),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    AdvancedSwitch(
-                      width: 16,
-                      height: 8,
-                      controller: _controller06,
-                    ),
-                    AdvancedSwitch(
-                      width: 32,
-                      height: 16,
-                      controller: _controller07,
-                    ),
-                  ],
-                ),
-                _buildLabel('S/M/L Switch'),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    AdvancedSwitch(
-                      width: 48,
-                      height: 24,
-                      controller: _controller08,
-                    ),
-                    AdvancedSwitch(
-                      width: 56,
-                      height: 28,
-                      controller: _controller09,
-                    ),
-                    AdvancedSwitch(
-                      width: 72,
-                      height: 36,
-                      controller: _controller10,
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                  ],
-                ),
-                _buildLabel('XL/XXL Switch'),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    AdvancedSwitch(
-                      width: 96,
-                      height: 48,
-                      controller: _controller11,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    AdvancedSwitch(
-                      width: 112,
-                      height: 56,
-                      controller: _controller12,
-                      borderRadius: BorderRadius.circular(29),
-                    ),
-                  ],
-                ),
-              ],
+            SizedBox(
+              height: screenHeight! / 34.15,
             ),
+
+            /// 20.0
+            FoodName(food: widget.food),
+            ReviewStars(),
+            FoodDescription(),
+            // FeaturesFood(),
+            IncreaseDecrease(food: widget.food),
+            AddToCartButton(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AddToCartButton extends StatelessWidget {
+  const AddToCartButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        screenWidth / 20.55,
+        screenHeight / 34.15,
+        screenWidth / 20.55,
+        0,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.amber,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+            ),
+            minimumSize: MaterialStateProperty.all(
+                Size(screenWidth / 1.37, screenHeight / 11.66)),
+            backgroundColor: MaterialStateProperty.all(Colors.transparent),
+            shadowColor: MaterialStateProperty.all(Colors.transparent),
+          ),
+          onPressed: () {},
+          child: Wrap(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: screenWidth / 51.38),
+
+                /// 8.0
+                child: Icon(
+                  Icons.shopping_cart_rounded,
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                "Add to Cart",
+                style: TextStyle(
+                  fontSize: screenHeight / 34.15,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+            ],
           ),
         ),
       ),
     );
-    ;
   }
 }
+
+class ReviewStars extends StatefulWidget {
+  const ReviewStars({Key? key}) : super(key: key);
+
+  @override
+  _ReviewStarsState createState() => _ReviewStarsState();
+}
+
+class _ReviewStarsState extends State<ReviewStars> {
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Padding(
+      padding: EdgeInsets.only(top: screenHeight! / 45.54),
+
+      /// 15.0
+      child: Container(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.star_rounded,
+                color: Colors.red,
+              ),
+              Text(
+                "4.6",
+                style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenHeight / 45.54),
+              ),
+
+              /// 15.0
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth / 51.38),
+
+                /// 8.0
+                child: Text("(52+ Reviews)",
+                    style: TextStyle(color: Colors.black26)),
+              )
+            ],
+          ),
+          Container(
+            height: screenHeight / 34.15,
+            width: screenWidth / 137,
+            decoration: BoxDecoration(
+                color: Colors.black12, borderRadius: BorderRadius.circular(10)),
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth / 51.38),
+
+                /// 8.0
+                child: Icon(
+                  Icons.delivery_dining_sharp,
+                  color: Colors.amber,
+                  size: screenHeight / 22.77,
+                ),
+              ),
+              Text(
+                "FREE DELIVERY",
+                style: TextStyle(
+                    color: Colors.amber,
+                    fontWeight: FontWeight.bold,
+                    fontSize: screenHeight! / 42.69),
+              )
+
+              /// 16
+            ],
+          )
+        ],
+      )),
+    );
+  }
+}
+
+class MySeparator extends StatelessWidget {
+  final double height;
+  final Color color;
+  const MySeparator({this.height = 1, this.color = Colors.black38});
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        final boxWidth = constraints.constrainWidth();
+        final dashWidth = screenWidth / 57.71;
+        final dashHeight = height;
+        final dashCount = (boxWidth / (2 * dashWidth)).floor();
+        return Flex(
+          children: List.generate(dashCount, (_) {
+            return SizedBox(
+              width: dashWidth,
+              height: dashHeight,
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: color),
+              ),
+            );
+          }),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          direction: Axis.horizontal,
+        );
+      },
+    );
+  }
+}
+
+class FoodImage extends StatefulWidget {
+  Food food;
+  FoodImage({required this.food});
+
+  @override
+  _FoodImageState createState() => _FoodImageState();
+}
+
+class _FoodImageState extends State<FoodImage> {
+  @override
+  Widget build(BuildContext context) {
+    // SizeConfig().init(context);
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+      height: screenHeight * 0.45,
+      decoration: BoxDecoration(
+        color: Colors.orangeAccent,
+        image: DecorationImage(
+            image: NetworkImage("${widget.food.foodImageName}"),
+            fit: BoxFit.fitWidth),
+      ),
+      child: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: screenWidth / 13.7, vertical: screenHeight / 34.15),
+
+          /// 30.0 - 20.0
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ArrowBack(),
+              FavoriteFood(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FavoriteFood extends StatefulWidget {
+  const FavoriteFood({Key? key}) : super(key: key);
+
+  @override
+  _FavoriteFoodState createState() => _FavoriteFoodState();
+}
+
+class _FavoriteFoodState extends State<FavoriteFood> {
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return IconButton(
+      onPressed: () {},
+      icon: Icon(Icons.favorite),
+      color: Colors.white,
+      iconSize: screenHeight / 22.77,
+    );
+  }
+}
+
+class ArrowBack extends StatelessWidget {
+  const ArrowBack({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+        height: screenHeight / 19.51,
+        width: screenWidth / 10.28,
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.25),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        alignment: Alignment.center,
+        child: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+        ));
+  }
+}
+
+class IncreaseDecrease extends StatefulWidget {
+  Food food;
+  IncreaseDecrease({required this.food});
+
+  @override
+  _IncreaseDecreaseState createState() => _IncreaseDecreaseState();
+}
+
+class _IncreaseDecreaseState extends State<IncreaseDecrease> {
+  int _counter = 1;
+
+  void _increaseCart() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  void _decreaseCart() {
+    setState(() {
+      if (_counter > 1) {
+        _counter--;
+      } else {
+        _counter = 1;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // SizeConfig().init(context);
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Padding(
+      padding: EdgeInsets.only(top: screenHeight! / 45.54),
+
+      /// 15.0
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+                top: screenHeight! / 68.3, bottom: screenHeight! / 34.15),
+
+            /// 10.0 - 20.0
+            child: MySeparator(
+              color: Colors.grey,
+            ),
+          ),
+          Text(
+            "Total",
+            style: TextStyle(
+                color: Colors.black54, fontSize: screenHeight! / 42.69),
+          ),
+
+          /// 16
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "\$${int.parse(widget.food.foodPrice) * _counter}",
+                    style: TextStyle(
+                        color: Colors.black, fontSize: screenHeight! / 27.32),
+                  )
+
+                  /// 25
+                ],
+              ),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        _decreaseCart();
+                      },
+                      child: Container(
+                        height: screenHeight / 13.94,
+
+                        /// 49.0
+                        width: screenWidth / 8.39,
+
+                        /// 49.0
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.yellow, width: 1),
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.red,
+                          // Colors.red.withOpacity(0.1),
+                          //borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: Center(
+                          child: Icon(Icons.remove, color: Colors.yellow),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: screenWidth / 6.85,
+
+                      /// 60.0
+                      height: screenHeight / 13.94,
+
+                      /// 49.0
+                      child: Center(
+                        child: Text(
+                          "${_counter}",
+                          style: TextStyle(
+                              fontSize: screenHeight / 37.95,
+                              fontWeight: FontWeight.bold),
+                        ),
+
+                        /// 18
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        _increaseCart();
+                      },
+                      child: Container(
+                        height: screenHeight / 13.94,
+
+                        /// 49.0
+                        width: screenWidth / 8.39,
+
+                        /// 49.0
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.yellow, width: 1),
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.red,
+                          // Colors.red.withOpacity(0.4),
+                        ),
+                        child: Center(
+                          child: Icon(Icons.add, color: Colors.yellow),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+// class APP extends StatefulWidget {
+//   const APP({super.key});
+
+//   @override
+//   State<APP> createState() => _APPState();
+// }
+
+// class _APPState extends State<APP> {
+//   final _controller00 = ValueNotifier<bool>(false);
+//   final _controller01 = ValueNotifier<bool>(false);
+//   final _controller02 = ValueNotifier<bool>(false);
+//   final _controller03 = ValueNotifier<bool>(false);
+//   final _controller04 = ValueNotifier<bool>(false);
+//   final _controller05 = ValueNotifier<bool>(false);
+//   final _controller06 = ValueNotifier<bool>(false);
+//   final _controller07 = ValueNotifier<bool>(false);
+//   final _controller08 = ValueNotifier<bool>(false);
+//   final _controller09 = ValueNotifier<bool>(false);
+//   final _controller10 = ValueNotifier<bool>(false);
+//   final _controller11 = ValueNotifier<bool>(false);
+//   final _controller12 = ValueNotifier<bool>(false);
+//   final _controller13 = ValueNotifier<bool>(false);
+//   final _controller14 = ValueNotifier<bool>(false);
+//   final _controller15 = ValueNotifier<bool>(false);
+//   bool _enabled = false;
+//   bool _themeDark = false;
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     _controller00.addListener(() {
+//       setState(() {
+//         if (_controller00.value) {
+//           _themeDark = true;
+//         } else {
+//           _themeDark = false;
+//         }
+//       });
+//     });
+//   }
+
+//   Widget _buildLabel(String value) {
+//     return Container(
+//       margin: EdgeInsets.only(
+//         top: 25,
+//         bottom: 5,
+//       ),
+//       child: Text(
+//         '$value',
+//         style: TextStyle(
+//           fontWeight: FontWeight.w500,
+//           fontSize: 16,
+//           color: Colors.grey,
+//         ),
+//       ),
+//     );
+//   }
+
+//   @override
+//   void dispose() {
+//     _controller01.dispose();
+//     _controller02.dispose();
+//     _controller03.dispose();
+//     _controller04.dispose();
+//     _controller05.dispose();
+//     _controller06.dispose();
+//     _controller07.dispose();
+//     _controller08.dispose();
+//     _controller09.dispose();
+//     _controller10.dispose();
+//     _controller11.dispose();
+//     _controller12.dispose();
+//     _controller13.dispose();
+//     _controller14.dispose();
+//     _controller15.dispose();
+
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: _themeDark ? ThemeData.dark() : ThemeData.light(),
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: const Text('Advanced Switch Example'),
+//         ),
+//         body: Container(
+//           width: double.infinity,
+//           child: SingleChildScrollView(
+//             padding: EdgeInsets.symmetric(
+//               vertical: 40,
+//             ),
+//             physics: ClampingScrollPhysics(),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.center,
+//               children: [
+//                 _buildLabel('Switch Theme'),
+//                 AdvancedSwitch(
+//                   controller: _controller00,
+//                   thumb: ValueListenableBuilder<bool>(
+//                     valueListenable: _controller00,
+//                     builder: (_, value, __) {
+//                       return Icon(
+//                           value ? Icons.lightbulb : Icons.lightbulb_outline);
+//                     },
+//                   ),
+//                 ),
+//                 UnconstrainedBox(
+//                   child: AdvancedSwitch(
+//                     controller: _controller01,
+//                     width: 110,
+//                     enabled: false,
+//                     inactiveColor: Colors.red,
+//                     activeColor: Colors.green,
+//                     activeChild: Text(
+//                       'File selected',
+//                       style: TextStyle(
+//                         color: Colors.black87,
+//                       ),
+//                     ),
+//                     inactiveChild: Text(
+//                       'No File Selected',
+//                       style: TextStyle(
+//                         color: Colors.black87,
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 _buildLabel('Default Switch'),
+//                 Row(
+//                   mainAxisSize: MainAxisSize.min,
+//                   children: [
+//                     AdvancedSwitch(
+//                       controller: _controller01,
+//                     ),
+//                     SizedBox(width: 25),
+//                     AdvancedSwitch(
+//                       controller: _controller01,
+//                       thumb: ValueListenableBuilder<bool>(
+//                         valueListenable: _controller01,
+//                         builder: (_, value, __) {
+//                           return Icon(value
+//                               ? Icons.cloud_upload
+//                               : Icons.cloud_download);
+//                         },
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//                 _buildLabel('Disabled Switch'),
+//                 Row(
+//                   mainAxisSize: MainAxisSize.min,
+//                   children: [
+//                     AdvancedSwitch(
+//                       enabled: _enabled,
+//                       controller: ValueNotifier(false),
+//                     ),
+//                     SizedBox(width: 25),
+//                     AdvancedSwitch(
+//                       enabled: _enabled,
+//                       controller: ValueNotifier(true),
+//                     ),
+//                     SizedBox(width: 25),
+//                     ElevatedButton(
+//                       onPressed: () => setState(() => _enabled = !_enabled),
+//                       child: Text('Enable/Disable'),
+//                     )
+//                   ],
+//                 ),
+//                 _buildLabel('Color/Icon/Image Switch'),
+//                 Row(
+//                   mainAxisSize: MainAxisSize.max,
+//                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                   children: [
+//                     AdvancedSwitch(
+//                       activeColor: Colors.yellow,
+//                       inactiveColor: Colors.indigo,
+//                       activeChild: Text('Yellow'),
+//                       inactiveChild: Text('Indigo'),
+//                       width: 80,
+//                       controller: _controller03,
+//                     ),
+//                     AdvancedSwitch(
+//                       activeChild: Icon(
+//                         Icons.terrain,
+//                         color: Colors.blue,
+//                       ),
+//                       inactiveChild: Icon(Icons.cloud),
+//                       activeColor: Colors.yellowAccent,
+//                       inactiveColor: Colors.deepPurple,
+//                       width: 60,
+//                       controller: _controller15,
+//                     ),
+//                     AdvancedSwitch(
+//                       controller: _controller13,
+//                       activeImage: AssetImage('assets/images/day_sky.png'),
+//                       inactiveImage: AssetImage('assets/images/night_sky.jpg'),
+//                     ),
+//                     AdvancedSwitch(
+//                       controller: _controller14,
+//                       width: 80,
+//                       activeChild: Text('DAY'),
+//                       inactiveChild: Text('NIGHT'),
+//                       activeImage: AssetImage('assets/images/day_sky.png'),
+//                       inactiveImage: AssetImage('assets/images/night_sky.jpg'),
+//                     ),
+//                   ],
+//                 ),
+//                 _buildLabel('ON/OFF Switch'),
+//                 Row(
+//                   mainAxisSize: MainAxisSize.max,
+//                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                   children: [
+//                     AdvancedSwitch(
+//                       activeChild: Text('1'),
+//                       inactiveChild: Text('0'),
+//                       width: 70,
+//                       controller: _controller02,
+//                     ),
+//                     AdvancedSwitch(
+//                       activeChild: Text('ON'),
+//                       inactiveChild: Text('OFF'),
+//                       borderRadius: BorderRadius.circular(5),
+//                       width: 76,
+//                       controller: _controller04,
+//                     ),
+//                     AdvancedSwitch(
+//                       activeChild: Text('true'),
+//                       inactiveChild: Text('false'),
+//                       borderRadius: BorderRadius.zero,
+//                       width: 76,
+//                       controller: _controller05,
+//                     ),
+//                   ],
+//                 ),
+//                 _buildLabel('XXS/XS Switch'),
+//                 Row(
+//                   mainAxisSize: MainAxisSize.max,
+//                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                   children: [
+//                     AdvancedSwitch(
+//                       width: 16,
+//                       height: 8,
+//                       controller: _controller06,
+//                     ),
+//                     AdvancedSwitch(
+//                       width: 32,
+//                       height: 16,
+//                       controller: _controller07,
+//                     ),
+//                   ],
+//                 ),
+//                 _buildLabel('S/M/L Switch'),
+//                 Row(
+//                   mainAxisSize: MainAxisSize.max,
+//                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                   children: [
+//                     AdvancedSwitch(
+//                       width: 48,
+//                       height: 24,
+//                       controller: _controller08,
+//                     ),
+//                     AdvancedSwitch(
+//                       width: 56,
+//                       height: 28,
+//                       controller: _controller09,
+//                     ),
+//                     AdvancedSwitch(
+//                       width: 72,
+//                       height: 36,
+//                       controller: _controller10,
+//                       borderRadius: BorderRadius.circular(18),
+//                     ),
+//                   ],
+//                 ),
+//                 _buildLabel('XL/XXL Switch'),
+//                 Row(
+//                   mainAxisSize: MainAxisSize.max,
+//                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+//                   children: [
+//                     AdvancedSwitch(
+//                       width: 96,
+//                       height: 48,
+//                       controller: _controller11,
+//                       borderRadius: BorderRadius.circular(24),
+//                     ),
+//                     AdvancedSwitch(
+//                       width: 112,
+//                       height: 56,
+//                       controller: _controller12,
+//                       borderRadius: BorderRadius.circular(29),
+//                     ),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//     ;
+//   }
+// }
 // class CustomLiteRollingSwitch extends StatefulWidget {
 //   const CustomLiteRollingSwitch({super.key});
 

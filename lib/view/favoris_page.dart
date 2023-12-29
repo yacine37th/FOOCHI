@@ -19,7 +19,7 @@ class FavorisPage extends StatelessWidget {
       backgroundColor: AppColors.kBackground,
       appBar: AppBar(
         title: const Text(
-          "favorites",
+          "Favorites",
           style: TextStyle(color: AppColors.kPrimary),
         ),
         centerTitle: true,
