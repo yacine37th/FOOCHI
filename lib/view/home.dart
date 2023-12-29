@@ -254,9 +254,12 @@ class _HomeState extends State<Home> {
                       itemBuilder: (context, index) => AspectRatio(
                             aspectRatio: 1 / 1.5,
                             child: GestureDetector(
-                              // onTap: (){
-                              //   print(contx.foods.values.elementAt(index).name);
-                              // },
+                              onTap: (){
+                                // print(contx.foods.values.elementAt(index).name);
+                                Get.toNamed('/FoodDetails', arguments: {
+                                  "0":contx.foods.values.elementAt(index)
+                                });
+                              },
                               child: Container(
                                 margin: EdgeInsets.only(right: 20),
                                 decoration: BoxDecoration(

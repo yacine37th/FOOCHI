@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../controller/home_controller.dart';
 import '../functions/functions.dart';
 import '../main.dart';
 import '../theme/main_colors.dart';
@@ -62,11 +63,10 @@ class FoodPicture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SizeConfig().init(context);
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: screenHeight * 0.45,
+      height: 250,
       decoration: BoxDecoration(
         color: Colors.orangeAccent,
         image: DecorationImage(
@@ -78,7 +78,7 @@ class FoodPicture extends StatelessWidget {
               horizontal: screenWidth / 13.7, vertical: screenHeight / 34.15),
 
           /// 30.0 - 20.0
-          child: Row(
+          child: const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -96,21 +96,85 @@ class FavoriteFood extends StatelessWidget {
   const FavoriteFood({super.key});
 
   @override
-Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return IconButton(
-      onPressed: () {},
-      icon: Icon(Icons.favorite),
-      color: Colors.white,
-      iconSize: screenHeight / 22.77,
+  Widget build(BuildContext context) {
+    return GetBuilder<HomeController>(
+      builder: (contx) => GestureDetector(
+        onTap: () async {
+          // if (currentUserInfos.foodFavoris
+          //     .contains(contx
+          //         .foods.values
+          //         .elementAt(index)
+          //         .uID)) {
+          //   homeController.removeFromFavoris(
+          //       "${homeController.foods.values.elementAt(index).uID}",
+          //       homeController.foods.values
+          //           .elementAt(index));
+          // } else {
+          //   homeController.addToFavoris(
+          //       "${homeController.foods.values.elementAt(index).uID}",
+          //       homeController.foods.values
+          //           .elementAt(index));
+          // }
+        },
+        child: Align(
+          alignment: Alignment.topRight,
+          child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                      width: 1.5,
+                      color:
+                          //  currentUserInfos
+                          //         .foodFavoris
+                          //         .contains(
+                          //             homeController
+                          //                 .foods
+                          //                 .values
+                          //                 .elementAt(
+                          //                     index)
+                          //                 .uID)
+                          // ?
+                          Colors.red
+                      // : Colors
+                      //     .transparent,
+                      )),
+              child:
+                  // currentUserInfos
+                  //     .foodFavoris
+                  //     .contains(
+                  //         homeController
+                  //             .foods.values
+                  //             .elementAt(
+                  //                 index)
+                  //             .uID)
+                  // ?
+                  Icon(
+                Icons.favorite,
+                color: Colors.red,
+              )
+              // : Icon(
+              //     Icons.favorite,
+              //     color: Colors.white,
+              //   )
+              ),
+        ),
+      ),
     );
+
+    //  IconButton(
+    //   onPressed: () {},
+    //   icon: Icon(Icons.favorite),
+    //   color: Colors.white,
+    //   iconSize: screenHeight / 22.77,
+    // );
   }
 }
 
 class FoodName extends StatelessWidget {
   final String foodName;
-  final int foodPrice;
+  final foodPrice;
   const FoodName({super.key, required this.foodName, required this.foodPrice});
 
   @override
@@ -216,10 +280,8 @@ class Stars extends StatelessWidget {
   }
 }
 
-
-
 class FoodDescription extends StatelessWidget {
-  const FoodDescription ({super.key});
+  const FoodDescription({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -240,32 +302,24 @@ class FoodDescription extends StatelessWidget {
   }
 }
 
-
 class ArrowBack extends StatelessWidget {
   const ArrowBack({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-        height: screenHeight / 19.51,
-        width: screenWidth / 10.28,
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.25),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        alignment: Alignment.center,
-        child: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back),
-          color: Colors.white,
+    return CircleAvatar(
+        backgroundColor: AppColors.kPrimary,
+        child: Center(
+          child: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios_new_rounded),
+            color: AppColors.whiteColor,
+          ),
         ));
   }
 }
-
 
 class MySeparator extends StatelessWidget {
   final double height;

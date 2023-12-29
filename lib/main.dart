@@ -2,7 +2,9 @@ import 'package:animate_do/animate_do.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluter_ecom/controller/food_details_controller.dart';
 import 'package:fluter_ecom/firebase_options.dart';
+import 'package:fluter_ecom/utils/food_details_bindings.dart';
 import 'package:fluter_ecom/utils/home_screen_bindings.dart';
 import 'package:fluter_ecom/utils/more_food_bindings.dart';
 import 'package:fluter_ecom/utils/onboarding_bindings.dart';
@@ -60,107 +62,131 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'flutter-ecom',
-        debugShowCheckedModeBanner: false,
-        defaultTransition: Transition.cupertino,
-        // theme: Themes.customLightTheme,
-        // textDirection: MainFunctions.textDirection,
-        getPages: [
-          GetPage(
-            name: "/SignUp",
-            page: () => const SignUp(),
-            binding: SignUpBinding(),
-          ),
-          GetPage(
-              name: "/SignIn",
-              page: () => const SignIn(),
-              binding: SignInBinding(),
-              middlewares: [AuthMiddleware()]),
-          GetPage(
-              name: "/EmailVerification",
-              page: () => const EmailVerification(),
-              binding: EmailVerificationBinding()),
-          GetPage(
-            name: "/ForgotPassword",
-            page: () => const ForgotPassword(),
-            binding: ForgotPasswordBinding(),
-          ),
-          GetPage(
-              name: "/OnboardingView",
-              page: () => const FoochiOnboardingView(),
-              binding: OnboardingBindings(),
-              middlewares: [AppIsOppen()]),
-          GetPage(
-            name: "/",
-            page: () => HomeScreen(),
-            binding: HomeScreenBindings(),
-          ),
-          GetPage(
-            name: "/PhoneSignup",
-            page: () => const PhoneSignUp(),
-            binding: SignUpPhoneBindings(),
-          ),
-          GetPage(
-            name: "/MoreFood",
-            page: () => const MoreFood(),
-            binding: MoreFoodBindings(),
-          ),
-          GetPage(
-            name: "/FoodDetails",
-            page: () => const FoodDetailPage(),
-            binding: MoreFoodBindings(),
-          ),
-          // GetPage(
-          //   name: "/Tasnifat",
-          //   page: () => const Tasnifat(),
-          //   binding: TasnifatBinding(),
-          // ),
-          // GetPage(
-          //   name: "/BookDetails",
-          //   page: () => const BookDetails(),
-          //   binding: BookDetailsBinding(),
-          // ),
-          // GetPage(
-          //   name: "/BookContent",
-          //   page: () => const BookContent(),
-          // ),
-          // GetPage(
-          //   name: "/RequestedBooks",
-          //   page: () => const RequestedBooks(),
-          //   binding: RequestedBooksBinding(),
-          // ),
-          // GetPage(
-          //   name: "/SearchScreen",
-          //   page: () => const SearchScreen(),
-          //   transition: Transition.fadeIn,
-          //   transitionDuration: const Duration(milliseconds: 250),
-          //   binding: SearchBinding(),
-          // ),
-          // GetPage(
-          //   name: "/AuthorScreen",
-          //   page: () => const AuthorScreen(),
-          //   binding: AuthorScreenBinding(),
-          // ),
-          // GetPage(
-          //   name: "/OrderBook",
-          //   page: () => const OrderBook(),
-          //   binding: OrderBookBinding(),
-          // ),
-        ],
-        initialRoute: "/OnboardingView",
-        // home: FoodDetailView(
-        //   food: Food(
-        //       foodImageName:
-        //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
-        //       foodId: 15,
-        //       foodName: 'Burgersdsd',
-        //       foodCategory: 'Burger',
-        //       foodPrice: '182'),
-        // )
-        );
+      title: 'flutter-ecom',
+      debugShowCheckedModeBanner: false,
+      defaultTransition: Transition.cupertino,
+      // theme: Themes.customLightTheme,
+      // textDirection: MainFunctions.textDirection,
+      getPages: [
+        GetPage(
+          name: "/SignUp",
+          page: () => const SignUp(),
+          binding: SignUpBinding(),
+        ),
+        GetPage(
+            name: "/SignIn",
+            page: () => const SignIn(),
+            binding: SignInBinding(),
+            middlewares: [AuthMiddleware()]),
+        GetPage(
+            name: "/EmailVerification",
+            page: () => const EmailVerification(),
+            binding: EmailVerificationBinding()),
+        GetPage(
+          name: "/ForgotPassword",
+          page: () => const ForgotPassword(),
+          binding: ForgotPasswordBinding(),
+        ),
+        GetPage(
+            name: "/OnboardingView",
+            page: () => const FoochiOnboardingView(),
+            binding: OnboardingBindings(),
+            middlewares: [AppIsOppen()]),
+        GetPage(
+          name: "/",
+          page: () => HomeScreen(),
+          binding: HomeScreenBindings(),
+        ),
+        GetPage(
+          name: "/PhoneSignup",
+          page: () => const PhoneSignUp(),
+          binding: SignUpPhoneBindings(),
+        ),
+        GetPage(
+          name: "/MoreFood",
+          page: () => const MoreFood(),
+          binding: MoreFoodBindings(),
+        ),
+        GetPage(
+          name: "/FoodDetails",
+          page: () => const FoodDetailPage(),
+          binding: FoodDetailsBindings(),
+        ),
+        // GetPage(
+        //   name: "/Tasnifat",
+        //   page: () => const Tasnifat(),
+        //   binding: TasnifatBinding(),
+        // ),
+        // GetPage(
+        //   name: "/BookDetails",
+        //   page: () => const BookDetails(),
+        //   binding: BookDetailsBinding(),
+        // ),
+        // GetPage(
+        //   name: "/BookContent",
+        //   page: () => const BookContent(),
+        // ),
+        // GetPage(
+        //   name: "/RequestedBooks",
+        //   page: () => const RequestedBooks(),
+        //   binding: RequestedBooksBinding(),
+        // ),
+        // GetPage(
+        //   name: "/SearchScreen",
+        //   page: () => const SearchScreen(),
+        //   transition: Transition.fadeIn,
+        //   transitionDuration: const Duration(milliseconds: 250),
+        //   binding: SearchBinding(),
+        // ),
+        // GetPage(
+        //   name: "/AuthorScreen",
+        //   page: () => const AuthorScreen(),
+        //   binding: AuthorScreenBinding(),
+        // ),
+        // GetPage(
+        //   name: "/OrderBook",
+        //   page: () => const OrderBook(),
+        //   binding: OrderBookBinding(),
+        // ),
+      ],
+      initialRoute: "/OnboardingView",
+      // home: FoodDetailView(
+      //   food: Food(
+      //       foodImageName:
+      //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
+      //       foodId: 15,
+      //       foodName: 'Burgersdsd',
+      //       foodCategory: 'Burger',
+      //       foodPrice: '182'),
+      // )
+    );
   }
 }
 
+class Foopage extends StatelessWidget {
+  const Foopage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    FoodDetailsController foodDetailsController = Get.find();
+    return Scaffold(
+      body: Center(
+          child: Column(
+        children: [
+          Text("${foodDetailsController.singleFood.name}"),
+          Container(
+            height: 250,
+            width: 150,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              image: NetworkImage("${foodDetailsController.singleFood.image}"),
+            )),
+          )
+        ],
+      )),
+    );
+  }
+}
 // class Food {
 //   int foodId;
 //   String foodName;
