@@ -34,25 +34,30 @@ class MoreFood extends StatelessWidget {
           return const Center(
             child: Text("No Food to display"),
           );
-        } else if (contx.isFetching) {
-          return Column(
-            children: const [
-              SizedBox(height: 60),
-              Center(child: CircularProgressIndicator()),
-              SizedBox(height: 60)
-            ],
-          );
-        } else {
+        }
+        // else if (contx.isFetching) {
+        //   return Column(
+        //     children: const [
+        //       SizedBox(height: 60),
+        //       Center(child: CircularProgressIndicator()),
+        //       SizedBox(height: 60)
+        //     ],
+        //   );
+        // }
+        else {
           return GridView.builder(
             controller: contx.scrollController,
             physics: BouncingScrollPhysics(),
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2),
             itemCount: contx.moreFood.length,
             padding: EdgeInsets.all(2.0),
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed('/FoodDetails',
+                      arguments: {"0": contx.moreFood.values.elementAt(index)});
+                },
                 child: Padding(
                   padding: EdgeInsets.all(5),
                   child: Container(

@@ -53,7 +53,11 @@ class FavorisPage extends StatelessWidget {
             padding: EdgeInsets.all(2.0),
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed('/FoodDetails', arguments: {
+                    "0": contx.favorisFood.values.elementAt(index)
+                  });
+                },
                 child: Padding(
                   padding: EdgeInsets.all(5),
                   child: Container(

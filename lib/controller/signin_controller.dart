@@ -126,9 +126,20 @@ class SignInController extends GetxController {
             Get.back();
           },
         );
-      } else if (e.code == "auth/invalid-credential") {
+      } else if (e.code == "invalid-credential") {
         Get.defaultDialog(
-          title: "Invalid Password please try again",
+          title: "Invalid password please try again",
+          content: const Icon(
+            Icons.report_problem,
+            color: Colors.red,
+          ),
+          onConfirm: () {
+            Get.back();
+          },
+        );
+      }else {
+         Get.defaultDialog(
+          title: "Somthing went wrong , please try later",
           content: const Icon(
             Icons.report_problem,
             color: Colors.red,
