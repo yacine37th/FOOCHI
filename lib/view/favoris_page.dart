@@ -42,7 +42,7 @@ class FavorisPage extends StatelessWidget {
       body: GetBuilder<FavorisPageController>(builder: (contx) {
         if (contx.favorisFood.isEmpty) {
           return const Center(
-            child: Text("No Food to display"),
+            child: Text("List Empty",style: TextStyle(fontSize: 22 , fontWeight: FontWeight.bold),),
           );
         } else {
           return GridView.builder(
