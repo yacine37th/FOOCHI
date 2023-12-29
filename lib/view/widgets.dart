@@ -1,3 +1,4 @@
+import 'package:fluter_ecom/controller/food_details_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -97,24 +98,18 @@ class FavoriteFood extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FoodDetailsController foodDetailsController = Get.find();
     return GetBuilder<HomeController>(
       builder: (contx) => GestureDetector(
         onTap: () async {
-          // if (currentUserInfos.foodFavoris
-          //     .contains(contx
-          //         .foods.values
-          //         .elementAt(index)
-          //         .uID)) {
-          //   homeController.removeFromFavoris(
-          //       "${homeController.foods.values.elementAt(index).uID}",
-          //       homeController.foods.values
-          //           .elementAt(index));
-          // } else {
-          //   homeController.addToFavoris(
-          //       "${homeController.foods.values.elementAt(index).uID}",
-          //       homeController.foods.values
-          //           .elementAt(index));
-          // }
+          if (currentUserInfos.foodFavoris
+              .contains(foodDetailsController.singleFood.uID)) {
+            contx.removeFromFavoris("${foodDetailsController.singleFood.uID}",
+                foodDetailsController.singleFood);
+          } else {
+            contx.addToFavoris("${foodDetailsController.singleFood.uID}",
+                foodDetailsController.singleFood);
+          }
         },
         child: Align(
           alignment: Alignment.topRight,
@@ -124,41 +119,22 @@ class FavoriteFood extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                      width: 1.5,
-                      color:
-                          //  currentUserInfos
-                          //         .foodFavoris
-                          //         .contains(
-                          //             homeController
-                          //                 .foods
-                          //                 .values
-                          //                 .elementAt(
-                          //                     index)
-                          //                 .uID)
-                          // ?
-                          Colors.red
-                      // : Colors
-                      //     .transparent,
-                      )),
-              child:
-                  // currentUserInfos
-                  //     .foodFavoris
-                  //     .contains(
-                  //         homeController
-                  //             .foods.values
-                  //             .elementAt(
-                  //                 index)
-                  //             .uID)
-                  // ?
-                  Icon(
-                Icons.favorite,
-                color: Colors.red,
-              )
-              // : Icon(
-              //     Icons.favorite,
-              //     color: Colors.white,
-              //   )
-              ),
+                    width: 1.5,
+                    color: currentUserInfos.foodFavoris
+                            .contains(foodDetailsController.singleFood.uID)
+                        ? Colors.red
+                        : Colors.transparent,
+                  )),
+              child: currentUserInfos.foodFavoris
+                      .contains(foodDetailsController.singleFood.uID)
+                  ? Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    )
+                  : Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                    )),
         ),
       ),
     );
