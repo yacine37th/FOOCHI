@@ -7,6 +7,7 @@ import 'package:fluter_ecom/utils/home_screen_bindings.dart';
 import 'package:fluter_ecom/utils/more_food_bindings.dart';
 import 'package:fluter_ecom/utils/onboarding_bindings.dart';
 import 'package:fluter_ecom/utils/signup_phone_bindings.dart';
+import 'package:fluter_ecom/view/food_detail_page.dart';
 import 'package:fluter_ecom/view/home_screen.dart';
 import 'package:fluter_ecom/view/more_food.dart';
 import 'package:fluter_ecom/view/signin.dart';
@@ -104,6 +105,11 @@ class MyApp extends StatelessWidget {
             page: () => const MoreFood(),
             binding: MoreFoodBindings(),
           ),
+          GetPage(
+            name: "/FoodDetails",
+            page: () => const FoodDetailPage(),
+            binding: MoreFoodBindings(),
+          ),
           // GetPage(
           //   name: "/Tasnifat",
           //   page: () => const Tasnifat(),
@@ -141,588 +147,322 @@ class MyApp extends StatelessWidget {
           //   binding: OrderBookBinding(),
           // ),
         ],
-        // initialRoute: "/OnboardingView",
-        home: FoodDetailView(
-          food: Food(
-              foodImageName:
-                  "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
-              foodId: 15,
-              foodName: 'Burgersdsd',
-              foodCategory: 'Burger',
-              foodPrice: '182'),
-        ));
-  }
-}
-
-class Food {
-  int foodId;
-  String foodName;
-  String foodImageName;
-  String foodCategory;
-  String foodPrice;
-
-  Food(
-      {required this.foodId,
-      required this.foodName,
-      required this.foodImageName,
-      required this.foodCategory,
-      required this.foodPrice});
-}
-
-class FoodDetailView extends StatefulWidget {
-  Food food;
-  FoodDetailView({required this.food});
-
-  @override
-  _FoodDetailViewState createState() => _FoodDetailViewState();
-}
-
-class _FoodDetailViewState extends State<FoodDetailView> {
-  @override
-  Widget build(BuildContext context) {
-    // SizeConfig().init(context);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Stack(
-          children: [
-            FoodImage(food: widget.food),
-            DetailWidget(
-              food: widget.food,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class FoodDescription extends StatelessWidget {
-  const FoodDescription({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: EdgeInsets.only(top: screenHeight! / 45.54),
-
-      /// 15.0
-      child: Container(
-        child: Text(
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud eslednjn",
-          style: TextStyle(color: Colors.black38),
-          textAlign: TextAlign.justify,
-        ),
-      ),
-    );
-  }
-}
-
-class FoodName extends StatefulWidget {
-  Food food;
-  FoodName({required this.food});
-
-  @override
-  _FoodNameState createState() => _FoodNameState();
-}
-
-class _FoodNameState extends State<FoodName> {
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Row(children: [
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text("${widget.food.foodName}",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: screenHeight! / 22.77,
-                fontFamily: "Roboto")),
-
-        /// 30
-        Text("Category", style: TextStyle(color: Colors.black45, fontSize: 18)),
-      ]),
-      Spacer(),
-      Text(
-        "\$${widget.food.foodPrice}",
-        style:
-            TextStyle(color: Colors.black87, fontSize: screenHeight! / 22.77),
-      ),
-
-      /// 30
-    ]);
-  }
-}
-
-class DetailWidget extends StatefulWidget {
-  Food food;
-  DetailWidget({required this.food});
-
-  @override
-  _DetailWidgetState createState() => _DetailWidgetState();
-}
-
-class _DetailWidgetState extends State<DetailWidget> {
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      margin: EdgeInsets.only(top: screenHeight! * 0.35),
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black54, blurRadius: 10, offset: Offset(0, -1))
-          ]),
-      child: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          children: [
-            Container(
-              width: screenWidth! / 3.43,
-
-              /// 120.0
-              height: screenHeight! / 227.67,
-
-              /// 3.0
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.black12),
-            ),
-            SizedBox(
-              height: screenHeight! / 34.15,
-            ),
-
-            /// 20.0
-            FoodName(food: widget.food),
-            ReviewStars(),
-            FoodDescription(),
-            // FeaturesFood(),
-            IncreaseDecrease(food: widget.food),
-            AddToCartButton(),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class AddToCartButton extends StatelessWidget {
-  const AddToCartButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: EdgeInsets.fromLTRB(
-        screenWidth / 20.55,
-        screenHeight / 34.15,
-        screenWidth / 20.55,
-        0,
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.amber,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: ElevatedButton(
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-            ),
-            minimumSize: MaterialStateProperty.all(
-                Size(screenWidth / 1.37, screenHeight / 11.66)),
-            backgroundColor: MaterialStateProperty.all(Colors.transparent),
-            shadowColor: MaterialStateProperty.all(Colors.transparent),
-          ),
-          onPressed: () {},
-          child: Wrap(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(right: screenWidth / 51.38),
-
-                /// 8.0
-                child: Icon(
-                  Icons.shopping_cart_rounded,
-                  color: Colors.white,
-                ),
-              ),
-              Text(
-                "Add to Cart",
-                style: TextStyle(
-                  fontSize: screenHeight / 34.15,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ReviewStars extends StatefulWidget {
-  const ReviewStars({Key? key}) : super(key: key);
-
-  @override
-  _ReviewStarsState createState() => _ReviewStarsState();
-}
-
-class _ReviewStarsState extends State<ReviewStars> {
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: EdgeInsets.only(top: screenHeight! / 45.54),
-
-      /// 15.0
-      child: Container(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.star_rounded,
-                color: Colors.red,
-              ),
-              Text(
-                "4.6",
-                style: TextStyle(
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                    fontSize: screenHeight / 45.54),
-              ),
-
-              /// 15.0
-              Padding(
-                padding: EdgeInsets.only(left: screenWidth / 51.38),
-
-                /// 8.0
-                child: Text("(52+ Reviews)",
-                    style: TextStyle(color: Colors.black26)),
-              )
-            ],
-          ),
-          Container(
-            height: screenHeight / 34.15,
-            width: screenWidth / 137,
-            decoration: BoxDecoration(
-                color: Colors.black12, borderRadius: BorderRadius.circular(10)),
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: screenWidth / 51.38),
-
-                /// 8.0
-                child: Icon(
-                  Icons.delivery_dining_sharp,
-                  color: Colors.amber,
-                  size: screenHeight / 22.77,
-                ),
-              ),
-              Text(
-                "FREE DELIVERY",
-                style: TextStyle(
-                    color: Colors.amber,
-                    fontWeight: FontWeight.bold,
-                    fontSize: screenHeight! / 42.69),
-              )
-
-              /// 16
-            ],
-          )
-        ],
-      )),
-    );
-  }
-}
-
-class MySeparator extends StatelessWidget {
-  final double height;
-  final Color color;
-  const MySeparator({this.height = 1, this.color = Colors.black38});
-
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final boxWidth = constraints.constrainWidth();
-        final dashWidth = screenWidth / 57.71;
-        final dashHeight = height;
-        final dashCount = (boxWidth / (2 * dashWidth)).floor();
-        return Flex(
-          children: List.generate(dashCount, (_) {
-            return SizedBox(
-              width: dashWidth,
-              height: dashHeight,
-              child: DecoratedBox(
-                decoration: BoxDecoration(color: color),
-              ),
-            );
-          }),
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          direction: Axis.horizontal,
+        initialRoute: "/OnboardingView",
+        // home: FoodDetailView(
+        //   food: Food(
+        //       foodImageName:
+        //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
+        //       foodId: 15,
+        //       foodName: 'Burgersdsd',
+        //       foodCategory: 'Burger',
+        //       foodPrice: '182'),
+        // )
         );
-      },
-    );
   }
 }
 
-class FoodImage extends StatefulWidget {
-  Food food;
-  FoodImage({required this.food});
+// class Food {
+//   int foodId;
+//   String foodName;
+//   String foodImageName;
+//   String foodCategory;
+//   String foodPrice;
 
-  @override
-  _FoodImageState createState() => _FoodImageState();
-}
+//   Food(
+//       {required this.foodId,
+//       required this.foodName,
+//       required this.foodImageName,
+//       required this.foodCategory,
+//       required this.foodPrice});
+// }
 
-class _FoodImageState extends State<FoodImage> {
-  @override
-  Widget build(BuildContext context) {
-    // SizeConfig().init(context);
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      height: screenHeight * 0.45,
-      decoration: BoxDecoration(
-        color: Colors.orangeAccent,
-        image: DecorationImage(
-            image: NetworkImage("${widget.food.foodImageName}"),
-            fit: BoxFit.fitWidth),
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: screenWidth / 13.7, vertical: screenHeight / 34.15),
+// class FoodDetailView extends StatefulWidget {
+//   Food food;
+//   FoodDetailView({required this.food});
 
-          /// 30.0 - 20.0
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ArrowBack(),
-              FavoriteFood(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   _FoodDetailViewState createState() => _FoodDetailViewState();
+// }
 
-class FavoriteFood extends StatefulWidget {
-  const FavoriteFood({Key? key}) : super(key: key);
+// class _FoodDetailViewState extends State<FoodDetailView> {
+//   @override
+//   Widget build(BuildContext context) {
+//     // SizeConfig().init(context);
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       body: SingleChildScrollView(
+//         child: Stack(
+//           children: [
+//             DetailWidget(
+//               food: widget.food,
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-  @override
-  _FavoriteFoodState createState() => _FavoriteFoodState();
-}
+// class FoodDescription extends StatelessWidget {
+//   const FoodDescription({Key? key}) : super(key: key);
 
-class _FavoriteFoodState extends State<FavoriteFood> {
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return IconButton(
-      onPressed: () {},
-      icon: Icon(Icons.favorite),
-      color: Colors.white,
-      iconSize: screenHeight / 22.77,
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     double screenWidth = MediaQuery.of(context).size.width;
+//     double screenHeight = MediaQuery.of(context).size.height;
+//     return Padding(
+//       padding: EdgeInsets.only(top: screenHeight! / 45.54),
 
-class ArrowBack extends StatelessWidget {
-  const ArrowBack({Key? key}) : super(key: key);
+//       /// 15.0
+//       child: Container(
+//         child: Text(
+//           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud eslednjn",
+//           style: TextStyle(color: Colors.black38),
+//           textAlign: TextAlign.justify,
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-        height: screenHeight / 19.51,
-        width: screenWidth / 10.28,
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.25),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        alignment: Alignment.center,
-        child: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back),
-          color: Colors.white,
-        ));
-  }
-}
+// class FoodName extends StatefulWidget {
+//   Food food;
+//   FoodName({required this.food});
 
-class IncreaseDecrease extends StatefulWidget {
-  Food food;
-  IncreaseDecrease({required this.food});
+//   @override
+//   _FoodNameState createState() => _FoodNameState();
+// }
 
-  @override
-  _IncreaseDecreaseState createState() => _IncreaseDecreaseState();
-}
+// class _FoodNameState extends State<FoodName> {
+//   @override
+//   Widget build(BuildContext context) {
+//     double screenWidth = MediaQuery.of(context).size.width;
+//     double screenHeight = MediaQuery.of(context).size.height;
+//     return Row(children: [
+//       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+//         Text("${widget.food.foodName}",
+//             style: TextStyle(
+//                 color: Colors.black,
+//                 fontSize: screenHeight! / 22.77,
+//                 fontFamily: "Roboto")),
 
-class _IncreaseDecreaseState extends State<IncreaseDecrease> {
-  int _counter = 1;
+//         /// 30
+//         Text("Category", style: TextStyle(color: Colors.black45, fontSize: 18)),
+//       ]),
+//       Spacer(),
+//       Text(
+//         "\$${widget.food.foodPrice}",
+//         style:
+//             TextStyle(color: Colors.black87, fontSize: screenHeight! / 22.77),
+//       ),
 
-  void _increaseCart() {
-    setState(() {
-      _counter++;
-    });
-  }
+//       /// 30
+//     ]);
+//   }
+// }
 
-  void _decreaseCart() {
-    setState(() {
-      if (_counter > 1) {
-        _counter--;
-      } else {
-        _counter = 1;
-      }
-    });
-  }
+// class DetailWidget extends StatefulWidget {
+//   Food food;
+//   DetailWidget({required this.food});
 
-  @override
-  Widget build(BuildContext context) {
-    // SizeConfig().init(context);
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: EdgeInsets.only(top: screenHeight! / 45.54),
+//   @override
+//   _DetailWidgetState createState() => _DetailWidgetState();
+// }
 
-      /// 15.0
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(
-                top: screenHeight! / 68.3, bottom: screenHeight! / 34.15),
+// class _DetailWidgetState extends State<DetailWidget> {
+//   @override
+//   Widget build(BuildContext context) {
+//     double screenWidth = MediaQuery.of(context).size.width;
+//     double screenHeight = MediaQuery.of(context).size.height;
+//     return Container(
+//       margin: EdgeInsets.only(top: screenHeight! * 0.35),
+//       width: double.infinity,
+//       decoration: BoxDecoration(
+//           color: Colors.white,
+//           borderRadius: BorderRadius.only(
+//               topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+//           boxShadow: [
+//             BoxShadow(
+//                 color: Colors.black54, blurRadius: 10, offset: Offset(0, -1))
+//           ]),
+//       child: Padding(
+//         padding: const EdgeInsets.all(30.0),
+//         child: Column(
+//           children: [
+//             Container(
+//               width: screenWidth! / 3.43,
 
-            /// 10.0 - 20.0
-            child: MySeparator(
-              color: Colors.grey,
-            ),
-          ),
-          Text(
-            "Total",
-            style: TextStyle(
-                color: Colors.black54, fontSize: screenHeight! / 42.69),
-          ),
+//               /// 120.0
+//               height: screenHeight! / 227.67,
 
-          /// 16
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "\$${int.parse(widget.food.foodPrice) * _counter}",
-                    style: TextStyle(
-                        color: Colors.black, fontSize: screenHeight! / 27.32),
-                  )
+//               /// 3.0
+//               decoration: BoxDecoration(
+//                   borderRadius: BorderRadius.circular(10),
+//                   color: Colors.black12),
+//             ),
+//             SizedBox(
+//               height: screenHeight! / 34.15,
+//             ),
 
-                  /// 25
-                ],
-              ),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        _decreaseCart();
-                      },
-                      child: Container(
-                        height: screenHeight / 13.94,
+//             /// 20.0
+//             FoodName(food: widget.food),
+//             ReviewStars(),
+//             FoodDescription(),
+//             // FeaturesFood(),
+//             IncreaseDecrease(food: widget.food),
+//             AddToCartButton(),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-                        /// 49.0
-                        width: screenWidth / 8.39,
+// class AddToCartButton extends StatelessWidget {
+//   const AddToCartButton({Key? key}) : super(key: key);
 
-                        /// 49.0
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.yellow, width: 1),
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.red,
-                          // Colors.red.withOpacity(0.1),
-                          //borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Center(
-                          child: Icon(Icons.remove, color: Colors.yellow),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: screenWidth / 6.85,
+//   @override
+//   Widget build(BuildContext context) {
+//     double screenWidth = MediaQuery.of(context).size.width;
+//     double screenHeight = MediaQuery.of(context).size.height;
+//     return Padding(
+//       padding: EdgeInsets.fromLTRB(
+//         screenWidth / 20.55,
+//         screenHeight / 34.15,
+//         screenWidth / 20.55,
+//         0,
+//       ),
+//       child: Container(
+//         decoration: BoxDecoration(
+//           color: Colors.amber,
+//           borderRadius: BorderRadius.circular(20),
+//         ),
+//         child: ElevatedButton(
+//           style: ButtonStyle(
+//             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+//               RoundedRectangleBorder(
+//                 borderRadius: BorderRadius.circular(20.0),
+//               ),
+//             ),
+//             minimumSize: MaterialStateProperty.all(
+//                 Size(screenWidth / 1.37, screenHeight / 11.66)),
+//             backgroundColor: MaterialStateProperty.all(Colors.transparent),
+//             shadowColor: MaterialStateProperty.all(Colors.transparent),
+//           ),
+//           onPressed: () {},
+//           child: Wrap(
+//             children: [
+//               Padding(
+//                 padding: EdgeInsets.only(right: screenWidth / 51.38),
 
-                      /// 60.0
-                      height: screenHeight / 13.94,
+//                 /// 8.0
+//                 child: Icon(
+//                   Icons.shopping_cart_rounded,
+//                   color: Colors.white,
+//                 ),
+//               ),
+//               Text(
+//                 "Add to Cart",
+//                 style: TextStyle(
+//                   fontSize: screenHeight / 34.15,
+//                   fontWeight: FontWeight.w700,
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-                      /// 49.0
-                      child: Center(
-                        child: Text(
-                          "${_counter}",
-                          style: TextStyle(
-                              fontSize: screenHeight / 37.95,
-                              fontWeight: FontWeight.bold),
-                        ),
+// class ReviewStars extends StatefulWidget {
+//   const ReviewStars({Key? key}) : super(key: key);
 
-                        /// 18
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        _increaseCart();
-                      },
-                      child: Container(
-                        height: screenHeight / 13.94,
+//   @override
+//   _ReviewStarsState createState() => _ReviewStarsState();
+// }
 
-                        /// 49.0
-                        width: screenWidth / 8.39,
+// class _ReviewStarsState extends State<ReviewStars> {
+//   @override
+//   Widget build(BuildContext context) {
+//     double screenWidth = MediaQuery.of(context).size.width;
+//     double screenHeight = MediaQuery.of(context).size.height;
+//     return Padding(
+//       padding: EdgeInsets.only(top: screenHeight! / 45.54),
 
-                        /// 49.0
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.yellow, width: 1),
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.red,
-                          // Colors.red.withOpacity(0.4),
-                        ),
-                        child: Center(
-                          child: Icon(Icons.add, color: Colors.yellow),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
+//       /// 15.0
+//       child: Container(
+//           child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         crossAxisAlignment: CrossAxisAlignment.center,
+//         children: [
+//           Row(
+//             crossAxisAlignment: CrossAxisAlignment.center,
+//             children: [
+//               Icon(
+//                 Icons.star_rounded,
+//                 color: Colors.red,
+//               ),
+//               Text(
+//                 "4.6",
+//                 style: TextStyle(
+//                     color: Colors.red,
+//                     fontWeight: FontWeight.bold,
+//                     fontSize: screenHeight / 45.54),
+//               ),
+
+//               /// 15.0
+//               Padding(
+//                 padding: EdgeInsets.only(left: screenWidth / 51.38),
+
+//                 /// 8.0
+//                 child: Text("(52+ Reviews)",
+//                     style: TextStyle(color: Colors.black26)),
+//               )
+//             ],
+//           ),
+//           Container(
+//             height: screenHeight / 34.15,
+//             width: screenWidth / 137,
+//             decoration: BoxDecoration(
+//                 color: Colors.black12, borderRadius: BorderRadius.circular(10)),
+//           ),
+//           Row(
+//             children: [
+//               Padding(
+//                 padding: EdgeInsets.only(left: screenWidth / 51.38),
+
+//                 /// 8.0
+//                 child: Icon(
+//                   Icons.delivery_dining_sharp,
+//                   color: Colors.amber,
+//                   size: screenHeight / 22.77,
+//                 ),
+//               ),
+//               Text(
+//                 "FREE DELIVERY",
+//                 style: TextStyle(
+//                     color: Colors.amber,
+//                     fontWeight: FontWeight.bold,
+//                     fontSize: screenHeight! / 42.69),
+//               )
+
+//               /// 16
+//             ],
+//           )
+//         ],
+//       )),
+//     );
+//   }
+// }
+
+
+
+
+
+
 // class APP extends StatefulWidget {
 //   const APP({super.key});
 
