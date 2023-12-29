@@ -70,15 +70,16 @@ class FoodPicture extends StatelessWidget {
       height: 250,
       decoration: BoxDecoration(
         color: Colors.orangeAccent,
+        borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(30.0),
+            bottomRight: Radius.circular(30.0)),
         image: DecorationImage(
-            image: NetworkImage("${foodPicUrl}"), fit: BoxFit.fitWidth),
+            image: NetworkImage("$foodPicUrl"), fit: BoxFit.fitWidth),
       ),
       child: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: screenWidth / 13.7, vertical: screenHeight / 34.15),
-
-          /// 30.0 - 20.0
           child: const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,8 +115,8 @@ class FavoriteFood extends StatelessWidget {
         child: Align(
           alignment: Alignment.topRight,
           child: AnimatedContainer(
-              duration: Duration(milliseconds: 300),
-              padding: EdgeInsets.all(5),
+              duration: const Duration(milliseconds: 300),
+              padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
@@ -127,13 +128,15 @@ class FavoriteFood extends StatelessWidget {
                   )),
               child: currentUserInfos.foodFavoris
                       .contains(foodDetailsController.singleFood.uID)
-                  ? Icon(
+                  ? const Icon(
                       Icons.favorite,
                       color: Colors.red,
+                      size: 34,
                     )
-                  : Icon(
+                  : const Icon(
                       Icons.favorite,
                       color: Colors.white,
+                      size: 34,
                     )),
         ),
       ),
@@ -158,16 +161,17 @@ class FoodName extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return Row(children: [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text("${foodName}",
+        Text(foodName,
             style: TextStyle(
                 color: Colors.black,
                 fontSize: screenHeight / 22.77,
                 fontFamily: "Roboto")),
-        Text("Category", style: TextStyle(color: Colors.black45, fontSize: 18)),
+        const Text("Category",
+            style: TextStyle(color: Colors.black45, fontSize: 18)),
       ]),
-      Spacer(),
+      const Spacer(),
       Text(
-        "\$${foodPrice}",
+        "\$$foodPrice",
         style: TextStyle(color: Colors.black87, fontSize: screenHeight / 22.77),
       ),
     ]);
@@ -183,17 +187,14 @@ class Stars extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return Padding(
       padding: EdgeInsets.only(top: screenHeight / 45.54),
-
-      /// 15.0
-      child: Container(
-          child: Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Icon(
+              const Icon(
                 Icons.star_rounded,
                 color: Colors.red,
               ),
@@ -204,13 +205,9 @@ class Stars extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontSize: screenHeight / 45.54),
               ),
-
-              /// 15.0
               Padding(
                 padding: EdgeInsets.only(left: screenWidth / 51.38),
-
-                /// 8.0
-                child: Text("(52+ Reviews)",
+                child: const Text("(52+ Reviews)",
                     style: TextStyle(color: Colors.black26)),
               )
             ],
@@ -225,8 +222,6 @@ class Stars extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: screenWidth / 51.38),
-
-                /// 8.0
                 child: Icon(
                   Icons.delivery_dining_sharp,
                   color: Colors.amber,
@@ -238,14 +233,12 @@ class Stars extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.amber,
                     fontWeight: FontWeight.bold,
-                    fontSize: screenHeight! / 42.69),
+                    fontSize: screenHeight / 42.69),
               )
-
-              /// 16
             ],
           )
         ],
-      )),
+      ),
     );
   }
 }
@@ -259,14 +252,10 @@ class FoodDescription extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return Padding(
       padding: EdgeInsets.only(top: screenHeight! / 45.54),
-
-      /// 15.0
-      child: Container(
-        child: Text(
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud eslednjn",
-          style: TextStyle(color: Colors.black38),
-          textAlign: TextAlign.justify,
-        ),
+      child: const Text(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud eslednjn",
+        style: TextStyle(color: Colors.black38),
+        textAlign: TextAlign.justify,
       ),
     );
   }
@@ -284,7 +273,7 @@ class ArrowBack extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios_new_rounded),
+            icon: const Icon(Icons.arrow_back_ios_new_rounded),
             color: AppColors.whiteColor,
           ),
         ));

@@ -23,19 +23,21 @@ class FoodDetailPage extends StatelessWidget {
                     foodPicUrl:
                         "${foodDetailsController.singleFood.image}"), //url
                 Container(
-                  margin: EdgeInsets.only(top: screenHeight! * 0.35),
+                  margin: EdgeInsets.only(top: screenHeight * 0.35),
                   width: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(30.0),
                           topRight: Radius.circular(30.0)),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black54,
-                            blurRadius: 10,
-                            offset: Offset(0, -1))
-                      ]),
+                      // boxShadow: [
+                      //   BoxShadow(
+                      //       color: Colors.black54,
+                      //       blurRadius: 10,
+                      //       offset: Offset(0, -1)
+                      //       )
+                      // ]
+                      ),
                   child: Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Column(
@@ -186,7 +188,7 @@ class FoodDetailPage extends StatelessWidget {
                           ),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.amber,
+                              color: AppColors.kPrimary,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: ElevatedButton(
@@ -200,18 +202,18 @@ class FoodDetailPage extends StatelessWidget {
                                 minimumSize: MaterialStateProperty.all(Size(
                                     screenWidth / 1.37, screenHeight / 11.66)),
                                 backgroundColor: MaterialStateProperty.all(
-                                    Colors.transparent),
-                                shadowColor: MaterialStateProperty.all(
-                                    Colors.transparent),
+                                    AppColors.kPrimary),
+                                // shadowColor: MaterialStateProperty.all(
+                                //     Colors.transparent),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                print(foodDetailsController.singleFood.name);
+                              },
                               child: Wrap(
                                 children: [
                                   Padding(
                                     padding: EdgeInsets.only(
                                         right: screenWidth / 51.38),
-
-                                    /// 8.0
                                     child: Icon(
                                       Icons.shopping_cart_rounded,
                                       color: Colors.white,
@@ -234,7 +236,6 @@ class FoodDetailPage extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 // DetailWidget(
                 //   food: widget.food,
                 // ),

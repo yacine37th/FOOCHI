@@ -360,17 +360,17 @@ class _HomeState extends State<Home> {
                                           children: <Widget>[
                                             Text(
                                               "\$ ${contx.foods.values.elementAt(index).price}.00",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 22,
                                                   fontWeight: FontWeight.bold),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               height: 10,
                                             ),
                                             Text(
                                               "${contx.foods.values.elementAt(index).name}",
-                                              style: TextStyle(
+                                              style:const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 18),
                                             )
@@ -400,7 +400,7 @@ class _HomeState extends State<Home> {
                 // ),
               ),
             ),
-            SizedBox(
+          const  SizedBox(
               height: 30,
             )
           ],
@@ -409,122 +409,123 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget makeCategory({title, index}) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedCategory = index;
-        });
-      },
-      child: AnimatedContainer(
-        width: 120,
-        duration: Duration(milliseconds: 300),
-        margin: EdgeInsets.only(right: 10),
-        decoration: BoxDecoration(
-          color:
-              selectedCategory == index ? Colors.yellow[700] : Colors.grey[300],
-          borderRadius: BorderRadius.circular(50),
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(
-                color:
-                    selectedCategory == index ? Colors.black : Colors.grey[700],
-                fontSize: 16,
-                fontWeight: FontWeight.w600),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget makeCategory({title, index}) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       setState(() {
+  //         selectedCategory = index;
+  //       });
+  //     },
+  //     child: AnimatedContainer(
+  //       width: 120,
+  //       duration: Duration(milliseconds: 300),
+  //       margin: EdgeInsets.only(right: 10),
+  //       decoration: BoxDecoration(
+  //         color:
+  //             selectedCategory == index ? Colors.yellow[700] : Colors.grey[300],
+  //         borderRadius: BorderRadius.circular(50),
+  //       ),
+  //       child: Center(
+  //         child: Text(
+  //           title,
+  //           style: TextStyle(
+  //               color:
+  //                   selectedCategory == index ? Colors.black : Colors.grey[700],
+  //               fontSize: 16,
+  //               fontWeight: FontWeight.w600),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget makeItem({image, isFavorite, index}) {
-    return AspectRatio(
-      aspectRatio: 1 / 1.5,
-      child: GestureDetector(
-        child: Container(
-          margin: EdgeInsets.only(right: 20),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                image: AssetImage(image),
-                fit: BoxFit.cover,
-              )),
-          child: Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                gradient: LinearGradient(begin: Alignment.bottomCenter, stops: [
-                  .2,
-                  .9
-                ], colors: [
-                  Colors.black.withOpacity(.9),
-                  Colors.black.withOpacity(.3),
-                ])),
-            child: Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        foods[index]["isFavorite"] =
-                            !foods[index]["isFavorite"];
-                      });
-                    },
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: AnimatedContainer(
-                          duration: Duration(milliseconds: 300),
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                width: 1.5,
-                                color: isFavorite
-                                    ? Colors.red
-                                    : Colors.transparent,
-                              )),
-                          child: isFavorite
-                              ? Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )
-                              : Icon(
-                                  Icons.favorite,
-                                  color: Colors.white,
-                                )),
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "\$ 15.00",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Vegetarian Pizza",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget makeItem({image, isFavorite, index}) {
+  //   return AspectRatio(
+  //     aspectRatio: 1 / 1.5,
+  //     child: GestureDetector(
+  //       child: Container(
+  //         margin: EdgeInsets.only(right: 20),
+  //         decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(20),
+  //             image: DecorationImage(
+  //               image: AssetImage(image),
+  //               fit: BoxFit.cover,
+  //             )),
+  //         child: Container(
+  //           decoration: BoxDecoration(
+  //               borderRadius: BorderRadius.circular(20),
+  //               gradient: LinearGradient(begin: Alignment.bottomCenter, stops: [
+  //                 .2,
+  //                 .9
+  //               ], colors: [
+  //                 Colors.black.withOpacity(.9),
+  //                 Colors.black.withOpacity(.3),
+  //               ])),
+  //           child: Padding(
+  //             padding: EdgeInsets.all(20.0),
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //               children: <Widget>[
+  //                 GestureDetector(
+  //                   onTap: () {
+  //                     setState(() {
+  //                       foods[index]["isFavorite"] =
+  //                           !foods[index]["isFavorite"];
+  //                     });
+  //                   },
+  //                   child: Align(
+  //                     alignment: Alignment.topRight,
+  //                     child: AnimatedContainer(
+  //                         duration: Duration(milliseconds: 300),
+  //                         padding: EdgeInsets.all(5),
+  //                         decoration: BoxDecoration(
+  //                             borderRadius: BorderRadius.circular(12),
+  //                             border: Border.all(
+  //                               width: 1.5,
+  //                               color: isFavorite
+  //                                   ? Colors.red
+  //                                   : Colors.transparent,
+  //                             )),
+  //                         child: isFavorite
+  //                             ? Icon(
+  //                                 Icons.favorite,
+  //                                 color: Colors.red,
+  //                               )
+  //                             : Icon(
+  //                                 Icons.favorite,
+  //                                 color: Colors.white,
+  //                               )),
+  //                   ),
+  //                 ),
+  //                 Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: <Widget>[
+  //                     Text(
+  //                       "\$ 15.00",
+  //                       style: TextStyle(
+  //                           color: Colors.white,
+  //                           fontSize: 40,
+  //                           fontWeight: FontWeight.bold),
+  //                     ),
+  //                     SizedBox(
+  //                       height: 10,
+  //                     ),
+  //                     Text(
+  //                       "Vegetarian Pizza",
+  //                       style: TextStyle(color: Colors.white, fontSize: 20),
+  //                     )
+  //                   ],
+  //                 )
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+
 }
 
 //  GetBuilder<HomeController>(
