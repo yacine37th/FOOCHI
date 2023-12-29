@@ -9,6 +9,7 @@ class FoodDetailsController extends GetxController {
 
   void increaseCart() {
     counter++;
+    update();
   }
 
   void decreaseCart() {

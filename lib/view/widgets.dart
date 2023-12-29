@@ -155,27 +155,21 @@ class FoodName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Row(children: [
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text("${foodName}",
             style: TextStyle(
                 color: Colors.black,
-                fontSize: screenHeight! / 22.77,
+                fontSize: screenHeight / 22.77,
                 fontFamily: "Roboto")),
-
-        /// 30
         Text("Category", style: TextStyle(color: Colors.black45, fontSize: 18)),
       ]),
       Spacer(),
       Text(
         "\$${foodPrice}",
-        style:
-            TextStyle(color: Colors.black87, fontSize: screenHeight! / 22.77),
+        style: TextStyle(color: Colors.black87, fontSize: screenHeight / 22.77),
       ),
-
-      /// 30
     ]);
   }
 }
