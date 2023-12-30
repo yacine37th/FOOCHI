@@ -22,8 +22,8 @@ class CarteController extends GetxController {
         total += doc["foodPrice"] * value.docs[index]["carteFoodQte"]
             as int; /////// calculate the total of the carte
         orederList.addAll({
-          value.docs[index].id: CarteModel(
-              id: value.docs[index].id,
+         doc.id: CarteModel(
+              id:doc.id,
               qte: value.docs[index]["carteFoodQte"],
               userID: value.docs[index]["carteUserID"],
               isConfirm: value.docs[index]["carteFoodIsConfirm"],

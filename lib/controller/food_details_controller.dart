@@ -28,9 +28,16 @@ class FoodDetailsController extends GetxController {
   }
 
   Future addToCart(String foodID, FoodModel food) async {
+    // print(carteController.orederList.containsKey(foodID));
+    // for (var i = 0; i < carteController.orederList.length; i++) {
+    //   print(carteController.orederList.keys);
+    // }
+    // print(carteController.orederList.keys);
     if (carteController.orederList.containsKey(foodID)) {
-      MainFunctions.somethingWentWrongSnackBar("item All ready exists");
-    } else {
+      MainFunctions.somethingWentWrongSnackBar("Item Already exists");
+    } else
+    // if (!carteController.orederList.containsKey(foodID))
+    {
       var doc = FirebaseFirestore.instance.collection("carte").doc();
       await doc.set({
         "carteFoodID": foodID,
@@ -49,6 +56,7 @@ class FoodDetailsController extends GetxController {
             foodPrice: food.price as int,
             foodName: food.name)
       });
+      carteController.total += food.price! * counter;
       MainFunctions.successSnackBar("Added Succefully");
     }
   }
