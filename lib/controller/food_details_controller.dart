@@ -48,13 +48,13 @@ class FoodDetailsController extends GetxController {
       });
       carteController.orederList.addAll({
         foodID: CarteModel(
-            id: foodID,
+            id: doc.id,
             qte: counter,
             userID: currentUserInfos.uID,
             isConfirm: false,
             imageUrl: food.image,
             foodPrice: food.price as int,
-            foodName: food.name)
+            foodName: food.name, foodID: foodID)
       });
       carteController.total += food.price! * counter;
       MainFunctions.successSnackBar("Added Succefully");

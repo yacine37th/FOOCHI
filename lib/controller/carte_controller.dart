@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluter_ecom/controller/pdf/FileHandleApi.dart';
 import 'package:fluter_ecom/main.dart';
@@ -27,13 +29,14 @@ class CarteController extends GetxController {
             as int; /////// calculate the total of the carte
         orederList.addAll({
           doc.id: CarteModel(
-              id: doc.id,
+              id: value.docs[index]["carteID"],
               qte: value.docs[index]["carteFoodQte"],
               userID: value.docs[index]["carteUserID"],
               isConfirm: value.docs[index]["carteFoodIsConfirm"],
               imageUrl: doc["foodImage"],
               foodPrice: doc["foodPrice"],
-              foodName: doc["foodName"])
+              foodName: doc["foodName"],
+              foodID: value.docs[index]["carteFoodID"])
         });
       }
     });
@@ -49,17 +52,33 @@ class CarteController extends GetxController {
     update();
   }
 
-   checkoutCarte(Map<String, CarteModel> list) async {
+  checkoutCarte(Map<String, CarteModel> list) async {
     List<List<String>> listOfLists = [];
     // print(list.values.elementAt(1).foodName);
     for (var i = 0; i < list.length; i++) {
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(list.values.elementAt(i).id)
+          .update({
+        "carteFoodIsConfirm": true,
+      });
+      var doc = FirebaseFirestore.instance.collection("oreder").doc();
+      await doc.set({
+        "orderID": doc.id,
+        "orderIsConfirm": false,
+        "orderQte":
+            list.values.elementAt(i).foodPrice * list.values.elementAt(i).qte,
+        "orderUserID": list.values.elementAt(i).userID,
+        "orderFoodList":
+            FieldValue.arrayUnion([list.values.elementAt(i).foodID]),
+      });
       print("list[i]");
       // print(list.values.elementAt(i).foodName);
       List<String> newList = [
         "${list.values.elementAt(i).foodName}",
         "${list.values.elementAt(i).qte}",
-        "${list.values.elementAt(i).foodPrice}",
-        "${list.values.elementAt(i).foodPrice}"
+        "'\$${list.values.elementAt(i).foodPrice}",
+        "\$${list.values.elementAt(i).foodPrice * list.values.elementAt(i).qte}"
       ];
       listOfLists.add(newList);
     }
