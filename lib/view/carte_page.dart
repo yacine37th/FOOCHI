@@ -280,7 +280,7 @@ class CartePage extends StatelessWidget {
                             //   print(key);
                             //   print(value.qte);
                             // });
-                            carteController.checkoutCarte();
+                            carteController.checkoutCarte(contx.orederList);
                           },
                           child: Card(
                             elevation: 0,

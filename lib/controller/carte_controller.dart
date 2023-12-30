@@ -49,14 +49,17 @@ class CarteController extends GetxController {
     update();
   }
 
-  Future checkoutCarte() async {
+   checkoutCarte(Map<String, CarteModel> list) async {
     List<List<String>> listOfLists = [];
-    for (var i = 0; i < orederList.length; i++) {
+    // print(list.values.elementAt(1).foodName);
+    for (var i = 0; i < list.length; i++) {
+      print("list[i]");
+      // print(list.values.elementAt(i).foodName);
       List<String> newList = [
-        "${orederList[i]!.foodName}",
-        "${orederList[i]!.qte}",
-        "${orederList[i]!.foodPrice}",
-        "${orederList[i]!.foodPrice * orederList[i]!.qte}"
+        "${list.values.elementAt(i).foodName}",
+        "${list.values.elementAt(i).qte}",
+        "${list.values.elementAt(i).foodPrice}",
+        "${list.values.elementAt(i).foodPrice}"
       ];
       listOfLists.add(newList);
     }
