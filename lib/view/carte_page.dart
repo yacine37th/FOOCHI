@@ -13,132 +13,151 @@ class CartePage extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     CarteController carteController = Get.find();
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.kBackground,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
           "My Cart",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: AppColors.kPrimary),
         ),
+        leading: IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Icon(Icons.menu)),
         elevation: 0,
-        backgroundColor: Colors.white,
+        bottom: PreferredSize(
+            preferredSize: Size(0, 0),
+            child: Container(
+              color: AppColors.kPrimary,
+              height: 1,
+            )),
+        backgroundColor: AppColors.kBackground,
         iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
         child: GetBuilder<CarteController>(
-          builder: (contx) => ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: contx.orederList.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: screenHeight / 68.3),
-                  child: Dismissible(
-                    key: UniqueKey(),
-                    direction: DismissDirection.endToStart,
-                    onDismissed: (direction) {
-                      // setState(() {});
-                    },
-                    background: Container(
+          builder: (contx) => contx.orederList.isEmpty
+              ? Center(
+                  child: Text(
+                    "Emty",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                )
+              : ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: contx.orederList.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: screenWidth / 20.55),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFFFE6E6),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: const Row(
-                        children: [Spacer(), Icon(Icons.delete_outline)],
-                      ),
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(30.0),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(4, 6),
-                              blurRadius: 4,
-                              color: Colors.black.withOpacity(0.1),
-                            )
-                          ]),
-                      child: Row(
-                        children: [
-                          Container(
-                            height: screenHeight / 8.54,
-
-                            /// 80.0
-                            width: screenWidth / 4.57,
-
-                            /// 90.0
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    "${contx.orederList.values.elementAt(index).imageUrl}"),
-                                fit: BoxFit.cover,
-                              ),
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
+                          EdgeInsets.symmetric(vertical: screenHeight / 68.3),
+                      child: Dismissible(
+                        key: UniqueKey(),
+                        direction: DismissDirection.endToStart,
+                        onDismissed: (direction) {
+                          // setState(() {});
+                        },
+                        background: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth / 20.55),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFE6E6),
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                          SizedBox(width: screenWidth / 20.55),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: const Row(
+                            children: [Spacer(), Icon(Icons.delete_outline)],
+                          ),
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(30.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  offset: const Offset(4, 6),
+                                  blurRadius: 4,
+                                  color: Colors.black.withOpacity(0.1),
+                                )
+                              ]),
+                          child: Row(
                             children: [
-                              Text(
-                                "${contx.orederList.values.elementAt(index).foodName}",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: screenHeight / 42.69),
-                                maxLines: 2,
-                              ),
-                              SizedBox(height: screenHeight / 341.5),
-                              Text.rich(
-                                TextSpan(
-                                  text:
-                                      "\$${contx.orederList.values.elementAt(index).foodPrice}",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      color: AppColors.kPrimary,
-                                      fontSize: screenHeight / 37.95
+                              Container(
+                                height: screenHeight / 8.54,
 
-                                      /// 18
-                                      ),
-                                  children: [
-                                    TextSpan(
-                                        text:
-                                            " x ${contx.orederList.values.elementAt(index).qte}",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1),
-                                  ],
+                                /// 80.0
+                                width: screenWidth / 4.57,
+
+                                /// 90.0
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        "${contx.orederList.values.elementAt(index).imageUrl}"),
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(20.0),
                                 ),
                               ),
+                              SizedBox(width: screenWidth / 20.55),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${contx.orederList.values.elementAt(index).foodName}",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: screenHeight / 42.69),
+                                    maxLines: 2,
+                                  ),
+                                  SizedBox(height: screenHeight / 341.5),
+                                  Text.rich(
+                                    TextSpan(
+                                      text:
+                                          "\$${contx.orederList.values.elementAt(index).foodPrice}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.kPrimary,
+                                          fontSize: screenHeight / 37.95
+
+                                          /// 18
+                                          ),
+                                      children: [
+                                        TextSpan(
+                                            text:
+                                                " x ${contx.orederList.values.elementAt(index).qte}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // FoodText(
+                              //     foodName: food.foodName,
+                              //     foodPrice: food.foodPrice),
+                              const Spacer(),
+                              IconButton(
+                                  onPressed: () {
+                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                    //   SnackBar(
+                                    //     content: Text("Delete {widget.foodName}?"),
+                                    //     action: SnackBarAction(label: "Yes", onPressed: () {}),
+                                    //   ),
+                                    // );
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete_outline,
+                                    color: Colors.black54,
+                                  )),
+
+                              // DeleteIconButton(foodName: food.foodName),
                             ],
                           ),
-                          // FoodText(
-                          //     foodName: food.foodName,
-                          //     foodPrice: food.foodPrice),
-                          const Spacer(),
-                          IconButton(
-                              onPressed: () {
-                                // ScaffoldMessenger.of(context).showSnackBar(
-                                //   SnackBar(
-                                //     content: Text("Delete {widget.foodName}?"),
-                                //     action: SnackBarAction(label: "Yes", onPressed: () {}),
-                                //   ),
-                                // );
-                              },
-                              icon: const Icon(
-                                Icons.delete_outline,
-                                color: Colors.black54,
-                              )),
-
-                          // DeleteIconButton(foodName: food.foodName),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              }),
+                    );
+                  }),
         ),
       ),
       bottomNavigationBar: Container(
@@ -214,12 +233,7 @@ class CartePage extends StatelessWidget {
                   carteController.orederList.forEach((key, value) {
                     print(key);
                     print(value.qte);
-                  }); 
-                  // if (signInController.formKey.currentState!
-                  //     .validate()) {
-                  //   signInController.formKey.currentState!.save();
-                  //   signInController.signInAUser();
-                  // }
+                  });
                 },
                 child: Card(
                   elevation: 0,

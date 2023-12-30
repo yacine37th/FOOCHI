@@ -5,27 +5,22 @@ import 'package:get/get.dart';
 
 class CarteController extends GetxController {
   Map<String, CarteModel> orederList = {};
-  var total = 0;
+  var total = 0; ///// total of the carte
   Future getCarteFood() async {
     await FirebaseFirestore.instance
         .collection("carte")
-        // .limit(6)
         .where("carteUserID", isEqualTo: currentUserInfos.uID)
+        .where("carteFoodIsConfirm", isEqualTo: false)
         .get()
         .then((value) async {
       for (int index = 0; index < value.docs.length; index++) {
-        print(value.docs[index]["carteFoodID"]);
-        // DocumentReference documentReference = await FirebaseFirestore.instance
-        //     .collection("food")
-        //     .doc(value.docs[index].id);
-        // await documentReference.get().then((snapshot) {
-        //   print(snapshot.data().toString());
-        // });
+        // print(value.docs[index]["carteFoodID"]);
         var doc = await FirebaseFirestore.instance
             .collection("food")
             .doc(value.docs[index]["carteFoodID"])
             .get();
-        total += doc["foodPrice"] * value.docs[index]["carteFoodQte"] as int;
+        total += doc["foodPrice"] * value.docs[index]["carteFoodQte"]
+            as int; /////// calculate the total of the carte
         orederList.addAll({
           value.docs[index].id: CarteModel(
               id: value.docs[index].id,
@@ -36,10 +31,6 @@ class CarteController extends GetxController {
               foodPrice: doc["foodPrice"],
               foodName: doc["foodName"])
         });
-        // for (var i = 0; i < orederList.length; i++) {
-        //   // total += orederList[i]!.foodPrice! * orederList[i]!.qte!;
-        //   print(orederList[i]);
-        // }
       }
     });
     print("1");
