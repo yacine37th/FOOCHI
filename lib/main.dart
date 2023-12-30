@@ -14,6 +14,7 @@ import 'package:fluter_ecom/view/home_screen.dart';
 import 'package:fluter_ecom/view/more_food.dart';
 import 'package:fluter_ecom/view/signin.dart';
 import 'package:fluter_ecom/view/signup.dart';
+import 'package:fluter_ecom/view/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
@@ -150,7 +151,7 @@ class MyApp extends StatelessWidget {
         // ),
       ],
       initialRoute: "/OnboardingView",
-      // home: FoodDetailView(
+      // home: CartView()
       //   food: Food(
       //       foodImageName:
       //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
@@ -163,30 +164,273 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Foopage extends StatelessWidget {
-  const Foopage({super.key});
+// class CartView extends StatefulWidget {
+//   const CartView({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    FoodDetailsController foodDetailsController = Get.find();
-    return Scaffold(
-      body: Center(
-          child: Column(
-        children: [
-          Text("${foodDetailsController.singleFood.name}"),
-          Container(
-            height: 250,
-            width: 150,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: NetworkImage("${foodDetailsController.singleFood.image}"),
-            )),
-          )
-        ],
-      )),
-    );
-  }
-}
+//   @override
+//   _CartViewState createState() => _CartViewState();
+// }
+
+// class _CartViewState extends State<CartView> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       appBar: AppBar(
+//         centerTitle: true,
+//         title: Text(
+//           "My Cart",
+//           style: TextStyle(color: Colors.black),
+//         ),
+//         elevation: 0,
+//         backgroundColor: Colors.white,
+//         iconTheme: IconThemeData(color: Colors.black),
+//       ),
+//       body: FoodListWidget(),
+//       bottomNavigationBar: BottomBar(),
+//     );
+//   }
+// }
+
+// class BottomBar extends StatefulWidget {
+//   const BottomBar({Key? key}) : super(key: key);
+
+//   @override
+//   _BottomBarState createState() => _BottomBarState();
+// }
+
+// class _BottomBarState extends State<BottomBar> {
+//   @override
+//   Widget build(BuildContext context) {
+//     double screenWidth = MediaQuery.of(context).size.width;
+//     double screenHeight = MediaQuery.of(context).size.height;
+//     return Container(
+//       padding: EdgeInsets.symmetric(
+//         vertical: screenHeight / 15.0,
+//         horizontal: screenHeight / 30.0,
+//       ),
+//       // height: 174,
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.only(
+//           topLeft: Radius.circular(30),
+//           topRight: Radius.circular(30),
+//         ),
+//       ),
+//       child: SafeArea(
+//         child: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Padding(
+//               padding: EdgeInsets.only(bottom: screenHeight / 85.37),
+
+//               /// 8.0
+//               child: MySeparator(
+//                 color: Colors.grey,
+//               ),
+//             ),
+//             ThreeDSecure(),
+//             SizedBox(
+//               height: screenHeight / 45.54,
+//             ),
+
+//             /// 15.0
+//             BottomBarText(
+//                 title_text: "Subtotal",
+//                 price_text: "\$37.0",
+//                 font_size: screenHeight / 45.54,
+//                 fontWeight: FontWeight.w400,
+//                 text_color: Colors.black54),
+
+//             /// 15
+//             // SizedBox(
+//             //   height: screenHeight / 45.54,
+//             // ),
+//             // BottomBarText(
+//             //   title_text: "Discount",
+//             //   price_text: "\$2.0",
+//             //   font_size: screenHeight / 45.54,
+//             //   fontWeight: FontWeight.w400,
+//             //   text_color: Colors.black54,
+//             // ),
+//             SizedBox(
+//               height: screenHeight / 45.54,
+//             ),
+//             BottomBarText(
+//               title_text: "Total",
+//               price_text: "\$35.0",
+//               font_size: screenHeight / 37.95,
+//               fontWeight: FontWeight.bold,
+//               text_color: Colors.black,
+//             ),
+
+//             /// 18
+//             SizedBox(height: screenHeight / 34.15),
+
+//             /// 20.0
+//             CheckoutButton(),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+// class BottomBarText extends StatefulWidget {
+//   String title_text;
+//   String price_text;
+//   double font_size;
+//   FontWeight fontWeight;
+//   Color text_color;
+
+//   BottomBarText(
+//       {required this.title_text,
+//       required this.price_text,
+//       required this.font_size,
+//       required this.fontWeight,
+//       required this.text_color});
+
+//   @override
+//   _BottomBarTextState createState() => _BottomBarTextState();
+// }
+
+// class _BottomBarTextState extends State<BottomBarText> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         Text(
+//           widget.title_text,
+//           style: TextStyle(
+//               fontWeight: widget.fontWeight,
+//               fontSize: widget.font_size,
+//               color: widget.text_color),
+//         ),
+//         Spacer(),
+//         Text(
+//           widget.price_text,
+//           style: TextStyle(
+//               fontWeight: widget.fontWeight,
+//               fontSize: widget.font_size,
+//               color: widget.text_color),
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+// class CheckoutButton extends StatefulWidget {
+//   const CheckoutButton({Key? key}) : super(key: key);
+
+//   @override
+//   _CheckoutButtonState createState() => _CheckoutButtonState();
+// }
+
+// class _CheckoutButtonState extends State<CheckoutButton> {
+//   @override
+//   Widget build(BuildContext context) {
+//     double screenWidth = MediaQuery.of(context).size.width;
+//     double screenHeight = MediaQuery.of(context).size.height;
+//     return InkWell(
+//       onTap: () {
+//         // Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckoutPageView()));
+//       },
+//       child: Container(
+//           width: screenWidth! / 1.02,
+
+//           /// 400.0
+//           height: screenHeight! / 12.42,
+
+//           /// 55.0
+//           decoration: BoxDecoration(
+//               color: Colors.red, borderRadius: BorderRadius.circular(30)),
+//           child: Center(
+//               child: Text(
+//             "Checkout",
+//             style: TextStyle(
+//                 color: Colors.white,
+//                 fontSize: screenHeight! / 34.15,
+//                 fontWeight: FontWeight.bold),
+
+//             /// 20.0
+//           ))),
+//     );
+//   }
+// }
+
+// Future<List<Food>> bringTheFoods() async {
+//   var foodList = <Food>[];
+
+//   var f1 = Food(
+//       foodId: 1,
+//       foodName: "Chicken Curry Pasta",
+//       foodImageName: "assets/images/three.jpg",
+//       foodCategory: "Chicken",
+//       foodPrice: "22");
+//   var f2 = Food(
+//       foodId: 2,
+//       foodName: "Explosion Burger",
+//       foodImageName: "assets/images/three.jpg",
+//       foodCategory: "Fast Food",
+//       foodPrice: "15");
+//   var f3 = Food(
+//       foodId: 3,
+//       foodName: "Grilled Chicken",
+//       foodImageName: "assets/images/three.jpg",
+//       foodCategory: "Chicken",
+//       foodPrice: "30");
+//   var f4 = Food(
+//       foodId: 4,
+//       foodName: "Grilled Fish",
+//       foodImageName: "assets/images/three.jpg",
+//       foodCategory: "Fish",
+//       foodPrice: "27");
+//   var f5 = Food(
+//       foodId: 5,
+//       foodName: "Heavenly Pizza",
+//       foodImageName: "assets/images/three.jpg",
+//       foodCategory: "Fast Food",
+//       foodPrice: "24");
+//   var f6 = Food(
+//       foodId: 6,
+//       foodName: "Mandarin Pancake",
+//       foodImageName: "assets/images/three.jpg",
+//       foodCategory: "Bakery",
+//       foodPrice: "19");
+//   var f7 = Food(
+//       foodId: 7,
+//       foodName: "Organic Mandarin",
+//       foodImageName: "assets/images/three.jpg",
+//       foodCategory: "Fruit",
+//       foodPrice: "15");
+//   var f8 = Food(
+//       foodId: 8,
+//       foodName: "Organic Orange",
+//       foodImageName: "assets/images/three.jpg",
+//       foodCategory: "Fruit",
+//       foodPrice: "12");
+//   var f9 = Food(
+//       foodId: 9,
+//       foodName: "Raspberries Cake",
+//       foodImageName: "assets/images/three.jpg",
+//       foodCategory: "Bakery",
+//       foodPrice: "28");
+
+//   foodList.add(f1);
+//   foodList.add(f2);
+//   foodList.add(f3);
+//   foodList.add(f4);
+//   foodList.add(f5);
+//   foodList.add(f6);
+//   foodList.add(f7);
+//   foodList.add(f8);
+//   foodList.add(f9);
+
+//   return foodList;
+// }
+
 // class Food {
 //   int foodId;
 //   String foodName;
@@ -202,289 +446,102 @@ class Foopage extends StatelessWidget {
 //       required this.foodPrice});
 // }
 
-// class FoodDetailView extends StatefulWidget {
-//   Food food;
-//   FoodDetailView({required this.food});
+// class FoodListWidget extends StatefulWidget {
+//   const FoodListWidget({Key? key}) : super(key: key);
 
 //   @override
-//   _FoodDetailViewState createState() => _FoodDetailViewState();
+//   _FoodListState createState() => _FoodListState();
 // }
 
-// class _FoodDetailViewState extends State<FoodDetailView> {
-//   @override
-//   Widget build(BuildContext context) {
-//     // SizeConfig().init(context);
-//     return Scaffold(
-//       backgroundColor: Colors.white,
-//       body: SingleChildScrollView(
-//         child: Stack(
-//           children: [
-//             DetailWidget(
-//               food: widget.food,
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class FoodDescription extends StatelessWidget {
-//   const FoodDescription({Key? key}) : super(key: key);
-
+// class _FoodListState extends State<FoodListWidget> {
 //   @override
 //   Widget build(BuildContext context) {
 //     double screenWidth = MediaQuery.of(context).size.width;
 //     double screenHeight = MediaQuery.of(context).size.height;
 //     return Padding(
-//       padding: EdgeInsets.only(top: screenHeight! / 45.54),
+//       padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
+//       child: FutureBuilder<List<Food>>(
+//         future: bringTheFoods(),
+//         builder: (context, snapshot) {
+//           if (snapshot.hasData) {
+//             var foodList = snapshot.data;
+//             return ListView.builder(
+//                 itemCount: 2,
+//                 itemBuilder: (context, index) {
+//                   var food = foodList?[index];
+//                   return Padding(
+//                     padding:
+//                         EdgeInsets.symmetric(vertical: screenHeight / 68.3),
 
-//       /// 15.0
-//       child: Container(
-//         child: Text(
-//           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud eslednjn",
-//           style: TextStyle(color: Colors.black38),
-//           textAlign: TextAlign.justify,
-//         ),
+//                     /// 10.0
+//                     child: Dismissible(
+//                       key: UniqueKey(),
+//                       direction: DismissDirection.endToStart,
+//                       onDismissed: (direction) {
+//                         setState(() {});
+//                       },
+//                       background: Container(
+//                         padding: EdgeInsets.symmetric(
+//                             horizontal: screenWidth / 20.55),
+
+//                         /// 20.0
+//                         decoration: BoxDecoration(
+//                           color: Color(0xFFFFE6E6),
+//                           borderRadius: BorderRadius.circular(15),
+//                         ),
+//                         child: Row(
+//                           children: [Spacer(), Icon(Icons.delete_outline)],
+//                         ),
+//                       ),
+//                       child: Container(
+//                         decoration: BoxDecoration(
+//                             color: Colors.white,
+//                             borderRadius: BorderRadius.circular(30.0),
+//                             boxShadow: [
+//                               BoxShadow(
+//                                 offset: Offset(4, 6),
+//                                 blurRadius: 4,
+//                                 color: Colors.black.withOpacity(0.1),
+//                               )
+//                             ]),
+//                         child: Row(
+//                           children: [
+//                             FoodImage(foodImage: food!.foodImageName),
+//                             SizedBox(width: screenWidth / 20.55),
+
+//                             /// 20.0
+//                             FoodText(
+//                                 foodName: food.foodName,
+//                                 foodPrice: food.foodPrice),
+//                             Spacer(),             
+//                             DeleteIconButton(foodName: food.foodName),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                   );
+//                 });
+//           }
+          
+//           else{
+//             return SizedBox(
+//                 child: Center(
+//                   child:Text('edded')
+//                   //  Lottie.network("https://assets10.lottiefiles.com/packages/lf20_peztuj79.json",
+//                   //     height: screenHeight/6.83,      /// 100.0
+//                   //     width: screenWidth/4.11,        /// 100.0
+//                   //     repeat: false),
+//                 )
+//             );
+//           }
+//           // },
+//         },
+      
 //       ),
+  
 //     );
 //   }
 // }
-
-// class FoodName extends StatefulWidget {
-//   Food food;
-//   FoodName({required this.food});
-
-//   @override
-//   _FoodNameState createState() => _FoodNameState();
-// }
-
-// class _FoodNameState extends State<FoodName> {
-//   @override
-//   Widget build(BuildContext context) {
-//     double screenWidth = MediaQuery.of(context).size.width;
-//     double screenHeight = MediaQuery.of(context).size.height;
-//     return Row(children: [
-//       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-//         Text("${widget.food.foodName}",
-//             style: TextStyle(
-//                 color: Colors.black,
-//                 fontSize: screenHeight! / 22.77,
-//                 fontFamily: "Roboto")),
-
-//         /// 30
-//         Text("Category", style: TextStyle(color: Colors.black45, fontSize: 18)),
-//       ]),
-//       Spacer(),
-//       Text(
-//         "\$${widget.food.foodPrice}",
-//         style:
-//             TextStyle(color: Colors.black87, fontSize: screenHeight! / 22.77),
-//       ),
-
-//       /// 30
-//     ]);
-//   }
-// }
-
-// class DetailWidget extends StatefulWidget {
-//   Food food;
-//   DetailWidget({required this.food});
-
-//   @override
-//   _DetailWidgetState createState() => _DetailWidgetState();
-// }
-
-// class _DetailWidgetState extends State<DetailWidget> {
-//   @override
-//   Widget build(BuildContext context) {
-//     double screenWidth = MediaQuery.of(context).size.width;
-//     double screenHeight = MediaQuery.of(context).size.height;
-//     return Container(
-//       margin: EdgeInsets.only(top: screenHeight! * 0.35),
-//       width: double.infinity,
-//       decoration: BoxDecoration(
-//           color: Colors.white,
-//           borderRadius: BorderRadius.only(
-//               topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
-//           boxShadow: [
-//             BoxShadow(
-//                 color: Colors.black54, blurRadius: 10, offset: Offset(0, -1))
-//           ]),
-//       child: Padding(
-//         padding: const EdgeInsets.all(30.0),
-//         child: Column(
-//           children: [
-//             Container(
-//               width: screenWidth! / 3.43,
-
-//               /// 120.0
-//               height: screenHeight! / 227.67,
-
-//               /// 3.0
-//               decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(10),
-//                   color: Colors.black12),
-//             ),
-//             SizedBox(
-//               height: screenHeight! / 34.15,
-//             ),
-
-//             /// 20.0
-//             FoodName(food: widget.food),
-//             ReviewStars(),
-//             FoodDescription(),
-//             // FeaturesFood(),
-//             IncreaseDecrease(food: widget.food),
-//             AddToCartButton(),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class AddToCartButton extends StatelessWidget {
-//   const AddToCartButton({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     double screenWidth = MediaQuery.of(context).size.width;
-//     double screenHeight = MediaQuery.of(context).size.height;
-//     return Padding(
-//       padding: EdgeInsets.fromLTRB(
-//         screenWidth / 20.55,
-//         screenHeight / 34.15,
-//         screenWidth / 20.55,
-//         0,
-//       ),
-//       child: Container(
-//         decoration: BoxDecoration(
-//           color: Colors.amber,
-//           borderRadius: BorderRadius.circular(20),
-//         ),
-//         child: ElevatedButton(
-//           style: ButtonStyle(
-//             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-//               RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(20.0),
-//               ),
-//             ),
-//             minimumSize: MaterialStateProperty.all(
-//                 Size(screenWidth / 1.37, screenHeight / 11.66)),
-//             backgroundColor: MaterialStateProperty.all(Colors.transparent),
-//             shadowColor: MaterialStateProperty.all(Colors.transparent),
-//           ),
-//           onPressed: () {},
-//           child: Wrap(
-//             children: [
-//               Padding(
-//                 padding: EdgeInsets.only(right: screenWidth / 51.38),
-
-//                 /// 8.0
-//                 child: Icon(
-//                   Icons.shopping_cart_rounded,
-//                   color: Colors.white,
-//                 ),
-//               ),
-//               Text(
-//                 "Add to Cart",
-//                 style: TextStyle(
-//                   fontSize: screenHeight / 34.15,
-//                   fontWeight: FontWeight.w700,
-//                   color: Colors.white,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class ReviewStars extends StatefulWidget {
-//   const ReviewStars({Key? key}) : super(key: key);
-
-//   @override
-//   _ReviewStarsState createState() => _ReviewStarsState();
-// }
-
-// class _ReviewStarsState extends State<ReviewStars> {
-//   @override
-//   Widget build(BuildContext context) {
-//     double screenWidth = MediaQuery.of(context).size.width;
-//     double screenHeight = MediaQuery.of(context).size.height;
-//     return Padding(
-//       padding: EdgeInsets.only(top: screenHeight! / 45.54),
-
-//       /// 15.0
-//       child: Container(
-//           child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         crossAxisAlignment: CrossAxisAlignment.center,
-//         children: [
-//           Row(
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: [
-//               Icon(
-//                 Icons.star_rounded,
-//                 color: Colors.red,
-//               ),
-//               Text(
-//                 "4.6",
-//                 style: TextStyle(
-//                     color: Colors.red,
-//                     fontWeight: FontWeight.bold,
-//                     fontSize: screenHeight / 45.54),
-//               ),
-
-//               /// 15.0
-//               Padding(
-//                 padding: EdgeInsets.only(left: screenWidth / 51.38),
-
-//                 /// 8.0
-//                 child: Text("(52+ Reviews)",
-//                     style: TextStyle(color: Colors.black26)),
-//               )
-//             ],
-//           ),
-//           Container(
-//             height: screenHeight / 34.15,
-//             width: screenWidth / 137,
-//             decoration: BoxDecoration(
-//                 color: Colors.black12, borderRadius: BorderRadius.circular(10)),
-//           ),
-//           Row(
-//             children: [
-//               Padding(
-//                 padding: EdgeInsets.only(left: screenWidth / 51.38),
-
-//                 /// 8.0
-//                 child: Icon(
-//                   Icons.delivery_dining_sharp,
-//                   color: Colors.amber,
-//                   size: screenHeight / 22.77,
-//                 ),
-//               ),
-//               Text(
-//                 "FREE DELIVERY",
-//                 style: TextStyle(
-//                     color: Colors.amber,
-//                     fontWeight: FontWeight.bold,
-//                     fontSize: screenHeight! / 42.69),
-//               )
-
-//               /// 16
-//             ],
-//           )
-//         ],
-//       )),
-//     );
-//   }
-// }
-
-
 
 
 
@@ -655,7 +712,7 @@ class Foopage extends StatelessWidget {
 //                     ),
 //                     SizedBox(width: 25),
 //                     ElevatedButton(
-//                       onPressed: () => setState(() => _enabled = !_enabled),
+//                       onPressed: () => setState(() => _enabled = _enabled),
 //                       child: Text('Enable/Disable'),
 //                     )
 //                   ],
