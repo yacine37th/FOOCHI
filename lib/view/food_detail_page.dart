@@ -26,18 +26,18 @@ class FoodDetailPage extends StatelessWidget {
                   margin: EdgeInsets.only(top: screenHeight * 0.35),
                   width: double.infinity,
                   decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30.0),
-                          topRight: Radius.circular(30.0)),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //       color: Colors.black54,
-                      //       blurRadius: 10,
-                      //       offset: Offset(0, -1)
-                      //       )
-                      // ]
-                      ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30.0),
+                        topRight: Radius.circular(30.0)),
+                    // boxShadow: [
+                    //   BoxShadow(
+                    //       color: Colors.black54,
+                    //       blurRadius: 10,
+                    //       offset: Offset(0, -1)
+                    //       )
+                    // ]
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Column(
@@ -207,7 +207,8 @@ class FoodDetailPage extends StatelessWidget {
                                 //     Colors.transparent),
                               ),
                               onPressed: () {
-                                print(foodDetailsController.singleFood.name);
+                                foodDetailsController.addToCart(
+                                    '${foodDetailsController.singleFood.uID}' , foodDetailsController.singleFood);
                               },
                               child: Wrap(
                                 children: [
