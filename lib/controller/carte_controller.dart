@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluter_ecom/main.dart';
 import 'package:fluter_ecom/model/carte_model.dart';
+import 'package:fluter_ecom/model/food_model.dart';
 import 'package:get/get.dart';
 
 class CarteController extends GetxController {
@@ -38,7 +39,19 @@ class CarteController extends GetxController {
     // print(total);
     update();
   }
-
+  Future deleteFromCarte(var food , CarteModel fo)async {
+    orederList.remove(food);
+    total-=fo.foodPrice * fo.qte;
+    update();
+  }
+   Future checkoutCarte() async{
+    for (var i = 0; i < orederList.length; i++) {
+      
+    }
+    orederList.clear();
+    total=0;
+    update();
+   } 
   @override
   void onInit() {
     getCarteFood();

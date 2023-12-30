@@ -95,7 +95,7 @@ class MyApp extends StatelessWidget {
             middlewares: [AppIsOppen()]),
         GetPage(
           name: "/",
-          page: () => HomeScreen(),
+          page: () => const HomeScreen(),
           binding: HomeScreenBindings(),
         ),
         GetPage(
