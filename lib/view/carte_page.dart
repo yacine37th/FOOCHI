@@ -1,4 +1,5 @@
 import 'package:fluter_ecom/controller/carte_controller.dart';
+import 'package:fluter_ecom/theme/main_colors.dart';
 import 'package:fluter_ecom/view/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,29 +11,28 @@ class CartePage extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+    CarteController carteController = Get.find();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "My Cart",
           style: TextStyle(color: Colors.black),
         ),
         elevation: 0,
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
         child: GetBuilder<CarteController>(
           builder: (contx) => ListView.builder(
-              itemCount: 2,
+              physics: const BouncingScrollPhysics(),
+              itemCount: contx.orederList.length,
               itemBuilder: (context, index) {
-                // var food = foodList?[index];
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: screenHeight / 68.3),
-
-                  /// 10.0
                   child: Dismissible(
                     key: UniqueKey(),
                     direction: DismissDirection.endToStart,
@@ -42,13 +42,11 @@ class CartePage extends StatelessWidget {
                     background: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: screenWidth / 20.55),
-
-                      /// 20.0
                       decoration: BoxDecoration(
-                        color: Color(0xFFFFE6E6),
+                        color: const Color(0xFFFFE6E6),
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [Spacer(), Icon(Icons.delete_outline)],
                       ),
                     ),
@@ -58,7 +56,7 @@ class CartePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(30.0),
                           boxShadow: [
                             BoxShadow(
-                              offset: Offset(4, 6),
+                              offset: const Offset(4, 6),
                               blurRadius: 4,
                               color: Colors.black.withOpacity(0.1),
                             )
@@ -74,45 +72,40 @@ class CartePage extends StatelessWidget {
                             /// 90.0
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: NetworkImage("foodImage}"),
+                                image: NetworkImage(
+                                    "${contx.orederList.values.elementAt(index).imageUrl}"),
                                 fit: BoxFit.cover,
                               ),
                               borderRadius: BorderRadius.circular(20.0),
                             ),
                           ),
-
                           SizedBox(width: screenWidth / 20.55),
-
-                          /// 20.0
-                          ///
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "{widget.foodName}",
+                                "${contx.orederList.values.elementAt(index).foodName}",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: screenHeight / 42.69),
-
-                                /// 16
                                 maxLines: 2,
                               ),
                               SizedBox(height: screenHeight / 341.5),
-
-                              /// 2.0
                               Text.rich(
                                 TextSpan(
-                                  text: "\${widget.foodPrice}",
+                                  text:
+                                      "\$${contx.orederList.values.elementAt(index).foodPrice}",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.red,
+                                      color: AppColors.kPrimary,
                                       fontSize: screenHeight / 37.95
 
                                       /// 18
                                       ),
                                   children: [
                                     TextSpan(
-                                        text: " x 1",
+                                        text:
+                                            " x ${contx.orederList.values.elementAt(index).qte}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1),
@@ -124,7 +117,7 @@ class CartePage extends StatelessWidget {
                           // FoodText(
                           //     foodName: food.foodName,
                           //     foodPrice: food.foodPrice),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
                               onPressed: () {
                                 // ScaffoldMessenger.of(context).showSnackBar(
@@ -134,7 +127,7 @@ class CartePage extends StatelessWidget {
                                 //   ),
                                 // );
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.delete_outline,
                                 color: Colors.black54,
                               )),
@@ -147,38 +140,13 @@ class CartePage extends StatelessWidget {
                 );
               }),
         ),
-
-        //  FutureBuilder<List<Food>>(
-        //   future: bringTheFoods(),
-        //   builder: (context, snapshot) {
-        //     if (snapshot.hasData) {
-        //       var foodList = snapshot.data;
-        //       return
-        //           }
-
-        //     else{
-        //       return SizedBox(
-        //           child: Center(
-        //             child:Text('edded')
-        //             //  Lottie.network("https://assets10.lottiefiles.com/packages/lf20_peztuj79.json",
-        //             //     height: screenHeight/6.83,      /// 100.0
-        //             //     width: screenWidth/4.11,        /// 100.0
-        //             //     repeat: false),
-        //           )
-        //       );
-        //     }
-        //     // },
-        //   },
-
-        // ),
       ),
       bottomNavigationBar: Container(
         padding: EdgeInsets.symmetric(
           vertical: screenHeight / 15.0,
           horizontal: screenHeight / 30.0,
         ),
-        // height: 174,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
@@ -192,9 +160,7 @@ class CartePage extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(bottom: screenHeight / 85.37),
-
-                /// 8.0
-                child: MySeparator(
+                child: const MySeparator(
                   color: Colors.grey,
                 ),
               ),
@@ -203,11 +169,11 @@ class CartePage extends StatelessWidget {
                   SizedBox(
                       height: screenHeight / 22.77,
                       width: screenWidth / 13.7,
-                      child:
-                          Icon(Icons.receipt_long_outlined, color: Colors.red)),
-                  Spacer(),
-                  Text(
-                    "Payment with 3D secure",
+                      child: const Icon(Icons.receipt_long_outlined,
+                          color: AppColors.kPrimary)),
+                  const Spacer(),
+                  const Text(
+                    "Payment ",
                   ),
                   SizedBox(width: screenWidth / 41.1),
                   Icon(
@@ -220,62 +186,21 @@ class CartePage extends StatelessWidget {
               SizedBox(
                 height: screenHeight / 45.54,
               ),
-
-              /// 15.0
-              /// Row(
-              Row(
-                children: [
-                  Text(
-                    "Subtotal",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: screenHeight / 45.54,
-                        color: Colors.black54),
-                  ),
-                  Spacer(),
-                  Text(
-                    "\$37.0",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: screenHeight / 45.54,
-                        color: Colors.black54),
-                  ),
-                ],
-              ),
-
-              // BottomBarText(
-              //     title_text: "Subtotal",
-              //     price_text: "\$37.0",
-              //     font_size: screenHeight / 45.54,
-              //     fontWeight: FontWeight.w400,
-              //     text_color: Colors.black54),
-
-              /// 15
-              // SizedBox(
-              //   height: screenHeight / 45.54,
-              // ),
-              // BottomBarText(
-              //   title_text: "Discount",
-              //   price_text: "\$2.0",
-              //   font_size: screenHeight / 45.54,
-              //   fontWeight: FontWeight.w400,
-              //   text_color: Colors.black54,
-              // ),
               SizedBox(
                 height: screenHeight / 45.54,
               ),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     "Total",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontSize: screenHeight / 45.54,
+                        fontSize: 18,
                         color: Colors.black54),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
-                    "\$35.0",
+                    "\$ ${carteController.total}",
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: screenHeight / 45.54,
@@ -283,40 +208,67 @@ class CartePage extends StatelessWidget {
                   ),
                 ],
               ),
-              // BottomBarText(
-              //   title_text: "Total",
-              //   price_text: "\$35.0",
-              //   font_size: screenHeight / 37.95,
-              //   fontWeight: FontWeight.bold,
-              //   text_color: Colors.black,
-              // ),
-
-              /// 18
               SizedBox(height: screenHeight / 34.15),
-
-              /// 20.0
-              // CheckoutButton(),
-              InkWell(
+              GestureDetector(
                 onTap: () {
-                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckoutPageView()));
+                  carteController.orederList.forEach((key, value) {
+                    print(key);
+                    print(value.qte);
+                  }); 
+                  // if (signInController.formKey.currentState!
+                  //     .validate()) {
+                  //   signInController.formKey.currentState!.save();
+                  //   signInController.signInAUser();
+                  // }
                 },
-                child: Container(
-                    width: screenWidth! / 1.02,
-                    height: screenHeight! / 12.42,
-
-                    /// 55.0
+                child: Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Container(
+                    height: 55,
+                    alignment: Alignment.center,
+                    width: double.maxFinite,
                     decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Center(
-                        child: Text(
+                      color: AppColors.kPrimary,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Text(
                       "Checkout",
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: screenHeight! / 34.15,
+                          fontSize: 25,
                           fontWeight: FontWeight.bold),
-                    ))),
+                    ),
+                  ),
+                ),
               ),
+
+              // InkWell(
+              //   onTap: () {
+              //     // Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckoutPageView()));
+              //   },
+              //   focusColor: Colors.red,
+              //   hoverColor: Colors.yellow,
+              //   splashColor: Colors.amberAccent,
+              //   overlayColor: MaterialStatePropertyAll(
+              //       Color(Color.getAlphaFromOpacity(0.9))),
+              //   child: Container(
+              //       width: screenWidth / 1.02,
+              //       height: screenHeight / 12.42,
+              //       decoration: BoxDecoration(
+              //           color: Colors.red,
+              //           borderRadius: BorderRadius.circular(30)),
+              //       child: Center(
+              //           child: Text(
+              //         "Checkout",
+              //         style: TextStyle(
+              //             color: Colors.white,
+              //             fontSize: screenHeight / 34.15,
+              //             fontWeight: FontWeight.bold),
+              //       ))),
+              // ),
             ],
           ),
         ),

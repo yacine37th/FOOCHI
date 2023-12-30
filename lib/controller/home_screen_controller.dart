@@ -1,3 +1,4 @@
+import 'package:fluter_ecom/controller/carte_controller.dart';
 import 'package:fluter_ecom/controller/favoris_page_controller.dart';
 import 'package:fluter_ecom/controller/home_controller.dart';
 import 'package:fluter_ecom/view/carte_page.dart';
@@ -47,6 +48,8 @@ class HomeScreenController extends GetxController {
     update();
     Get.put(HomeController());
     Get.put(FavorisPageController());
+    Get.put(CarteController());
+
     // Get.put(MaktabatiController()); //account controller
     // Get.put(MaxSubscriptionController());
 
