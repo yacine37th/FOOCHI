@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluter_ecom/controller/pdf/FileHandleApi.dart';
+import 'package:fluter_ecom/functions/functions.dart';
 import 'package:fluter_ecom/main.dart';
 import 'package:fluter_ecom/model/carte_model.dart';
 import 'package:fluter_ecom/model/food_model.dart';
@@ -57,7 +58,7 @@ class CarteController extends GetxController {
     // print(list.values.elementAt(1).foodName);
     for (var i = 0; i < list.length; i++) {
       await FirebaseFirestore.instance
-          .collection("users")
+          .collection("carte")
           .doc(list.values.elementAt(i).id)
           .update({
         "carteFoodIsConfirm": true,
@@ -66,11 +67,13 @@ class CarteController extends GetxController {
       await doc.set({
         "orderID": doc.id,
         "orderIsConfirm": false,
-        "orderQte":
+        "orderQte": list.values.elementAt(i).qte,
+        "orderTotalPrice":
             list.values.elementAt(i).foodPrice * list.values.elementAt(i).qte,
         "orderUserID": list.values.elementAt(i).userID,
         "orderFoodList":
             FieldValue.arrayUnion([list.values.elementAt(i).foodID]),
+        "orderUserName": currentUserInfos.name,
       });
       print("list[i]");
       // print(list.values.elementAt(i).foodName);
@@ -82,7 +85,7 @@ class CarteController extends GetxController {
       ];
       listOfLists.add(newList);
     }
-
+    MainFunctions.successSnackBar("Success");
 //////Generate INVOICE
     final pdfFile = await PdfInvoiceApi.generate(total, listOfLists);
     // opening the pdf file
