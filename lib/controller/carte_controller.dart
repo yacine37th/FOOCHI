@@ -50,10 +50,19 @@ class CarteController extends GetxController {
   }
 
   Future checkoutCarte() async {
-    for (var i = 0; i < orederList.length; i++) {}
+    List<List<String>> listOfLists = [];
+    for (var i = 0; i < orederList.length; i++) {
+      List<String> newList = [
+        "${orederList[i]!.foodName}",
+        "${orederList[i]!.qte}",
+        "${orederList[i]!.foodPrice}",
+        "${orederList[i]!.foodPrice * orederList[i]!.qte}"
+      ];
+      listOfLists.add(newList);
+    }
 
 //////Generate INVOICE
-    final pdfFile = await PdfInvoiceApi.generate(total);
+    final pdfFile = await PdfInvoiceApi.generate(total, listOfLists);
     // opening the pdf file
     FileHandleApi.openFile(pdfFile);
     orederList.clear();

@@ -1,16 +1,13 @@
 import 'dart:io';
 
-import 'package:fluter_ecom/controller/carte_controller.dart';
 import 'package:fluter_ecom/controller/pdf/FileHandleApi.dart';
 import 'package:fluter_ecom/main.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class PdfInvoiceApi {
-  CarteController carteController = Get.find();
-  static Future<File> generate(int total) async {
+  static Future<File> generate(int total, List<List<String>> tableData1) async {
     final pdf = pw.Document();
 
     final iconImage =
@@ -23,58 +20,58 @@ class PdfInvoiceApi {
       // 'VAT',
       'Total',
     ];
-
-    final tableData = [
-      [
-        'Coffee',
-        '7',
-        '\$ 5',
-        // '1 %',
-        '\$ 35',
-      ],
-      [
-        'Blue Berries',
-        '5',
-        '\$ 10',
-        // '2 %',
-        '\$ 50',
-      ],
-      [
-        'Water',
-        '1',
-        '\$ 3',
-        // '1.5 %',
-        '\$ 3',
-      ],
-      [
-        'Apple',
-        '6',
-        '\$ 8',
-        // '2 %',
-        '\$ 48',
-      ],
-      [
-        'Lunch',
-        '3',
-        '\$ 90',
-        // '12 %',
-        '\$ 270',
-      ],
-      [
-        'Drinks',
-        '2',
-        '\$ 15',
-        // '0.5 %',
-        '\$ 30',
-      ],
-      [
-        'Lemon',
-        '4',
-        '\$ 7',
-        // '0.5 %',
-        '\$ 28',
-      ],
-    ];
+    final tableData = tableData1;
+    // final tableData = [
+    //   [
+    //     'Coffee',
+    //     '7',
+    //     '\$ 5',
+    //     // '1 %',
+    //     '\$ 35',
+    //   ],
+    //   [
+    //     'Blue Berries',
+    //     '5',
+    //     '\$ 10',
+    //     // '2 %',
+    //     '\$ 50',
+    //   ],
+    //   [
+    //     'Water',
+    //     '1',
+    //     '\$ 3',
+    //     // '1.5 %',
+    //     '\$ 3',
+    //   ],
+    //   [
+    //     'Apple',
+    //     '6',
+    //     '\$ 8',
+    //     // '2 %',
+    //     '\$ 48',
+    //   ],
+    //   [
+    //     'Lunch',
+    //     '3',
+    //     '\$ 90',
+    //     // '12 %',
+    //     '\$ 270',
+    //   ],
+    //   [
+    //     'Drinks',
+    //     '2',
+    //     '\$ 15',
+    //     // '0.5 %',
+    //     '\$ 30',
+    //   ],
+    //   [
+    //     'Lemon',
+    //     '4',
+    //     '\$ 7',
+    //     // '0.5 %',
+    //     '\$ 28',
+    //   ],
+    // ];
 
     pdf.addPage(
       pw.MultiPage(
@@ -130,7 +127,7 @@ class PdfInvoiceApi {
                       ),
                     ),
                     pw.Text(
-                       '${currentUserInfos.email}',
+                      '${currentUserInfos.email}',
                     ),
                     pw.Text(
                       DateTime.now().toString(),
@@ -227,7 +224,7 @@ class PdfInvoiceApi {
                               ),
                             ),
                             pw.Text(
-                              '\$ ${total}',
+                              '\$ $total',
                               style: pw.TextStyle(
                                 fontWeight: pw.FontWeight.bold,
                               ),
