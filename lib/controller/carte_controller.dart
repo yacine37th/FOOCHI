@@ -80,7 +80,7 @@ class CarteController extends GetxController {
       List<String> newList = [
         "${list.values.elementAt(i).foodName}",
         "${list.values.elementAt(i).qte}",
-        "'\$${list.values.elementAt(i).foodPrice}",
+        "\$${list.values.elementAt(i).foodPrice}",
         "\$${list.values.elementAt(i).foodPrice * list.values.elementAt(i).qte}"
       ];
       listOfLists.add(newList);

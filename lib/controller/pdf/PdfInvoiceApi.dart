@@ -285,6 +285,6 @@ class PdfInvoiceApi {
       ),
     );
 
-    return FileHandleApi.saveDocument(name: 'my_invoice.pdf', pdf: pdf);
+    return FileHandleApi.saveDocument(name: 'FOOCHI_INVOICE.pdf', pdf: pdf);
   }
 }
