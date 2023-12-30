@@ -40,6 +40,13 @@ import 'view/forgot_password.dart';
 import 'view/phone_singup.dart';
 import 'view/verify_email.dart';
 
+import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+
 User? currentUser = FirebaseAuth.instance.currentUser;
 SharedPreferences? sharedPreferences;
 UserModel currentUserInfos =
@@ -63,106 +70,328 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'flutter-ecom',
-      debugShowCheckedModeBanner: false,
-      defaultTransition: Transition.cupertino,
-      // theme: Themes.customLightTheme,
-      // textDirection: MainFunctions.textDirection,
-      getPages: [
-        GetPage(
-          name: "/SignUp",
-          page: () => const SignUp(),
-          binding: SignUpBinding(),
-        ),
-        GetPage(
-            name: "/SignIn",
-            page: () => const SignIn(),
-            binding: SignInBinding(),
-            middlewares: [AuthMiddleware()]),
-        GetPage(
-            name: "/EmailVerification",
-            page: () => const EmailVerification(),
-            binding: EmailVerificationBinding()),
-        GetPage(
-          name: "/ForgotPassword",
-          page: () => const ForgotPassword(),
-          binding: ForgotPasswordBinding(),
-        ),
-        GetPage(
-            name: "/OnboardingView",
-            page: () => const FoochiOnboardingView(),
-            binding: OnboardingBindings(),
-            middlewares: [AppIsOppen()]),
-        GetPage(
-          name: "/",
-          page: () => const HomeScreen(),
-          binding: HomeScreenBindings(),
-        ),
-        GetPage(
-          name: "/PhoneSignup",
-          page: () => const PhoneSignUp(),
-          binding: SignUpPhoneBindings(),
-        ),
-        GetPage(
-          name: "/MoreFood",
-          page: () => const MoreFood(),
-          binding: MoreFoodBindings(),
-        ),
-        GetPage(
-          name: "/FoodDetails",
-          page: () => const FoodDetailPage(),
-          binding: FoodDetailsBindings(),
-        ),
-        // GetPage(
-        //   name: "/Tasnifat",
-        //   page: () => const Tasnifat(),
-        //   binding: TasnifatBinding(),
-        // ),
-        // GetPage(
-        //   name: "/BookDetails",
-        //   page: () => const BookDetails(),
-        //   binding: BookDetailsBinding(),
-        // ),
-        // GetPage(
-        //   name: "/BookContent",
-        //   page: () => const BookContent(),
-        // ),
-        // GetPage(
-        //   name: "/RequestedBooks",
-        //   page: () => const RequestedBooks(),
-        //   binding: RequestedBooksBinding(),
-        // ),
-        // GetPage(
-        //   name: "/SearchScreen",
-        //   page: () => const SearchScreen(),
-        //   transition: Transition.fadeIn,
-        //   transitionDuration: const Duration(milliseconds: 250),
-        //   binding: SearchBinding(),
-        // ),
-        // GetPage(
-        //   name: "/AuthorScreen",
-        //   page: () => const AuthorScreen(),
-        //   binding: AuthorScreenBinding(),
-        // ),
-        // GetPage(
-        //   name: "/OrderBook",
-        //   page: () => const OrderBook(),
-        //   binding: OrderBookBinding(),
-        // ),
-      ],
-      initialRoute: "/OnboardingView",
-      // home: CartView()
-      //   food: Food(
-      //       foodImageName:
-      //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
-      //       foodId: 15,
-      //       foodName: 'Burgersdsd',
-      //       foodCategory: 'Burger',
-      //       foodPrice: '182'),
-      // )
-    );
+        title: 'flutter-ecom',
+        debugShowCheckedModeBanner: false,
+        defaultTransition: Transition.cupertino,
+        // theme: Themes.customLightTheme,
+        // textDirection: MainFunctions.textDirection,
+        getPages: [
+          GetPage(
+            name: "/SignUp",
+            page: () => const SignUp(),
+            binding: SignUpBinding(),
+          ),
+          GetPage(
+              name: "/SignIn",
+              page: () => const SignIn(),
+              binding: SignInBinding(),
+              middlewares: [AuthMiddleware()]),
+          GetPage(
+              name: "/EmailVerification",
+              page: () => const EmailVerification(),
+              binding: EmailVerificationBinding()),
+          GetPage(
+            name: "/ForgotPassword",
+            page: () => const ForgotPassword(),
+            binding: ForgotPasswordBinding(),
+          ),
+          GetPage(
+              name: "/OnboardingView",
+              page: () => const FoochiOnboardingView(),
+              binding: OnboardingBindings(),
+              middlewares: [AppIsOppen()]),
+          GetPage(
+            name: "/",
+            page: () => const HomeScreen(),
+            binding: HomeScreenBindings(),
+          ),
+          GetPage(
+            name: "/PhoneSignup",
+            page: () => const PhoneSignUp(),
+            binding: SignUpPhoneBindings(),
+          ),
+          GetPage(
+            name: "/MoreFood",
+            page: () => const MoreFood(),
+            binding: MoreFoodBindings(),
+          ),
+          GetPage(
+            name: "/FoodDetails",
+            page: () => const FoodDetailPage(),
+            binding: FoodDetailsBindings(),
+          ),
+          // GetPage(
+          //   name: "/Tasnifat",
+          //   page: () => const Tasnifat(),
+          //   binding: TasnifatBinding(),
+          // ),
+          // GetPage(
+          //   name: "/BookDetails",
+          //   page: () => const BookDetails(),
+          //   binding: BookDetailsBinding(),
+          // ),
+          // GetPage(
+          //   name: "/BookContent",
+          //   page: () => const BookContent(),
+          // ),
+          // GetPage(
+          //   name: "/RequestedBooks",
+          //   page: () => const RequestedBooks(),
+          //   binding: RequestedBooksBinding(),
+          // ),
+          // GetPage(
+          //   name: "/SearchScreen",
+          //   page: () => const SearchScreen(),
+          //   transition: Transition.fadeIn,
+          //   transitionDuration: const Duration(milliseconds: 250),
+          //   binding: SearchBinding(),
+          // ),
+          // GetPage(
+          //   name: "/AuthorScreen",
+          //   page: () => const AuthorScreen(),
+          //   binding: AuthorScreenBinding(),
+          // ),
+          // GetPage(
+          //   name: "/OrderBook",
+          //   page: () => const OrderBook(),
+          //   binding: OrderBookBinding(),
+          // ),
+        ],
+        initialRoute: "/OnboardingView",
+        // home: hhhh()
+        //   food: Food(
+        //       foodImageName:
+        //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
+        //       foodId: 15,
+        //       foodName: 'Burgersdsd',
+        //       foodCategory: 'Burger',
+        //       foodPrice: '182'),
+        // )
+        );
   }
 }
+
+
+
+// Future<dynamic> pdf(name, address, date, quantity) async {
+// print("$name,$address,$date,$quantity");
+//   final Document pdf = Document(deflate: zlib.encode);
+//   print('cliked');
+//   PdfImage logoImage = await pdfImageFromImageProvider(
+//     pdf: pdf.document,
+//     image: AssetImage('assets/newlogo.png'),
+//   );
+//   pdf.addPage(
+//     Page(
+//         pageFormat:
+//             PdfPageFormat.letter.copyWith(marginBottom: 1.5 * PdfPageFormat.cm),
+//         margin: EdgeInsets.all(20),
+//         orientation: PageOrientation.portrait,
+//         build: (Context context) {
+//           return ListView(
+//             children: <Widget>[
+//               Container(
+//                 padding: EdgeInsets.only(bottom: 20),
+//                 alignment: Alignment.center,
+//                 child: Text("Tax Invoice",
+//                     style: TextStyle(color: PdfColors.red, fontSize: 30)),
+//               ),
+//               Container(
+//                   height: 1.0,
+//                   width: 600.0,
+//                   color: PdfColors.red,
+//                   margin: const EdgeInsets.fromLTRB(0, 10, 0, 10)),
+//               Row(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: <Widget>[
+//                     Container(
+//                         margin: EdgeInsets.all(10), child: Image(logoImage)),
+//                     Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: <Widget>[
+//                           Container(
+//                             child: Text("SNA SISTECH Pvt. Ltd",
+//                                 style: TextStyle(color: PdfColors.red)),
+//                           ),
+//                           Container(
+//                             child: Text(
+//                                 "SNA SISTECH\nShop No.5 , Vallabhnagar Avadhpuri,\nKhajurikalan, Bhopal, Madhya Pradesh\n462022\nIndia"),
+//                           ),
+//                         ]),
+//                     SizedBox(height: 30, width: 30),
+//                     Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: <Widget>[
+//                           SizedBox(height: 30),
+//                           Container(child: Text("GSTIN")),
+//                           Container(child: Text("State")),
+//                           Container(child: Text("Pan")),
+//                         ]),
+//                     Column(
+//                         crossAxisAlignment: CrossAxisAlignment.end,
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: <Widget>[
+//                           SizedBox(height: 30),
+//                           Container(child: Text("  0727232387A8")),
+//                           Container(child: Text("07-Delhi")),
+//                           Container(child: Text("AAGCB9745G")),
+//                         ]),
+//                     Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                         children: <Widget>[
+//                           SizedBox(height: 30),
+//                           Container(child: Text("Invoice Date")),
+//                           Container(child: Text("Invoice No.")),
+//                           Container(child: Text("Refrence No.")),
+//                         ]),
+//                     Column(
+//                         crossAxisAlignment: CrossAxisAlignment.end,
+//                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                         children: <Widget>[
+//                           SizedBox(height: 30),
+//                           Container(child: Text("12/07/2019")),
+//                           Container(child: Text("BNMK/2020/18")),
+//                           Container(child: Text("")),
+//                         ]),
+//                   ]),
+//               // //Create a line
+//               Container(
+//                   height: 1.0,
+//                   width: 600.0,
+//                   color: PdfColors.red,
+//                   margin: const EdgeInsets.fromLTRB(0, 10, 0, 10)),
+
+//               Row(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                   children: <Widget>[
+//                     Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: <Widget>[
+//                           Container(child: Text("Customer Name")),
+//                           Container(child: Text(name)),
+//                           SizedBox(width: 20, height: 20),
+//                           Container(child: Text("Customer GSTIN")),
+//                           Container(child: Text("2JNSDU3223NI")),
+//                         ]),
+//                     Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: <Widget>[
+//                           Container(child: Text("Billing Address")),
+//                           Container(
+//                               child: FittedBox(fit: BoxFit.fitWidth, child: Text("$name \n$address \nIndia"))),
+//                         ]),
+//                     Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: <Widget>[
+//                           Container(child: Text("Shiping Address")),
+//                           Container(
+//                               child: Text(
+//                                   "SNA SISTECH\n Shop No.5 , Vallabhnagar Avadhpuri,\nKhajurikalan, Bhopal, Madhya Pradesh\n462022\nIndia")),
+//                         ]),
+//                   ]),
+//               Container(
+//                   height: 1.0,
+//                   width: 600.0,
+//                   color: PdfColors.red,
+//                   margin: const EdgeInsets.fromLTRB(0, 10, 0, 10)),
+//               Container(
+//                   alignment: Alignment.centerLeft,
+//                   padding: EdgeInsets.all(5),
+//                   child: Text("Total items: $quantity ")),
+//               Container(
+//                   height: 1.0,
+//                   width: 600.0,
+//                   color: PdfColors.red,
+//                   margin: const EdgeInsets.fromLTRB(0, 5, 0, 5)),
+//               Container(
+//                 color: PdfColors.yellow200,
+//                 padding: EdgeInsets.all(20),
+//                 child: Table(
+//                     border: TableBorder(
+//                         horizontalInside: true,
+//                         top: true,
+//                         bottom: true,
+//                         verticalInside: false,
+//                         left: false,
+//                         right: false),
+//                     tableWidth: TableWidth.max,
+//                     defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+//                     children: <TableRow>[
+//                       TableRow(children: <Widget>[
+//                         Container(child: Text("Product")),
+//                         Container(child: Text('Title')),
+//                         Container(child: Text("Qty")),
+//                         Container(child: Text("Gross\n Amount")),
+//                         Container(child: Text("Taxable\n Value")),
+//                         Container(child: Text("IGST")),
+//                         Container(child: Text("Total")),
+//                       ]),
+//                       TableRow(children: <Widget>[
+//                         Container(child: Text("Sna Rakshak")),
+//                         Container(child: Text("Sna Rakshak")),
+//                         Container(child: Text("$quantity")),
+//                         Container(child: Text("4000.00")),
+//                         Container(child: Text("3280.00")),
+//                         Container(child: Text("720.00")),
+//                         Container(child: Text("4000.00")),
+//                       ]),
+//                       TableRow(children: <Widget>[
+//                         SizedBox(),
+//                         Container(child: Text("Total")),
+//                         Container(child: Text("1")),
+//                         Container(child: Text("4000.00")),
+//                         Container(child: Text("3280.00")),
+//                         Container(child: Text("720.00")),
+//                         Container(child: Text("4000.00")),
+//                       ]),
+//                     ]),
+//               ),
+//               Column(
+//                   crossAxisAlignment: CrossAxisAlignment.end,
+//                   children: <Widget>[
+//                     Row(
+//                         crossAxisAlignment: CrossAxisAlignment.end,
+//                         mainAxisAlignment: MainAxisAlignment.end,
+//                         children: <Widget>[
+//                           Container(child: Text("Grand Total")),
+//                           SizedBox(width: 15),
+//                           Container(child: Text("4000")),
+//                         ]),
+//                     SizedBox(height: 15),
+//                     Column(
+//                         crossAxisAlignment: CrossAxisAlignment.center,
+//                         children: <Widget>[
+//                           Container(child: Text("SNA SISTEC Pvt Ltd")),
+//                           Container(child: PdfLogo()),
+//                           Container(child: Text("Authorized Signatory")),
+//                         ])
+//                   ]),
+//               Container(
+//                   height: 1.0,
+//                   width: 600.0,
+//                   color: PdfColors.black,
+//                   margin: const EdgeInsets.fromLTRB(0, 10, 0, 10)),
+//               Text("Terms and Condition Applied*")
+//             ],
+//           );
+//         }),
+//   );
+//   final output = await getApplicationDocumentsDirectory();
+//   final file = File("${output.path}/example.pdf");
+//   // print(output.path);
+//   await file.writeAsBytes(pdf.save());
+
+//   return file;
+// }
+
 
 // class CartView extends StatefulWidget {
 //   const CartView({Key? key}) : super(key: key);

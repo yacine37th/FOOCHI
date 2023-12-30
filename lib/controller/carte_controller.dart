@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluter_ecom/controller/pdf/FileHandleApi.dart';
 import 'package:fluter_ecom/main.dart';
 import 'package:fluter_ecom/model/carte_model.dart';
 import 'package:fluter_ecom/model/food_model.dart';
 import 'package:get/get.dart';
+
+import 'pdf/PdfInvoiceApi.dart';
 
 class CarteController extends GetxController {
   Map<String, CarteModel> orederList = {};
@@ -23,8 +26,8 @@ class CarteController extends GetxController {
         total += doc["foodPrice"] * value.docs[index]["carteFoodQte"]
             as int; /////// calculate the total of the carte
         orederList.addAll({
-         doc.id: CarteModel(
-              id:doc.id,
+          doc.id: CarteModel(
+              id: doc.id,
               qte: value.docs[index]["carteFoodQte"],
               userID: value.docs[index]["carteUserID"],
               isConfirm: value.docs[index]["carteFoodIsConfirm"],
@@ -39,19 +42,25 @@ class CarteController extends GetxController {
     // print(total);
     update();
   }
-  Future deleteFromCarte(var food , CarteModel fo)async {
+
+  Future deleteFromCarte(var food, CarteModel fo) async {
     orederList.remove(food);
-    total-=fo.foodPrice * fo.qte;
+    total -= fo.foodPrice * fo.qte;
     update();
   }
-   Future checkoutCarte() async{
-    for (var i = 0; i < orederList.length; i++) {
-      
-    }
+
+  Future checkoutCarte() async {
+    for (var i = 0; i < orederList.length; i++) {}
+
+//////Generate INVOICE
+    final pdfFile = await PdfInvoiceApi.generate(total);
+    // opening the pdf file
+    FileHandleApi.openFile(pdfFile);
     orederList.clear();
-    total=0;
+    total = 0;
     update();
-   } 
+  }
+
   @override
   void onInit() {
     getCarteFood();

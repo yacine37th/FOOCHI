@@ -70,7 +70,7 @@ class FoodDetailPage extends StatelessWidget {
                                 padding: EdgeInsets.only(
                                     top: screenHeight / 68.3,
                                     bottom: screenHeight / 34.15),
-                                child: MySeparator(
+                                child: const MySeparator(
                                   color: Colors.grey,
                                 ),
                               ),
@@ -78,7 +78,7 @@ class FoodDetailPage extends StatelessWidget {
                                 "Total",
                                 style: TextStyle(
                                     color: Colors.black54,
-                                    fontSize: screenHeight! / 42.69),
+                                    fontSize: screenHeight / 42.69),
                               ),
 
                               /// 16
@@ -208,7 +208,8 @@ class FoodDetailPage extends StatelessWidget {
                               ),
                               onPressed: () {
                                 foodDetailsController.addToCart(
-                                    '${foodDetailsController.singleFood.uID}' , foodDetailsController.singleFood);
+                                    '${foodDetailsController.singleFood.uID}',
+                                    foodDetailsController.singleFood);
                               },
                               child: Wrap(
                                 children: [
