@@ -1,5 +1,7 @@
+import 'package:fluter_ecom/controller/carte_controller.dart';
 import 'package:fluter_ecom/view/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CartePage extends StatelessWidget {
   const CartePage({super.key});
@@ -22,127 +24,129 @@ class CartePage extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth / 20),
-        child: ListView.builder(
-            itemCount: 2,
-            itemBuilder: (context, index) {
-              // var food = foodList?[index];
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: screenHeight / 68.3),
+        child: GetBuilder<CarteController>(
+          builder: (contx) => ListView.builder(
+              itemCount: 2,
+              itemBuilder: (context, index) {
+                // var food = foodList?[index];
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: screenHeight / 68.3),
 
-                /// 10.0
-                child: Dismissible(
-                  key: UniqueKey(),
-                  direction: DismissDirection.endToStart,
-                  onDismissed: (direction) {
-                    // setState(() {});
-                  },
-                  background: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: screenWidth / 20.55),
+                  /// 10.0
+                  child: Dismissible(
+                    key: UniqueKey(),
+                    direction: DismissDirection.endToStart,
+                    onDismissed: (direction) {
+                      // setState(() {});
+                    },
+                    background: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: screenWidth / 20.55),
 
-                    /// 20.0
-                    decoration: BoxDecoration(
-                      color: Color(0xFFFFE6E6),
-                      borderRadius: BorderRadius.circular(15),
+                      /// 20.0
+                      decoration: BoxDecoration(
+                        color: Color(0xFFFFE6E6),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Row(
+                        children: [Spacer(), Icon(Icons.delete_outline)],
+                      ),
                     ),
-                    child: Row(
-                      children: [Spacer(), Icon(Icons.delete_outline)],
-                    ),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30.0),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(4, 6),
-                            blurRadius: 4,
-                            color: Colors.black.withOpacity(0.1),
-                          )
-                        ]),
-                    child: Row(
-                      children: [
-                        Container(
-                          height: screenHeight / 8.54,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30.0),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(4, 6),
+                              blurRadius: 4,
+                              color: Colors.black.withOpacity(0.1),
+                            )
+                          ]),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: screenHeight / 8.54,
 
-                          /// 80.0
-                          width: screenWidth / 4.57,
+                            /// 80.0
+                            width: screenWidth / 4.57,
 
-                          /// 90.0
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage("foodImage}"),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                        ),
-
-                        SizedBox(width: screenWidth / 20.55),
-
-                        /// 20.0
-                        ///
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "{widget.foodName}",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: screenHeight / 42.69),
-
-                              /// 16
-                              maxLines: 2,
-                            ),
-                            SizedBox(height: screenHeight / 341.5),
-
-                            /// 2.0
-                            Text.rich(
-                              TextSpan(
-                                text: "\${widget.foodPrice}",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.red,
-                                    fontSize: screenHeight / 37.95
-
-                                    /// 18
-                                    ),
-                                children: [
-                                  TextSpan(
-                                      text: " x 1",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1),
-                                ],
+                            /// 90.0
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage("foodImage}"),
+                                fit: BoxFit.cover,
                               ),
+                              borderRadius: BorderRadius.circular(20.0),
                             ),
-                          ],
-                        ),
-                        // FoodText(
-                        //     foodName: food.foodName,
-                        //     foodPrice: food.foodPrice),
-                        Spacer(),
-                        IconButton(
-                            onPressed: () {
-                              // ScaffoldMessenger.of(context).showSnackBar(
-                              //   SnackBar(
-                              //     content: Text("Delete {widget.foodName}?"),
-                              //     action: SnackBarAction(label: "Yes", onPressed: () {}),
-                              //   ),
-                              // );
-                            },
-                            icon: Icon(
-                              Icons.delete_outline,
-                              color: Colors.black54,
-                            )),
+                          ),
 
-                        // DeleteIconButton(foodName: food.foodName),
-                      ],
+                          SizedBox(width: screenWidth / 20.55),
+
+                          /// 20.0
+                          ///
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "{widget.foodName}",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: screenHeight / 42.69),
+
+                                /// 16
+                                maxLines: 2,
+                              ),
+                              SizedBox(height: screenHeight / 341.5),
+
+                              /// 2.0
+                              Text.rich(
+                                TextSpan(
+                                  text: "\${widget.foodPrice}",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.red,
+                                      fontSize: screenHeight / 37.95
+
+                                      /// 18
+                                      ),
+                                  children: [
+                                    TextSpan(
+                                        text: " x 1",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          // FoodText(
+                          //     foodName: food.foodName,
+                          //     foodPrice: food.foodPrice),
+                          Spacer(),
+                          IconButton(
+                              onPressed: () {
+                                // ScaffoldMessenger.of(context).showSnackBar(
+                                //   SnackBar(
+                                //     content: Text("Delete {widget.foodName}?"),
+                                //     action: SnackBarAction(label: "Yes", onPressed: () {}),
+                                //   ),
+                                // );
+                              },
+                              icon: Icon(
+                                Icons.delete_outline,
+                                color: Colors.black54,
+                              )),
+
+                          // DeleteIconButton(foodName: food.foodName),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            }),
+                );
+              }),
+        ),
 
         //  FutureBuilder<List<Food>>(
         //   future: bringTheFoods(),
@@ -219,27 +223,26 @@ class CartePage extends StatelessWidget {
 
               /// 15.0
               /// Row(
-     Row(
-      children: [
-        Text(
-          "Subtotal",
-          style: TextStyle(
-              fontWeight:  FontWeight.w400,
-              fontSize:screenHeight / 45.54,
-              color: Colors.black54),
-        ),
-        Spacer(),
-        Text(
-         "\$37.0",
-          style: TextStyle(
-              fontWeight:  FontWeight.w400,
-              fontSize:screenHeight / 45.54,
-              color: Colors.black54),
-        ),
-      ],
-    ),
- 
- 
+              Row(
+                children: [
+                  Text(
+                    "Subtotal",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenHeight / 45.54,
+                        color: Colors.black54),
+                  ),
+                  Spacer(),
+                  Text(
+                    "\$37.0",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenHeight / 45.54,
+                        color: Colors.black54),
+                  ),
+                ],
+              ),
+
               // BottomBarText(
               //     title_text: "Subtotal",
               //     price_text: "\$37.0",
@@ -261,25 +264,25 @@ class CartePage extends StatelessWidget {
               SizedBox(
                 height: screenHeight / 45.54,
               ),
-               Row(
-      children: [
-        Text(
-          "Total",
-          style: TextStyle(
-              fontWeight:  FontWeight.w400,
-              fontSize:screenHeight / 45.54,
-              color: Colors.black54),
-        ),
-        Spacer(),
-        Text(
-         "\$35.0",
-          style: TextStyle(
-              fontWeight:  FontWeight.w400,
-              fontSize:screenHeight / 45.54,
-              color: Colors.black54),
-        ),
-      ],
-    ),
+              Row(
+                children: [
+                  Text(
+                    "Total",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenHeight / 45.54,
+                        color: Colors.black54),
+                  ),
+                  Spacer(),
+                  Text(
+                    "\$35.0",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: screenHeight / 45.54,
+                        color: Colors.black54),
+                  ),
+                ],
+              ),
               // BottomBarText(
               //   title_text: "Total",
               //   price_text: "\$35.0",
@@ -294,30 +297,26 @@ class CartePage extends StatelessWidget {
               /// 20.0
               // CheckoutButton(),
               InkWell(
-      onTap: () {
-        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckoutPageView()));
-      },
-      child: Container(
-          width: screenWidth! / 1.02,
+                onTap: () {
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckoutPageView()));
+                },
+                child: Container(
+                    width: screenWidth! / 1.02,
+                    height: screenHeight! / 12.42,
 
-        
-          height: screenHeight! / 12.42,
-
-          /// 55.0
-          decoration: BoxDecoration(
-              color: Colors.red, borderRadius: BorderRadius.circular(30)),
-          child: Center(
-              child: Text(
-            "Checkout",
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: screenHeight! / 34.15,
-                fontWeight: FontWeight.bold),
-
-            /// 20.0
-          ))),
-    ),
- 
+                    /// 55.0
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(30)),
+                    child: Center(
+                        child: Text(
+                      "Checkout",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: screenHeight! / 34.15,
+                          fontWeight: FontWeight.bold),
+                    ))),
+              ),
             ],
           ),
         ),
