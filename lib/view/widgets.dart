@@ -66,31 +66,43 @@ class FoodPicture extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      height: 285,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColors.kBackground,
-        borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(30.0),
-            bottomRight: Radius.circular(30.0)),
-        image: DecorationImage(
-            image: NetworkImage("$foodPicUrl"), fit: BoxFit.fitWidth),
-      ),
-      child: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: screenWidth / 13.7, vertical: screenHeight / 34.15),
-          child: const Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ArrowBack(),
-              FavoriteFood(),
-            ],
+    return Column(
+      children: [
+      
+        
+        Container(
+          alignment: Alignment.topCenter,
+          height: 250,
+          
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: AppColors.kBackground,
+            borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(30.0),
+                bottomRight: Radius.circular(30.0)),
+            image: DecorationImage(
+                image: NetworkImage("$foodPicUrl"), fit: BoxFit.fitWidth),
           ),
+          child: 
+            SafeArea(
+            child: Padding(
+              padding: EdgeInsets.all(20),
+              child: const Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ArrowBack(),
+                  FavoriteFood(),
+                ],
+              ),
+            ),
+          ),
+        //   Image.network(
+        //   "$foodPicUrl"
+        // ),
+          // 
         ),
-      ),
+      ],
     );
   }
 }

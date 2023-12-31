@@ -24,6 +24,7 @@ class FileHandleApi {
   static Future openFile(File file) async {
     try {
       final url = file.path;
+      print(OpenFile.open(url));
       await OpenFile.open(url);
     } catch (error) {
       print('Error opening file: $error //////////////////////////');

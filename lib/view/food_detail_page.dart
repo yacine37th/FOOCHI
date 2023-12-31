@@ -13,7 +13,7 @@ class FoodDetailPage extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     FoodDetailsController foodDetailsController = Get.find();
     return Scaffold(
-      backgroundColor: AppColors.kBackground,
+      backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: ListView(physics: BouncingScrollPhysics(), children: [
           SingleChildScrollView(
@@ -23,7 +23,7 @@ class FoodDetailPage extends StatelessWidget {
                     foodPicUrl:
                         "${foodDetailsController.singleFood.image}"), //url
                 Container(
-                  margin: EdgeInsets.only(top: screenHeight * 0.35),
+                  margin: EdgeInsets.only(top: screenHeight * 0.3),
                   width: double.infinity,
                   decoration: const BoxDecoration(
                     color: Colors.white,
