@@ -157,8 +157,8 @@ class MyApp extends StatelessWidget {
           //   binding: OrderBookBinding(),
           // ),
         ],
-        initialRoute: "/OnboardingView",
-        // home: hhhh()
+        // initialRoute: "/OnboardingView",
+        home: CheckoutPageView()
         //   food: Food(
         //       foodImageName:
         //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
@@ -171,7 +171,397 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class CheckoutPageView extends StatefulWidget {
+  const CheckoutPageView({Key? key}) : super(key: key);
 
+  @override
+  _CheckoutPageViewState createState() => _CheckoutPageViewState();
+}
+
+class _CheckoutPageViewState extends State<CheckoutPageView> {
+  int currentStep = 0;
+  bool isCompleted = false;
+  List<Step> getSteps() => [
+    Step(
+      state: currentStep> 0 ? StepState.complete : StepState.indexed,
+      isActive: currentStep >= 0,
+      title: Text("Address", style: TextStyle(fontSize: 18,),),
+      content: Address(),
+    ),
+    Step(
+        state: currentStep> 1 ? StepState.complete : StepState.indexed,
+        isActive: currentStep >= 1,
+        title: Text("Complete", style: TextStyle(fontSize: 18,),),
+        content: Payment(),
+    ),
+  ];
+  @override
+  Widget build(BuildContext context) {
+        double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        title: Text("Checkout", style: TextStyle(color: Colors.red, fontSize: 22, fontWeight: FontWeight.bold ),),
+        elevation: 0,
+      ),
+      body: isCompleted? CheckCart():
+      Theme(
+        data: Theme.of(context).copyWith(
+          colorScheme: ColorScheme.light(primary: Colors.red)
+        ),
+        child: Stepper(
+          type: StepperType.vertical,
+          steps: getSteps(),
+          currentStep: currentStep,
+          onStepContinue: (){
+            final isLastStep = currentStep == getSteps().length - 1;
+            if (isLastStep) {
+              setState(() => isCompleted = true);
+              print("Completed");
+              /// send data to server
+            } else {
+              /// code
+            }
+            setState(() => currentStep += 1);
+          },
+          onStepTapped: (step) => setState(() => currentStep = step),
+          onStepCancel:
+          currentStep == 0 ? null : (){
+            setState(() => currentStep -= 1);
+          },
+          controlsBuilder: (BuildContext context, ControlsDetails controls){
+            final isLastStep = currentStep == getSteps().length -1;
+            return Container(
+              margin: EdgeInsets.only(top: screenHeight!/68.3),        /// 10.0
+              child: Row(
+                children: [
+                  Expanded(
+                    child: InkWell(
+                      onTap:controls.onStepContinue,
+                      child: Container(
+                        height: screenHeight!/13.66,                   /// 50.0
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(20.0)
+                        ),
+                        child: Center(child: Text(isLastStep ? "Confirm" : "Next", style: TextStyle(color: Colors.white, fontSize: screenHeight!/37.95, fontWeight: FontWeight.bold),),),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: screenWidth!/34.25,),                /// 12.0
+                  if(currentStep != 0)
+                    Expanded(
+                      child: InkWell(
+                        onTap:controls.onStepCancel,
+                        child: Container(
+                          height: screenHeight!/13.66,                /// 50.0
+                          decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(20.0)
+                          ),
+                          child: Center(child: Text("Back", style: TextStyle(color: Colors.white, fontSize: screenHeight!/37.95, fontWeight: FontWeight.bold),),),   /// 18
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            );
+          },
+        )
+      )
+    );
+  }
+}
+
+
+class Address extends StatefulWidget {
+  const Address({Key? key}) : super(key: key);
+
+  @override
+  _AddressState createState() => _AddressState();
+}
+
+class _AddressState extends State<Address> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          PageName(text_name: "Full Name"),
+          CheckoutTextField(enter_text: "Enter your full name", size_width: 1.18,),   //350
+          PageName(text_name: "Email"),
+          CheckoutTextField(enter_text: "Enter your e-mail", size_width: 1.18,),
+          PageName(text_name: "Phone"),
+          CheckoutTextField(enter_text: "Enter your phone number", size_width: 1.18,),
+          PageName(text_name: "Address"),
+          CheckoutTextField(enter_text: "Type your home address", size_width: 1.18,),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PageName(text_name: "City"),
+                  CheckoutTextField(enter_text: "Enter here", size_width: 3.0)
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PageName(text_name: "Country"),
+                  CheckoutTextField(enter_text: "Your country", size_width: 3.0)
+                ],
+              )
+            ],
+          ),
+          CheckBoxSave(save_text: "Save shipping address")
+        ],
+      ),
+    );
+  }
+}
+
+class Payment extends StatefulWidget {
+  const Payment({Key? key}) : super(key: key);
+
+  @override
+  _PaymentState createState() => _PaymentState();
+}
+
+class _PaymentState extends State<Payment> {
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          PageName(text_name: "Card Holder Name"),
+          CheckoutTextField(enter_text: "Your card holder name", size_width: 1.18,),   //350
+          PageName(text_name: "Card Number"),
+          CheckoutTextField(enter_text: "Your card number", size_width: 1.18,),
+          Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PageName(text_name: "Month/Year"),
+                  CheckoutTextField(enter_text: "mm/yy", size_width: 3.0)
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PageName(text_name: "CVV"),
+                  CheckoutTextField(enter_text: "***", size_width: 3.0)
+                ],
+              )
+            ],
+          ),
+          CheckBoxSave(save_text: "Save this card")
+        ],
+      ),
+    );
+  }
+}
+
+class CheckBoxSave extends StatefulWidget {
+  String save_text;
+  CheckBoxSave({required this.save_text});
+
+  @override
+  _CheckBoxSaveState createState() => _CheckBoxSaveState();
+}
+
+class _CheckBoxSaveState extends State<CheckBoxSave> {
+  bool isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        // return freeDelivery;
+      }
+      return Colors.deepOrange;
+    }
+
+    return Row(
+      children: [
+        Checkbox(
+          checkColor: Colors.white,
+          fillColor: MaterialStateProperty.resolveWith(getColor),
+          value: isChecked,
+          onChanged: (bool? value) {
+            setState(() {
+              isChecked = value!;
+            });
+          },
+        ),
+        Text(widget.save_text, style: TextStyle(color: Colors.black54, fontWeight: FontWeight.w500),)
+      ],
+    );
+  }
+}
+class CheckoutTextField extends StatefulWidget {
+  String enter_text;
+  double size_width;
+  CheckoutTextField({required this.enter_text, required this.size_width});
+
+  @override
+  _CheckoutTextFieldState createState() => _CheckoutTextFieldState();
+}
+
+class _CheckoutTextFieldState extends State<CheckoutTextField> {
+  @override
+  Widget build(BuildContext context) {
+        double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    // SizeConfig().init(context);
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+          screenWidth!/41.1,                  /// 10.0
+          0,
+          screenWidth!/82.2,                  /// 5.0
+          screenHeight!/85.37                 /// 8.0
+      ),
+      child: Container(
+        width: screenWidth!/widget.size_width,
+        decoration: BoxDecoration(
+            color: Colors.grey.shade100,
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        ),
+        child: TextField(
+          style: TextStyle(color: Colors.blue),
+          cursorColor: Colors.blue,
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              borderSide: BorderSide(width: 1,color: Colors.transparent),
+            ) ,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            hintText: widget.enter_text,
+            hintStyle: TextStyle(color: Colors.black26),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PageName extends StatelessWidget {
+  String text_name;
+  PageName({required this.text_name});
+
+  @override
+  Widget build(BuildContext context) {
+        double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return  Padding(
+      padding: EdgeInsets.fromLTRB(
+         screenWidth!/27.4,               /// 15.0
+         screenHeight!/341.5,             /// 2.0
+         screenWidth!/20.55,              /// 20.0
+         screenHeight!/68.3               /// 10.0
+      ),
+      child: Text(text_name, style: TextStyle(fontSize:screenHeight!/40.18, fontWeight: FontWeight.w500, color: Colors.black54),),   /// 17.0
+    );
+  }
+}
+
+
+
+
+
+
+class CheckCart extends StatelessWidget {
+  const CheckCart({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+        double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+
+      backgroundColor: Colors.white,
+      body: Column(
+          children: [
+            // LottieWidget(),
+           Text('deded'),
+            RouterText(),
+            SizedBox(height: screenHeight!/68.3,),
+            OkButton(),
+          ]
+      ),
+    );
+  }
+}
+
+class RouterText extends StatelessWidget {
+  const RouterText({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+        double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Padding(
+      padding: EdgeInsets.only(top: screenHeight!/85.38, bottom: screenHeight!/85.38),  /// 8.0-8.0
+      child: Text("Successfully completed!", style: TextStyle(color: Colors.black54, fontSize: screenHeight!/27.32)),   /// 25
+    );
+  }
+}
+// class LottieWidget extends StatelessWidget {
+//   const LottieWidget({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//         child: Lottie.network(
+//             "https://assets8.lottiefiles.com/packages/lf20_jz2wa00k.json",
+//             height: SizeConfig.screenHeight!/2.28,    /// 300
+//             width: SizeConfig.screenWidth!/1.37,      /// 300
+//             repeat: false
+//         ),
+//     );
+//   }
+// }
+
+class OkButton extends StatefulWidget {
+  const OkButton({Key? key}) : super(key: key);
+
+  @override
+  _OkButtonState createState() => _OkButtonState();
+}
+
+class _OkButtonState extends State<OkButton> {
+  @override
+  Widget build(BuildContext context) {
+        double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return InkWell(
+      onTap: (){
+        // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MyHomePage()));
+      },
+      child: Container(
+          width: screenWidth!/2 ,        /// 200
+          height: screenHeight!/12.42,   /// 55
+          decoration: BoxDecoration(
+              color:  Colors.red,
+              borderRadius: BorderRadius.circular(30)
+          ),
+          child: Center(child: Text("OK", style: TextStyle(color: Colors.white, fontSize: screenHeight!/37.95),)) /// 18
+      ),
+    );
+  }
+}
 
 // Future<dynamic> pdf(name, address, date, quantity) async {
 // print("$name,$address,$date,$quantity");
