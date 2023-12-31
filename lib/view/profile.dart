@@ -39,8 +39,8 @@ class Profil extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                            width: 80,
-                            height: 80,
+                            width: 75,
+                            height: 75,
                             child: CircleAvatar(
                               backgroundColor:
                                   MainFunctions.generatePresizedColor(
@@ -61,7 +61,7 @@ class Profil extends StatelessWidget {
                         ),
                         Text(currentUserInfos.name!,
                             style: const TextStyle(
-                                fontSize: 30,
+                                fontSize: 20,
                                 color: blackColor,
                                 fontWeight: FontWeight.bold)),
                       ],

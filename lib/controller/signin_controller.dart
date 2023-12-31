@@ -25,7 +25,7 @@ class SignInController extends GetxController {
           return Future.value();
         },
         barrierDismissible: false,
-        title: "S'il vous plaît, attendez",
+        title: "Please wait",
         content: const CircularProgressIndicator());
     try {
       print(userEmailAddress);
@@ -128,7 +128,7 @@ class SignInController extends GetxController {
         );
       } else if (e.code == "invalid-credential") {
         Get.defaultDialog(
-          title: "Invalid password please try again",
+          title: "Invalid password or email please try again",
           content: const Icon(
             Icons.report_problem,
             color: Colors.red,

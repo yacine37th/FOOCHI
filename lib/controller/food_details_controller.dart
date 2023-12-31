@@ -3,6 +3,7 @@ import 'package:fluter_ecom/controller/carte_controller.dart';
 import 'package:fluter_ecom/functions/functions.dart';
 import 'package:fluter_ecom/main.dart';
 import 'package:fluter_ecom/model/carte_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../model/food_model.dart';
@@ -38,6 +39,13 @@ class FoodDetailsController extends GetxController {
     } else
     // if (!carteController.orederList.containsKey(foodID))
     {
+       Get.defaultDialog(
+        onWillPop: () {
+          return Future.value();
+        },
+        barrierDismissible: false,
+        title: "Please wait",
+        content: const CircularProgressIndicator());
       var doc = FirebaseFirestore.instance.collection("carte").doc();
       await doc.set({
         "carteFoodID": foodID,
@@ -57,6 +65,7 @@ class FoodDetailsController extends GetxController {
             foodName: food.name, foodID: foodID)
       });
       carteController.total += food.price! * counter;
+      Get.back();
       MainFunctions.successSnackBar("Added Succefully");
     }
   }

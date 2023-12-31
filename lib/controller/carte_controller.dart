@@ -7,6 +7,8 @@ import 'package:fluter_ecom/main.dart';
 import 'package:fluter_ecom/model/carte_model.dart';
 import 'package:fluter_ecom/model/food_model.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+
 
 import 'pdf/PdfInvoiceApi.dart';
 
@@ -54,6 +56,13 @@ class CarteController extends GetxController {
   }
 
   checkoutCarte(Map<String, CarteModel> list) async {
+    // Get.defaultDialog(
+    //     onWillPop: () {
+    //       return Future.value();
+    //     },
+    //     barrierDismissible: false,
+    //     title: "Please wait",
+    //     content: const CircularProgressIndicator());
     List<List<String>> listOfLists = [];
     // print(list.values.elementAt(1).foodName);
     for (var i = 0; i < list.length; i++) {
@@ -85,7 +94,8 @@ class CarteController extends GetxController {
       ];
       listOfLists.add(newList);
     }
-    MainFunctions.successSnackBar("Success");
+    // Get.back();
+    // MainFunctions.successSnackBar("Success");
 //////Generate INVOICE
     final pdfFile = await PdfInvoiceApi.generate(total, listOfLists);
     // opening the pdf file

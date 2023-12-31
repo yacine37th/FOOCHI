@@ -31,7 +31,7 @@ class SignUpController extends GetxController {
 
   createNewUser() async {
     Get.defaultDialog(
-        title: "S'il vous plaît, attendez",
+        title: "Please wait",
         content: const CircularProgressIndicator(
           color: AppColors.kSecondary,
         ));
@@ -49,6 +49,7 @@ class SignUpController extends GetxController {
         "userID": credential.user!.uid,
         "userName": userName,
         "userEmail": userEmailAddress,
+        "userFavorisFood":[],
       });
       await FirebaseAuth.instance.currentUser?.sendEmailVerification();
       Get.back();
@@ -69,7 +70,7 @@ class SignUpController extends GetxController {
         );
       } else if (e.code == 'email-already-in-use') {
         Get.defaultDialog(
-          title: "Il y a un compte utilisant cette adresse e-mail",
+          title: "There is an account using this email address",
           content: const Icon(
             Icons.report_problem,
             color: Colors.red,
@@ -82,7 +83,7 @@ class SignUpController extends GetxController {
     } catch (e) {
       Get.back();
       Get.defaultDialog(
-        title: "Quelque chose ne va pas",
+        title: "Something is wrong",
         content: const Icon(
           Icons.report_problem,
           color: Colors.red,

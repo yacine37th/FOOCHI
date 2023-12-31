@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'flutter-ecom',
+        title: 'FOOCHI',
         debugShowCheckedModeBanner: false,
         defaultTransition: Transition.cupertino,
         // theme: Themes.customLightTheme,

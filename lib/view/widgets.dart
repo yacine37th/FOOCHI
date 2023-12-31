@@ -67,9 +67,10 @@ class FoodPicture extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      height: 250,
+      height: 285,
+      width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.orangeAccent,
+        color: AppColors.kBackground,
         borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(30.0),
             bottomRight: Radius.circular(30.0)),
@@ -164,7 +165,7 @@ class FoodName extends StatelessWidget {
         Text(foodName,
             style: TextStyle(
                 color: Colors.black,
-                fontSize: screenHeight / 22.77,
+                fontSize: 25,
                 fontFamily: "Roboto")),
         const Text("Category",
             style: TextStyle(color: Colors.black45, fontSize: 18)),
@@ -172,7 +173,7 @@ class FoodName extends StatelessWidget {
       const Spacer(),
       Text(
         "\$$foodPrice",
-        style: TextStyle(color: Colors.black87, fontSize: screenHeight / 22.77),
+        style: TextStyle(color: Colors.black87, fontSize: 26),
       ),
     ]);
   }
@@ -203,7 +204,7 @@ class Stars extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.red,
                     fontWeight: FontWeight.bold,
-                    fontSize: screenHeight / 45.54),
+                    fontSize: 18),
               ),
               Padding(
                 padding: EdgeInsets.only(left: screenWidth / 51.38),
@@ -221,11 +222,11 @@ class Stars extends StatelessWidget {
           Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: screenWidth / 51.38),
+                padding: EdgeInsets.only(left: screenWidth / 51.38,right: 5),
                 child: Icon(
                   Icons.delivery_dining_sharp,
                   color: Colors.amber,
-                  size: screenHeight / 22.77,
+                  size: 25,
                 ),
               ),
               Text(
@@ -233,7 +234,7 @@ class Stars extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.amber,
                     fontWeight: FontWeight.bold,
-                    fontSize: screenHeight / 42.69),
+                    fontSize: 15),
               )
             ],
           )
