@@ -56,34 +56,34 @@ class CarteController extends GetxController {
   }
 
   checkoutCarte(Map<String, CarteModel> list) async {
-    // Get.defaultDialog(
-    //     onWillPop: () {
-    //       return Future.value();
-    //     },
-    //     barrierDismissible: false,
-    //     title: "Please wait",
-    //     content: const CircularProgressIndicator());
+    Get.defaultDialog(
+        onWillPop: () {
+          return Future.value();
+        },
+        barrierDismissible: false,
+        title: "Please wait",
+        content: const CircularProgressIndicator());
     List<List<String>> listOfLists = [];
     // print(list.values.elementAt(1).foodName);
     for (var i = 0; i < list.length; i++) {
-      // await FirebaseFirestore.instance
-      //     .collection("carte")
-      //     .doc(list.values.elementAt(i).id)
-      //     .update({
-      //   "carteFoodIsConfirm": true,
-      // });
-      // var doc = FirebaseFirestore.instance.collection("oreder").doc();
-      // await doc.set({
-      //   "orderID": doc.id,
-      //   "orderIsConfirm": false,
-      //   "orderQte": list.values.elementAt(i).qte,
-      //   "orderTotalPrice":
-      //       list.values.elementAt(i).foodPrice * list.values.elementAt(i).qte,
-      //   "orderUserID": list.values.elementAt(i).userID,
-      //   "orderFoodList":
-      //       FieldValue.arrayUnion([list.values.elementAt(i).foodID]),
-      //   "orderUserName": currentUserInfos.name,
-      // });
+      await FirebaseFirestore.instance
+          .collection("carte")
+          .doc(list.values.elementAt(i).id)
+          .update({
+        "carteFoodIsConfirm": true,
+      });
+      var doc = FirebaseFirestore.instance.collection("oreder").doc();
+      await doc.set({
+        "orderID": doc.id,
+        "orderIsConfirm": false,
+        "orderQte": list.values.elementAt(i).qte,
+        "orderTotalPrice":
+            list.values.elementAt(i).foodPrice * list.values.elementAt(i).qte,
+        "orderUserID": list.values.elementAt(i).userID,
+        "orderFoodList":
+            FieldValue.arrayUnion([list.values.elementAt(i).foodID]),
+        "orderUserName": currentUserInfos.name,
+      });
       print("list[i]");
       // print(list.values.elementAt(i).foodName);
       List<String> newList = [
@@ -94,8 +94,8 @@ class CarteController extends GetxController {
       ];
       listOfLists.add(newList);
     }
-    // Get.back();
-    // MainFunctions.successSnackBar("Success");
+    Get.back();
+    MainFunctions.successSnackBar("Success");
 //////Generate INVOICE
     final pdfFile = await PdfInvoiceApi.generate(total, listOfLists);
     // opening the pdf file
