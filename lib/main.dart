@@ -24,6 +24,7 @@ import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
+import 'package:video_player/video_player.dart';
 
 import 'functions/functions.dart';
 import 'middleware/app_oppend.dart';
@@ -122,7 +123,7 @@ class MyApp extends StatelessWidget {
             page: () => const FoodDetailPage(),
             binding: FoodDetailsBindings(),
           ),
-            GetPage(
+          GetPage(
             name: "/Checkout",
             page: () => const CheckOut(),
             binding: CheckoutBindings(),
@@ -164,8 +165,9 @@ class MyApp extends StatelessWidget {
           //   binding: OrderBookBinding(),
           // ),
         ],
-        initialRoute: "/OnboardingView",
+        // initialRoute: "/OnboardingView",
         // home: CheckoutPageView()
+        home: VideoApp()
         //   food: Food(
         //       foodImageName:
         //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
@@ -175,6 +177,63 @@ class MyApp extends StatelessWidget {
         //       foodPrice: '182'),
         // )
         );
+  }
+}
+
+class VideoApp extends StatefulWidget {
+  const VideoApp({super.key});
+
+  @override
+  _VideoAppState createState() => _VideoAppState();
+}
+
+class _VideoAppState extends State<VideoApp> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.networkUrl(Uri.parse(
+        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'))
+      ..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {});
+      });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Video Demo',
+      home: Scaffold(
+        body: Center(
+          child: _controller.value.isInitialized
+              ? AspectRatio(
+                  aspectRatio: _controller.value.aspectRatio,
+                  child: VideoPlayer(_controller),
+                )
+              : Container(),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            setState(() {
+              _controller.value.isPlaying
+                  ? _controller.pause()
+                  : _controller.play();
+            });
+          },
+          child: Icon(
+            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 }
 
