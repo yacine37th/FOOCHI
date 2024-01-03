@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluter_ecom/controller/food_details_controller.dart';
 import 'package:fluter_ecom/firebase_options.dart';
+import 'package:fluter_ecom/googleMap.dart';
 import 'package:fluter_ecom/utils/checkout_bindings.dart';
 import 'package:fluter_ecom/utils/food_details_bindings.dart';
 import 'package:fluter_ecom/utils/home_screen_bindings.dart';
@@ -69,19 +70,6 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-final Completer<GoogleMapController> _controller =
-    Completer<GoogleMapController>();
-
-const CameraPosition _kGooglePlex = CameraPosition(
-  target: LatLng(37.42796133580664, -122.085749655962),
-  zoom: 14.4746,
-);
-
-const CameraPosition _kLake = CameraPosition(
-    bearing: 192.8334901395799,
-    target: LatLng(37.43296265331129, -122.08832357078792),
-    tilt: 59.440717697143555,
-    zoom: 19.151926040649414);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -184,13 +172,7 @@ class MyApp extends StatelessWidget {
       ],
       // initialRoute: "/OnboardingView",
       // home: CheckoutPageView()
-      home: GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex,
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
-      ),
+      home:GoogleMAPVIEW()
       //   food: Food(
       //       foodImageName:
       //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
