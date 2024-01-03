@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,6 +23,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
@@ -66,6 +69,20 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
+final Completer<GoogleMapController> _controller =
+    Completer<GoogleMapController>();
+
+const CameraPosition _kGooglePlex = CameraPosition(
+  target: LatLng(37.42796133580664, -122.085749655962),
+  zoom: 14.4746,
+);
+
+const CameraPosition _kLake = CameraPosition(
+    bearing: 192.8334901395799,
+    target: LatLng(37.43296265331129, -122.08832357078792),
+    tilt: 59.440717697143555,
+    zoom: 19.151926040649414);
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -73,110 +90,116 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        title: 'FOOCHI',
-        debugShowCheckedModeBanner: false,
-        defaultTransition: Transition.cupertino,
-        // theme: Themes.customLightTheme,
-        // textDirection: MainFunctions.textDirection,
-        getPages: [
-          GetPage(
-            name: "/SignUp",
-            page: () => const SignUp(),
-            binding: SignUpBinding(),
-          ),
-          GetPage(
-              name: "/SignIn",
-              page: () => const SignIn(),
-              binding: SignInBinding(),
-              middlewares: [AuthMiddleware()]),
-          GetPage(
-              name: "/EmailVerification",
-              page: () => const EmailVerification(),
-              binding: EmailVerificationBinding()),
-          GetPage(
-            name: "/ForgotPassword",
-            page: () => const ForgotPassword(),
-            binding: ForgotPasswordBinding(),
-          ),
-          GetPage(
-              name: "/OnboardingView",
-              page: () => const FoochiOnboardingView(),
-              binding: OnboardingBindings(),
-              middlewares: [AppIsOppen()]),
-          GetPage(
-            name: "/",
-            page: () => const HomeScreen(),
-            binding: HomeScreenBindings(),
-          ),
-          GetPage(
-            name: "/PhoneSignup",
-            page: () => const PhoneSignUp(),
-            binding: SignUpPhoneBindings(),
-          ),
-          GetPage(
-            name: "/MoreFood",
-            page: () => const MoreFood(),
-            binding: MoreFoodBindings(),
-          ),
-          GetPage(
-            name: "/FoodDetails",
-            page: () => const FoodDetailPage(),
-            binding: FoodDetailsBindings(),
-          ),
-          GetPage(
-            name: "/Checkout",
-            page: () => const CheckOut(),
-            binding: CheckoutBindings(),
-          ),
-          // GetPage(
-          //   name: "/Tasnifat",
-          //   page: () => const Tasnifat(),
-          //   binding: TasnifatBinding(),
-          // ),
-          // GetPage(
-          //   name: "/BookDetails",
-          //   page: () => const BookDetails(),
-          //   binding: BookDetailsBinding(),
-          // ),
-          // GetPage(
-          //   name: "/BookContent",
-          //   page: () => const BookContent(),
-          // ),
-          // GetPage(
-          //   name: "/RequestedBooks",
-          //   page: () => const RequestedBooks(),
-          //   binding: RequestedBooksBinding(),
-          // ),
-          // GetPage(
-          //   name: "/SearchScreen",
-          //   page: () => const SearchScreen(),
-          //   transition: Transition.fadeIn,
-          //   transitionDuration: const Duration(milliseconds: 250),
-          //   binding: SearchBinding(),
-          // ),
-          // GetPage(
-          //   name: "/AuthorScreen",
-          //   page: () => const AuthorScreen(),
-          //   binding: AuthorScreenBinding(),
-          // ),
-          // GetPage(
-          //   name: "/OrderBook",
-          //   page: () => const OrderBook(),
-          //   binding: OrderBookBinding(),
-          // ),
-        ],
-        // initialRoute: "/OnboardingView",
-        // home: CheckoutPageView()
-        home: VideoApp()
-        //   food: Food(
-        //       foodImageName:
-        //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
-        //       foodId: 15,
-        //       foodName: 'Burgersdsd',
-        //       foodCategory: 'Burger',
-        //       foodPrice: '182'),
-        // )
-        );
+      title: 'FOOCHI',
+      debugShowCheckedModeBanner: false,
+      defaultTransition: Transition.cupertino,
+      // theme: Themes.customLightTheme,
+      // textDirection: MainFunctions.textDirection,
+      getPages: [
+        GetPage(
+          name: "/SignUp",
+          page: () => const SignUp(),
+          binding: SignUpBinding(),
+        ),
+        GetPage(
+            name: "/SignIn",
+            page: () => const SignIn(),
+            binding: SignInBinding(),
+            middlewares: [AuthMiddleware()]),
+        GetPage(
+            name: "/EmailVerification",
+            page: () => const EmailVerification(),
+            binding: EmailVerificationBinding()),
+        GetPage(
+          name: "/ForgotPassword",
+          page: () => const ForgotPassword(),
+          binding: ForgotPasswordBinding(),
+        ),
+        GetPage(
+            name: "/OnboardingView",
+            page: () => const FoochiOnboardingView(),
+            binding: OnboardingBindings(),
+            middlewares: [AppIsOppen()]),
+        GetPage(
+          name: "/",
+          page: () => const HomeScreen(),
+          binding: HomeScreenBindings(),
+        ),
+        GetPage(
+          name: "/PhoneSignup",
+          page: () => const PhoneSignUp(),
+          binding: SignUpPhoneBindings(),
+        ),
+        GetPage(
+          name: "/MoreFood",
+          page: () => const MoreFood(),
+          binding: MoreFoodBindings(),
+        ),
+        GetPage(
+          name: "/FoodDetails",
+          page: () => const FoodDetailPage(),
+          binding: FoodDetailsBindings(),
+        ),
+        GetPage(
+          name: "/Checkout",
+          page: () => const CheckOut(),
+          binding: CheckoutBindings(),
+        ),
+        // GetPage(
+        //   name: "/Tasnifat",
+        //   page: () => const Tasnifat(),
+        //   binding: TasnifatBinding(),
+        // ),
+        // GetPage(
+        //   name: "/BookDetails",
+        //   page: () => const BookDetails(),
+        //   binding: BookDetailsBinding(),
+        // ),
+        // GetPage(
+        //   name: "/BookContent",
+        //   page: () => const BookContent(),
+        // ),
+        // GetPage(
+        //   name: "/RequestedBooks",
+        //   page: () => const RequestedBooks(),
+        //   binding: RequestedBooksBinding(),
+        // ),
+        // GetPage(
+        //   name: "/SearchScreen",
+        //   page: () => const SearchScreen(),
+        //   transition: Transition.fadeIn,
+        //   transitionDuration: const Duration(milliseconds: 250),
+        //   binding: SearchBinding(),
+        // ),
+        // GetPage(
+        //   name: "/AuthorScreen",
+        //   page: () => const AuthorScreen(),
+        //   binding: AuthorScreenBinding(),
+        // ),
+        // GetPage(
+        //   name: "/OrderBook",
+        //   page: () => const OrderBook(),
+        //   binding: OrderBookBinding(),
+        // ),
+      ],
+      // initialRoute: "/OnboardingView",
+      // home: CheckoutPageView()
+      home: GoogleMap(
+        mapType: MapType.hybrid,
+        initialCameraPosition: _kGooglePlex,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+      ),
+      //   food: Food(
+      //       foodImageName:
+      //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",
+      //       foodId: 15,
+      //       foodName: 'Burgersdsd',
+      //       foodCategory: 'Burger',
+      //       foodPrice: '182'),
+      // )
+    );
   }
 }
 

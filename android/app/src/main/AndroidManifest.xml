@@ -7,6 +7,7 @@
         android:icon="@mipmap/launcher_icon"
         android:allowBackup="false"
     >
+    <!-- GOOGLE MAP API KEYYY /////////////////////////-->
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDyvVqw8w4ENFqa4TKE0OOo-1nXYnnJcPM" />
         <activity
