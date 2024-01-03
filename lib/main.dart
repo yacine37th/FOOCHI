@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluter_ecom/controller/food_details_controller.dart';
 import 'package:fluter_ecom/firebase_options.dart';
+import 'package:fluter_ecom/geolocation.dart';
 import 'package:fluter_ecom/googleMap.dart';
 import 'package:fluter_ecom/utils/checkout_bindings.dart';
 import 'package:fluter_ecom/utils/food_details_bindings.dart';
