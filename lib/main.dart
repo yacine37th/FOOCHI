@@ -57,8 +57,8 @@ import 'package:path_provider/path_provider.dart';
 
 User? currentUser = FirebaseAuth.instance.currentUser;
 SharedPreferences? sharedPreferences;
-UserModel currentUserInfos =
-    UserModel(uID: "", email: "", name: "", foodFavoris: [""]);
+UserModel currentUserInfos = UserModel(
+    uID: "", email: "", name: "", foodFavoris: [""], latitude: 0, longitude: 0);
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,7 +70,6 @@ Future<void> main() async {
   sharedPreferences = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

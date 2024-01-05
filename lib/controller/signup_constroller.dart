@@ -49,7 +49,9 @@ class SignUpController extends GetxController {
         "userID": credential.user!.uid,
         "userName": userName,
         "userEmail": userEmailAddress,
-        "userFavorisFood":[],
+        "userFavorisFood": [],
+        "userCurrentPositionLatitude": 0,
+        "userCurrentPositionLongitude": 0
       });
       await FirebaseAuth.instance.currentUser?.sendEmailVerification();
       Get.back();

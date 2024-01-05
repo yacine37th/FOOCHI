@@ -24,6 +24,8 @@ class MainFunctions {
           email: value["userEmail"],
           name: value["userName"],
           foodFavoris: value["userFavorisFood"],
+          latitude: value["userCurrentPositionLatitude"],
+          longitude: value["userCurrentPositionLongitude"],
         );
         // if (value.data()!.containsKey("userIsSubbed")) {
         //   currentUserInfos.isSubbed = value["userIsSubbed"];

@@ -137,8 +137,8 @@ class SignInController extends GetxController {
             Get.back();
           },
         );
-      }else {
-         Get.defaultDialog(
+      } else {
+        Get.defaultDialog(
           title: "Somthing went wrong , please try later",
           content: const Icon(
             Icons.report_problem,

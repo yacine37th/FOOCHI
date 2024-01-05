@@ -67,13 +67,13 @@ class CarteController extends GetxController {
   }
 
   checkoutCarte(Map<String, CarteModel> list) async {
-    // Get.defaultDialog(
-    //     onWillPop: () {
-    //       return Future.value();
-    //     },
-    //     barrierDismissible: false,
-    //     title: "Please wait",
-    //     content: const CircularProgressIndicator());
+    Get.defaultDialog(
+        onWillPop: () {
+          return Future.value();
+        },
+        barrierDismissible: false,
+        title: "Please wait",
+        content: const CircularProgressIndicator());
     /////
     getUserCurrentLocation().then((value) async {
       print(value.latitude.toString() + " " + value.longitude.toString());
@@ -81,52 +81,53 @@ class CarteController extends GetxController {
           .collection("users")
           .doc(currentUserInfos.uID)
           .update({
-        "userCurrentPositionLatitude":  value.latitude,
-        "userCurrentPositionLongitude":  value.longitude,
+        "userCurrentPositionLatitude": value.latitude,
+        "userCurrentPositionLongitude": value.longitude,
       });
-    });
+      List<List<String>> listOfLists = [];
+      // print(list.values.elementAt(1).foodName);
+      for (var i = 0; i < list.length; i++) {
+        await FirebaseFirestore.instance
+            .collection("carte")
+            .doc(list.values.elementAt(i).id)
+            .update({
+          "carteFoodIsConfirm": true,
+        });
+        var doc = FirebaseFirestore.instance.collection("oreder").doc();
+        await doc.set({
+          "orderID": doc.id,
+          "orderIsConfirm": false,
+          "orderQte": list.values.elementAt(i).qte,
+          "orderTotalPrice":
+              list.values.elementAt(i).foodPrice * list.values.elementAt(i).qte,
+          "orderUserID": list.values.elementAt(i).userID,
+          "orderFoodList":
+              FieldValue.arrayUnion([list.values.elementAt(i).foodID]),
+          "orderUserName": currentUserInfos.name,
+        });
+        print("list[i]");
+        // print(list.values.elementAt(i).foodName);
+        List<String> newList = [
+          "${list.values.elementAt(i).foodName}",
+          "${list.values.elementAt(i).qte}",
+          "\$${list.values.elementAt(i).foodPrice}",
+          "\$${list.values.elementAt(i).foodPrice * list.values.elementAt(i).qte}"
+        ];
+        listOfLists.add(newList);
+      }
 
-    List<List<String>> listOfLists = [];
-    // print(list.values.elementAt(1).foodName);
-    for (var i = 0; i < list.length; i++) {
-      await FirebaseFirestore.instance
-          .collection("carte")
-          .doc(list.values.elementAt(i).id)
-          .update({
-        "carteFoodIsConfirm": true,
-      });
-      var doc = FirebaseFirestore.instance.collection("oreder").doc();
-      await doc.set({
-        "orderID": doc.id,
-        "orderIsConfirm": false,
-        "orderQte": list.values.elementAt(i).qte,
-        "orderTotalPrice":
-            list.values.elementAt(i).foodPrice * list.values.elementAt(i).qte,
-        "orderUserID": list.values.elementAt(i).userID,
-        "orderFoodList":
-            FieldValue.arrayUnion([list.values.elementAt(i).foodID]),
-        "orderUserName": currentUserInfos.name,
-      });
-      print("list[i]");
-      // print(list.values.elementAt(i).foodName);
-      List<String> newList = [
-        "${list.values.elementAt(i).foodName}",
-        "${list.values.elementAt(i).qte}",
-        "\$${list.values.elementAt(i).foodPrice}",
-        "\$${list.values.elementAt(i).foodPrice * list.values.elementAt(i).qte}"
-      ];
-      listOfLists.add(newList);
-    }
-
-    Get.back();
-    MainFunctions.successSnackBar("Success");
+      Get.back();
+      MainFunctions.successSnackBar("Success");
 //////Generate INVOICE
-    final pdfFile = await PdfInvoiceApi.generate(total, listOfLists);
-    // opening the pdf file
-    FileHandleApi.openFile(pdfFile);
-    print(pdfFile);
-    // orederList.clear();
-    // total = 0;
+      final pdfFile = await PdfInvoiceApi.generate(total, listOfLists);
+      // opening the pdf file
+      FileHandleApi.openFile(pdfFile);
+    });
+    Get.back();
+
+    // print(pdfFile);
+    orederList.clear();
+    total = 0;
     update();
   }
 
