@@ -56,15 +56,7 @@ class CarteController extends GetxController {
   }
 
 ////// get the position
-  Future<Position> getUserCurrentLocation() async {
-    await Geolocator.requestPermission()
-        .then((value) {})
-        .onError((error, stackTrace) async {
-      await Geolocator.requestPermission();
-      print("ERROR" + error.toString());
-    });
-    return await Geolocator.getCurrentPosition();
-  }
+
 
   checkoutCarte(Map<String, CarteModel> list) async {
     Get.defaultDialog(
@@ -75,7 +67,7 @@ class CarteController extends GetxController {
         title: "Please wait",
         content: const CircularProgressIndicator());
     /////
-    getUserCurrentLocation().then((value) async {
+   MainFunctions.getUserCurrentLocation().then((value) async {
       print(value.latitude.toString() + " " + value.longitude.toString());
       await FirebaseFirestore.instance
           .collection("users")

@@ -133,6 +133,11 @@ class MyApp extends StatelessWidget {
           page: () => const CheckOut(),
           binding: CheckoutBindings(),
         ),
+        GetPage(
+          name: "/CurrentPosition",
+          page: () => const CheckOut(),
+          binding: CheckoutBindings(),
+        ),
         // GetPage(
         //   name: "/Tasnifat",
         //   page: () => const Tasnifat(),

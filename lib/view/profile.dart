@@ -72,57 +72,73 @@ class Profil extends StatelessWidget {
                       style: const TextStyle(fontSize: 20),
                     ),
                     const SizedBox(height: 20),
-                    TextButton.icon(
-                        style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all(blackColor),
-                            backgroundColor: MaterialStateProperty.all(
-                                Colors.purple.withOpacity(0.5))),
-                        icon: const Icon(Icons.favorite_border_outlined),
-                        onPressed: () {
-                          // Get.toNamed("/MyTrips");
-                          homeScreenController.switchBetweenScreens(1);
-                        },
-                        label: const Text("My favorites",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ))),
-                    const SizedBox(height: 10),
-                    // TextButton.icon(
-                    //     style: ButtonStyle(
-                    //         foregroundColor:
-                    //             MaterialStateProperty.all(blackColor),
-                    //         backgroundColor: MaterialStateProperty.all(
-                    //             Colors.cyan.withOpacity(0.5))),
-                    //     icon: const Icon(Icons.adf_scanner_outlined),
-                    //     onPressed: () async {
-                    //       Get.toNamed("/MyTransmitterTrips");
-                    //     },
-                    //     label: const Text("My transmitter trips",
-                    //         style: TextStyle(
-                    //           fontSize: 20,
-                    //         ))),
+                    Container(
+                      width: double.infinity,
+                      child: TextButton.icon(
+                          style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStateProperty.all(blackColor),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Colors.purple.withOpacity(0.5))),
+                          icon: const Icon(Icons.favorite_border_outlined),
+                          onPressed: () {
+                            // Get.toNamed("/MyTrips");
+                            homeScreenController.switchBetweenScreens(1);
+                          },
+                          label: const Text("My favorites",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ))),
+                    ),
+                    // const SizedBox(height: 10),
+                    Container(
+                      width: double.infinity,
+                      child: TextButton.icon(
+                          style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStateProperty.all(blackColor),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Colors.cyan.withOpacity(0.5))),
+                          icon: const Icon(Icons.pin_drop_outlined),
+                          onPressed: () async {
+                            // Get.toNamed("/MyTransmitterTrips");
+                            MainFunctions.getUserCurrentLocation()
+                                .then((value) {
+                              Get.toNamed("/CurrentPosition", parameters: {
+                                "latitude": value.latitude.toString(),
+                                "position": value.toString(),
+                                "longitude": value.longitude.toString()
+                              });
+                            });
+                          },
+                          label: const Text("My Position",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ))),
+                    ),
+                    // const SizedBox(height: 10),
+                    Container(
+                      width: double.infinity,
+                      child: TextButton.icon(
+                          style: ButtonStyle(
+                              foregroundColor:
+                                  MaterialStateProperty.all(blackColor),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Colors.red.withOpacity(0.5))),
+                          icon: const Icon(Icons.logout),
+                          onPressed: () {
+                            homeController.signOutOfAnExistingAccount();
+                            // await FirebaseAuth.instance.signOut().then((value) {
+                            //   currentUser = null;
 
-                    const SizedBox(height: 10),
-                    TextButton.icon(
-                        style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.all(blackColor),
-                            backgroundColor: MaterialStateProperty.all(
-                                Colors.red.withOpacity(0.5))),
-                        icon: const Icon(Icons.logout),
-                        onPressed: () {
-                          homeController.signOutOfAnExistingAccount();
-                          // await FirebaseAuth.instance.signOut().then((value) {
-                          //   currentUser = null;
-
-                          //   Get.offAllNamed("/SignIn");
-                          // });
-                        },
-                        label: const Text("Sign Out",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ))),
+                            //   Get.offAllNamed("/SignIn");
+                            // });
+                          },
+                          label: const Text("Sign Out",
+                              style: TextStyle(
+                                fontSize: 20,
+                              ))),
+                    ),
                     const SizedBox(height: 20),
                   ],
                 ),

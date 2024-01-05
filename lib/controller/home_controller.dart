@@ -29,7 +29,7 @@ class HomeController extends GetxController {
               uID: value.docs[index].id,
               email: value.docs[index]["userEmail"],
               name: value.docs[index]["userName"],
-              foodFavoris: ["${value.docs[index]["userFavorisFood"]}"])
+              foodFavoris: ["${value.docs[index]["userFavorisFood"]}"], latitude: 0, longitude: 0)
         });
       }
     });
