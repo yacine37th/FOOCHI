@@ -171,9 +171,9 @@ class MyApp extends StatelessWidget {
         //   binding: OrderBookBinding(),
         // ),
       ],
-      // initialRoute: "/OnboardingView",
+      initialRoute: "/OnboardingView",
       // home: CheckoutPageView()
-      home:GoogleMAPVIEW()
+      // home:GoogleMAPVIEW()
       //   food: Food(
       //       foodImageName:
       //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",

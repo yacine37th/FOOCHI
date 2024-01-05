@@ -6,9 +6,9 @@ import 'package:fluter_ecom/functions/functions.dart';
 import 'package:fluter_ecom/main.dart';
 import 'package:fluter_ecom/model/carte_model.dart';
 import 'package:fluter_ecom/model/food_model.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-
 
 import 'pdf/PdfInvoiceApi.dart';
 
@@ -55,14 +55,37 @@ class CarteController extends GetxController {
     update();
   }
 
+////// get the position
+  Future<Position> getUserCurrentLocation() async {
+    await Geolocator.requestPermission()
+        .then((value) {})
+        .onError((error, stackTrace) async {
+      await Geolocator.requestPermission();
+      print("ERROR" + error.toString());
+    });
+    return await Geolocator.getCurrentPosition();
+  }
+
   checkoutCarte(Map<String, CarteModel> list) async {
-    Get.defaultDialog(
-        onWillPop: () {
-          return Future.value();
-        },
-        barrierDismissible: false,
-        title: "Please wait",
-        content: const CircularProgressIndicator());
+    // Get.defaultDialog(
+    //     onWillPop: () {
+    //       return Future.value();
+    //     },
+    //     barrierDismissible: false,
+    //     title: "Please wait",
+    //     content: const CircularProgressIndicator());
+    /////
+    getUserCurrentLocation().then((value) async {
+      print(value.latitude.toString() + " " + value.longitude.toString());
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(currentUserInfos.uID)
+          .update({
+        "userCurrentPositionLatitude":  value.latitude,
+        "userCurrentPositionLongitude":  value.longitude,
+      });
+    });
+
     List<List<String>> listOfLists = [];
     // print(list.values.elementAt(1).foodName);
     for (var i = 0; i < list.length; i++) {
@@ -94,6 +117,7 @@ class CarteController extends GetxController {
       ];
       listOfLists.add(newList);
     }
+
     Get.back();
     MainFunctions.successSnackBar("Success");
 //////Generate INVOICE
