@@ -48,16 +48,16 @@ class CurrentPositionController extends GetxController {
   //     .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   // print(latitude);
 
-  // addMarker(double longitude, double latitude) {
-  //   markers.add(Marker(
-  //     markerId: MarkerId("2"),
-  //     position: LatLng(latitude, longitude),
-  //     infoWindow: InfoWindow(
-  //       title: 'My Current Location',
-  //     ),
-  //   ));
-  //   update();
-  // }
+  addMarker(double longitude, double latitude) {
+    markers.add(Marker(
+      markerId: MarkerId("2"),
+      position: LatLng(latitude, longitude),
+      infoWindow: InfoWindow(
+        title: 'My Current Location',
+      ),
+    ));
+    update();
+  }
 
   @override
   void onInit() {
@@ -65,7 +65,7 @@ class CurrentPositionController extends GetxController {
       target: LatLng(la, lo),
       zoom: 14.4746,
     );
-    // addMarker(la, lo);
+    addMarker(la, lo);
     markers.add(Marker(
       markerId: MarkerId("$counterID"),
       position: LatLng(la, lo),
@@ -73,6 +73,7 @@ class CurrentPositionController extends GetxController {
         title: 'My Current Location ${currentUserInfos.name}',
       ),
     ));
+    // addMarker(la, lo, counterID);
     super.onInit();
   }
 }

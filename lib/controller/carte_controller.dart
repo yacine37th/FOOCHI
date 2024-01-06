@@ -50,13 +50,14 @@ class CarteController extends GetxController {
   }
 
   Future deleteFromCarte(var food, CarteModel fo) async {
-    orederList.remove(food);
+    await FirebaseFirestore.instance.collection("carte").doc(food).delete();
+    orederList.removeWhere((key, value) => value == fo);
+    // orederList.remove(fo);
     total -= fo.foodPrice * fo.qte;
     update();
   }
 
 ////// get the position
-
 
   checkoutCarte(Map<String, CarteModel> list) async {
     Get.defaultDialog(
@@ -67,7 +68,7 @@ class CarteController extends GetxController {
         title: "Please wait",
         content: const CircularProgressIndicator());
     /////
-   MainFunctions.getUserCurrentLocation().then((value) async {
+    MainFunctions.getUserCurrentLocation().then((value) async {
       print(value.latitude.toString() + " " + value.longitude.toString());
       await FirebaseFirestore.instance
           .collection("users")
