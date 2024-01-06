@@ -13,18 +13,18 @@ class CurrentPosition extends StatelessWidget {
   Widget build(BuildContext context) {
     CurrentPositionController currentPositionController = Get.find();
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: AppColors.kBackground,
-      //   elevation: 0,
-      //   leading: IconButton(
-      //       onPressed: () {
-      //         navigator!.pop();
-      //       },
-      //       icon: Icon(
-      //         Icons.arrow_back_ios_outlined,
-      //         color: AppColors.kPrimary,
-      //       )),
-      // ),
+      appBar: AppBar(
+        backgroundColor: AppColors.kBackground,
+        elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              navigator!.pop();
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_outlined,
+              color: AppColors.kPrimary,
+            )),
+      ),
       body: Container(
         child: SafeArea(
           // on below line creating google maps
@@ -48,37 +48,37 @@ class CurrentPosition extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          MainFunctions.getUserCurrentLocation().then((value) async {
-            print(value.latitude.toString() + " " + value.longitude.toString());
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () async {
+      //     MainFunctions.getUserCurrentLocation().then((value) async {
+      //       print(value.latitude.toString() + " " + value.longitude.toString());
 
-            // marker added for current users location
-            // currentPositionController.markers.add(Marker(
-            //   markerId: MarkerId("2"),
-            //   position: LatLng(value.latitude, value.longitude),
-            //   infoWindow: InfoWindow(
-            //     title: 'My Current Location',
-            //   ),
-            // ));
-            currentPositionController.addMarker(
-                value.longitude, value.latitude);
-            // specified current users location
-            CameraPosition cameraPosition = new CameraPosition(
-              target: LatLng(value.latitude, value.longitude),
-              zoom: 14,
-            );
+      //       // marker added for current users location
+      //       // currentPositionController.markers.add(Marker(
+      //       //   markerId: MarkerId("2"),
+      //       //   position: LatLng(value.latitude, value.longitude),
+      //       //   infoWindow: InfoWindow(
+      //       //     title: 'My Current Location',
+      //       //   ),
+      //       // ));
+      //       // currentPositionController.addMarker(
+      //       //     value.longitude, value.latitude);
+      //       // specified current users location
+      //       CameraPosition cameraPosition = new CameraPosition(
+      //         target: LatLng(value.latitude, value.longitude),
+      //         zoom: 14,
+      //       );
 
-            final GoogleMapController controller =
-                await currentPositionController.controller.future;
-            controller
-                .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-            // setState(() {
-            // });
-          });
-        },
-        child: Icon(Icons.local_activity),
-      ),
+      //       final GoogleMapController controller =
+      //           await currentPositionController.controller.future;
+      //       controller
+      //           .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      //       // setState(() {
+      //       // });
+      //     });
+      //   },
+      //   child: Icon(Icons.local_activity),
+      // ),
     );
   }
 }

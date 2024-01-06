@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:fluter_ecom/main.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CurrentPositionController extends GetxController {
   Completer<GoogleMapController> controller = Completer();
+  int counterID = 0;
   //  Position position = Get.arguments("position");
 //
   // late CameraPosition kGoogle;
@@ -46,25 +48,31 @@ class CurrentPositionController extends GetxController {
   //     .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   // print(latitude);
 
-  addMarker(double longitude, double latitude) {
-    markers.add(Marker(
-      markerId: MarkerId("2"),
-      position: LatLng(latitude, longitude),
-      infoWindow: InfoWindow(
-        title: 'My Current Location',
-      ),
-    ));
-    update();
-  }
+  // addMarker(double longitude, double latitude) {
+  //   markers.add(Marker(
+  //     markerId: MarkerId("2"),
+  //     position: LatLng(latitude, longitude),
+  //     infoWindow: InfoWindow(
+  //       title: 'My Current Location',
+  //     ),
+  //   ));
+  //   update();
+  // }
 
   @override
   void onInit() {
-    get();
-    // TODO: implement onInit
     kGoogle = CameraPosition(
       target: LatLng(la, lo),
       zoom: 14.4746,
     );
+    // addMarker(la, lo);
+    markers.add(Marker(
+      markerId: MarkerId("$counterID"),
+      position: LatLng(la, lo),
+      infoWindow: InfoWindow(
+        title: 'My Current Location ${currentUserInfos.name}',
+      ),
+    ));
     super.onInit();
   }
 }
