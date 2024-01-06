@@ -9,11 +9,13 @@ import 'package:fluter_ecom/firebase_options.dart';
 import 'package:fluter_ecom/geolocation.dart';
 import 'package:fluter_ecom/googleMap.dart';
 import 'package:fluter_ecom/utils/checkout_bindings.dart';
+import 'package:fluter_ecom/utils/current_position_bindings.dart';
 import 'package:fluter_ecom/utils/food_details_bindings.dart';
 import 'package:fluter_ecom/utils/home_screen_bindings.dart';
 import 'package:fluter_ecom/utils/more_food_bindings.dart';
 import 'package:fluter_ecom/utils/onboarding_bindings.dart';
 import 'package:fluter_ecom/utils/signup_phone_bindings.dart';
+import 'package:fluter_ecom/view/current_position.dart';
 import 'package:fluter_ecom/view/food_detail_page.dart';
 import 'package:fluter_ecom/view/home_screen.dart';
 import 'package:fluter_ecom/view/more_food.dart';
@@ -135,8 +137,8 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: "/CurrentPosition",
-          page: () => const CheckOut(),
-          binding: CheckoutBindings(),
+          page: () =>  CurrentPosition(),
+          binding: CurrentPositionBindings(),
         ),
         // GetPage(
         //   name: "/Tasnifat",
@@ -177,7 +179,7 @@ class MyApp extends StatelessWidget {
       ],
       initialRoute: "/OnboardingView",
       // home: CheckoutPageView()
-      // home:GoogleMAPVIEW()
+      // home:GoogleMAPVIEW():
       //   food: Food(
       //       foodImageName:
       //           "https://img.freepik.com/free-photo/tasty-burger-isolated-white-background-fresh-hamburger-fastfood-with-beef-cheese_90220-1063.jpg?size=338&ext=jpg&ga=GA1.1.1546980028.1703808000&semt=sph",

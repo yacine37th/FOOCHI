@@ -102,14 +102,18 @@ class Profil extends StatelessWidget {
                           icon: const Icon(Icons.pin_drop_outlined),
                           onPressed: () async {
                             // Get.toNamed("/MyTransmitterTrips");
-                            MainFunctions.getUserCurrentLocation()
-                                .then((value) {
-                              Get.toNamed("/CurrentPosition", parameters: {
-                                "latitude": value.latitude.toString(),
-                                "position": value.toString(),
-                                "longitude": value.longitude.toString()
+                            if (currentUserInfos.latitude != 0 &&
+                                currentUserInfos.longitude != 0) {
+                              MainFunctions.getUserCurrentLocation()
+                                  .then((value) {
+                                print(value.latitude);
+                                print(value.longitude);
+                                Get.toNamed("/CurrentPosition", arguments: {
+                                  'arg1': value.latitude,
+                                  'arg2': value.longitude
+                                });
                               });
-                            });
+                            }
                           },
                           label: const Text("My Position",
                               style: TextStyle(
