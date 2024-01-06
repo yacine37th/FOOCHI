@@ -14,7 +14,8 @@ class CurrentPosition extends StatelessWidget {
     CurrentPositionController currentPositionController = Get.find();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.kBackground,
+        backgroundColor: AppColors.whiteColor,
+        // toolbarHeight: 100,
         elevation: 0,
         leading: IconButton(
             onPressed: () {
