@@ -102,8 +102,8 @@ class Profil extends StatelessWidget {
                           icon: const Icon(Icons.pin_drop_outlined),
                           onPressed: () async {
                             // Get.toNamed("/MyTransmitterTrips");
-                            if (currentUserInfos.latitude != 0 &&
-                                currentUserInfos.longitude != 0) {
+                            // if (currentUserInfos.latitude != 0 &&
+                            //     currentUserInfos.longitude != 0) {
                               MainFunctions.getUserCurrentLocation()
                                   .then((value) {
                                 print(value.latitude);
@@ -113,7 +113,7 @@ class Profil extends StatelessWidget {
                                   'arg2': value.longitude
                                 });
                               });
-                            }
+                            // }
                           },
                           label: const Text("My Position",
                               style: TextStyle(

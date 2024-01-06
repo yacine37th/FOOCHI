@@ -165,6 +165,7 @@ class SignInController extends GetxController {
       // }
     } catch (e) {
       Get.back();
+      print(e);
       Get.defaultDialog(
         title: "Quelque chose ne va pas",
         content: const Icon(

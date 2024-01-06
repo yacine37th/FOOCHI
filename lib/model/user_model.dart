@@ -3,8 +3,8 @@ class UserModel {
   late String? email;
   late String? name;
   late List<dynamic> foodFavoris;
-  late double? latitude;
-  late double? longitude;
+  late var latitude;
+  late var longitude;
   UserModel({
     required this.uID,
     required this.email,

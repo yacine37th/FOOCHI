@@ -137,7 +137,7 @@ class MyApp extends StatelessWidget {
         ),
         GetPage(
           name: "/CurrentPosition",
-          page: () =>  CurrentPosition(),
+          page: () => CurrentPosition(),
           binding: CurrentPositionBindings(),
         ),
         // GetPage(
