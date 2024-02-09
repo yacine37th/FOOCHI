@@ -6,6 +6,7 @@ import 'package:fluter_ecom/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shake/shake.dart';
 
 import '../main.dart';
 
@@ -29,7 +30,9 @@ class HomeController extends GetxController {
               uID: value.docs[index].id,
               email: value.docs[index]["userEmail"],
               name: value.docs[index]["userName"],
-              foodFavoris: ["${value.docs[index]["userFavorisFood"]}"], latitude: 0, longitude: 0)
+              foodFavoris: ["${value.docs[index]["userFavorisFood"]}"],
+              latitude: 0,
+              longitude: 0)
         });
       }
     });
@@ -37,7 +40,7 @@ class HomeController extends GetxController {
     update();
   }
 
- Future getCategories() async {
+  Future getCategories() async {
     await FirebaseFirestore.instance
         .collection("categories")
         .get()
@@ -53,7 +56,7 @@ class HomeController extends GetxController {
     update();
   }
 
- Future getFood() async {
+  Future getFood() async {
     foods.clear();
     await FirebaseFirestore.instance
         .collection("food")
@@ -165,11 +168,34 @@ class HomeController extends GetxController {
 
 //             print("AppBarType.mostRecentBooks");
 //           });
+  late ShakeDetector detector;
+  int counter = 0;
+  void shakePhone() {
+    detector = ShakeDetector.autoStart(
+      onPhoneShake: () {
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   const SnackBar(
+        //     content: Text('Shake!'),
+        //   ),
+        // );
+        print("SHAKE *////////////*************");
+        print(counter);
+        counter++;
+        update();
+        // Do stuff on phone shake
+      },
+      minimumShakeCount: 1,
+      shakeSlopTimeMS: 500,
+      shakeCountResetTime: 3000,
+      shakeThresholdGravity: 2.7,
+    );
+  }
 
   @override
   void onInit() {
     getCategories();
     getFood();
+    shakePhone();
     super.onInit();
   }
 }

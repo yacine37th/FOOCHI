@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
+import 'package:shake/shake.dart';
 
 import '../model/food_model.dart';
 import '../theme/colors.dart';
@@ -35,11 +36,18 @@ class _HomeState extends State<Home> {
       "isFavorite": false,
     }
   ];
+
+
   @override
   void initState() {
     // TODO: implement initState
     print(currentUser);
-    super.initState();
+    // _detector = ShakeDetector.autoStart(onPhoneShake: () {
+    //   print("dededed/////////////");
+    //   print(_detector.mShakeCount);
+    //   setState(() {}); // Call setState every time phone shakes.
+    // });
+       super.initState();
   }
 
   int selectedCategory = 0;
@@ -47,7 +55,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     HomeController homeController = Get.find();
     FavorisPageController favorisPageController = Get.find();
-    ////// TO STOP THE SCREENSHOT AND SCREEN RECORDING 
+    ////// TO STOP THE SCREENSHOT AND SCREEN RECORDING
     // FlutterWindowManager.addFlags(FlutterWindowManager.FLAG_SECURE);
     return Scaffold(
       backgroundColor: AppColors.kBackground,
@@ -169,6 +177,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
+            GetBuilder<HomeController>(builder: (contex)=>Text('Count: ${contex.counter}'),),          
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -254,10 +263,10 @@ class _HomeState extends State<Home> {
                       itemBuilder: (context, index) => AspectRatio(
                             aspectRatio: 1 / 1.5,
                             child: GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 // print(contx.foods.values.elementAt(index).name);
                                 Get.toNamed('/FoodDetails', arguments: {
-                                  "0":contx.foods.values.elementAt(index)
+                                  "0": contx.foods.values.elementAt(index)
                                 });
                               },
                               child: Container(
@@ -370,7 +379,7 @@ class _HomeState extends State<Home> {
                                             ),
                                             Text(
                                               "${contx.foods.values.elementAt(index).name}",
-                                              style:const TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 18),
                                             )
@@ -400,7 +409,7 @@ class _HomeState extends State<Home> {
                 // ),
               ),
             ),
-          const  SizedBox(
+            const SizedBox(
               height: 30,
             )
           ],
@@ -525,7 +534,6 @@ class _HomeState extends State<Home> {
   //     ),
   //   );
   // }
-
 }
 
 //  GetBuilder<HomeController>(
