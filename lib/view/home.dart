@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:get/get.dart';
-import 'package:shake/shake.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 
 import '../model/food_model.dart';
 import '../theme/colors.dart';
@@ -37,7 +37,6 @@ class _HomeState extends State<Home> {
     }
   ];
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -47,7 +46,7 @@ class _HomeState extends State<Home> {
     //   print(_detector.mShakeCount);
     //   setState(() {}); // Call setState every time phone shakes.
     // });
-       super.initState();
+    super.initState();
   }
 
   int selectedCategory = 0;
@@ -177,7 +176,24 @@ class _HomeState extends State<Home> {
                 ],
               ),
             ),
-            GetBuilder<HomeController>(builder: (contex)=>Text('Count: ${contex.counter}'),),          
+            // GetBuilder<HomeController>(builder: (contex)=>Text('Count: ${contex.counter}'),),
+            GetBuilder<HomeController>(
+                builder: (contex) => FAProgressBar(
+                      currentValue: homeController.counter,
+                      displayText: '%',
+                    )),
+            GetBuilder<HomeController>(
+              builder: (contex) => FAProgressBar(
+                currentValue: contex.counter,
+                displayText: 'Number of shakes',
+                animatedDuration: Duration(milliseconds: 3),
+                // changeColorValue: ,
+                changeProgressColor: AppColors.kPrimary,
+                progressColor: Colors.red,
+                maxValue: 150,
+              ),
+            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

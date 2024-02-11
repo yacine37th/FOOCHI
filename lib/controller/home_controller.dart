@@ -169,7 +169,7 @@ class HomeController extends GetxController {
 //             print("AppBarType.mostRecentBooks");
 //           });
   late ShakeDetector detector;
-  int counter = 0;
+  double counter = 15;
   void shakePhone() {
     detector = ShakeDetector.autoStart(
       onPhoneShake: () {
