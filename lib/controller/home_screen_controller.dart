@@ -7,6 +7,8 @@ import 'package:fluter_ecom/view/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../functions/functions.dart';
+import '../theme/themes.dart';
 import '../utils/home_bindings.dart';
 import '../view/home.dart';
 
@@ -54,5 +56,25 @@ class HomeScreenController extends GetxController {
     // Get.put(MaxSubscriptionController());
 
     super.onInit();
+  }
+
+   set() async {
+    bool isDarkMode =
+        MainFunctions.sharredPrefs!.getBool("isDarkTheme") ?? false;
+    print(isDarkMode);
+    print("///////////////////////////////");
+    print(MainFunctions.sharredPrefs!.getBool("isDarkTheme"));
+
+    if (isDarkMode) {
+      Get.changeTheme(Themes.customLightTheme);
+      MainFunctions.sharredPrefs!.setBool("isDarkTheme", false);
+      await Get.forceAppUpdate();
+    } else {
+      Get.changeTheme(Themes.customDarkTheme);
+      MainFunctions.sharredPrefs!.setBool("isDarkTheme", true);
+      await Get.forceAppUpdate();
+    }
+
+    update();
   }
 }

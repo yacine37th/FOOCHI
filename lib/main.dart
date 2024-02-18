@@ -39,6 +39,7 @@ import 'middleware/auth_middleware.dart';
 import 'model/user_model.dart';
 import 'theme/assets.dart';
 import 'theme/main_colors.dart';
+import 'theme/themes.dart';
 import 'utils/forgot_password_bindings.dart';
 import 'utils/home_bindings.dart';
 import 'utils/signup_bindings.dart';
@@ -70,6 +71,7 @@ Future<void> main() async {
     await MainFunctions.getcurrentUserInfos();
   }
   sharedPreferences = await SharedPreferences.getInstance();
+  MainFunctions.sharredPrefs = await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 
@@ -83,6 +85,8 @@ class MyApp extends StatelessWidget {
       title: 'FOOCHI',
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.cupertino,
+      theme: Themes.getThemeMode(),
+
       // theme: Themes.customLightTheme,
       // textDirection: MainFunctions.textDirection,
       getPages: [

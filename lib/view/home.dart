@@ -177,22 +177,22 @@ class _HomeState extends State<Home> {
               ),
             ),
             // GetBuilder<HomeController>(builder: (contex)=>Text('Count: ${contex.counter}'),),
-            GetBuilder<HomeController>(
-                builder: (contex) => FAProgressBar(
-                      currentValue: homeController.counter,
-                      displayText: '%',
-                    )),
-            GetBuilder<HomeController>(
-              builder: (contex) => FAProgressBar(
-                currentValue: contex.counter,
-                displayText: 'Number of shakes',
-                animatedDuration: Duration(milliseconds: 3),
-                // changeColorValue: ,
-                changeProgressColor: AppColors.kPrimary,
-                progressColor: Colors.red,
-                maxValue: 150,
-              ),
-            ),
+            // GetBuilder<HomeController>(
+            //     builder: (contex) => FAProgressBar(
+            //           currentValue: homeController.counter,
+            //           displayText: '%',
+            //         )),
+            // GetBuilder<HomeController>(
+            //   builder: (contex) => FAProgressBar(
+            //     currentValue: contex.counter,
+            //     displayText: 'Number of shakes',
+            //     animatedDuration: Duration(milliseconds: 3),
+            //     // changeColorValue: ,
+            //     changeProgressColor: AppColors.kPrimary,
+            //     progressColor: Colors.red,
+            //     maxValue: 150,
+            //   ),
+            // ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

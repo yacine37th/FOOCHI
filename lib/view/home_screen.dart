@@ -50,6 +50,28 @@ class _HomeScreenState extends State<HomeScreen> {
   //     // ),
   //   ),
   // ];
+  GlobalKey key1 = GlobalKey();
+
+  Route creatroute(var route, Offset offset, var circularRadius) {
+    return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => route,
+        transitionDuration: const Duration(milliseconds: 600),
+        reverseTransitionDuration: const Duration(milliseconds: 400),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          double beginRadius = 0;
+          double endRadius = MediaQuery.of(context).size.height * 1.2;
+
+          return ClipPath(
+            clipper: CircleTransitionClipper(
+                offset,
+                animation
+                    .drive(Tween(begin: beginRadius, end: endRadius))
+                    .value,
+                circularRadius),
+            child: child,
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,14 +88,32 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                GetBuilder<HomeController>(
-                  builder: (contx) => AdvancedSwitch(
-                    activeChild: Icon(Icons.dark_mode),
-                    inactiveChild: Icon(Icons.sunny),
-                    width: 70,
-                    controller: homeController.controller02,
-                  ),
-                ),
+                // GetBuilder<HomeController>(
+                //   builder: (contx) => AdvancedSwitch(
+                //     activeChild: Icon(Icons.dark_mode),
+                //     inactiveChild: Icon(Icons.sunny),
+                //     width: 70,
+                //     controller: homeController.controller02,
+                //   ),
+                // ),
+
+                GetBuilder<HomeScreenController>(
+                  builder: (contx) => IconButton(
+                      key: key1,
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(creatroute(
+                            const HomeScreen(),
+                            key1.globalPaintBounds!.center,
+                            200.0));
+                        Get.put(HomeScreenController());
+
+                        homeScreenController.set();
+                      },
+                      icon: Get.isDarkMode
+                          ? const Icon(Icons.dark_mode, size: 28, color: Colors.white)
+                          : const Icon(Icons.sunny,
+                              color: Colors.white ,size: 28)),
+                )
               ],
             ),
           ),
@@ -208,5 +248,37 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+}
+
+class CircleTransitionClipper extends CustomClipper<Path> {
+  final Offset center;
+  final double radius;
+  final double circularRadius;
+
+  CircleTransitionClipper(this.center, this.radius, this.circularRadius);
+  @override
+  getClip(Size size) {
+    return Path()
+      ..addRRect(RRect.fromRectAndRadius(
+          Rect.fromCircle(center: center, radius: radius),
+          Radius.circular(circularRadius)));
+  } //addOval(Rect.fromCircle(center: center, radius: radius));
+
+  @override
+  bool shouldReclip(covariant CustomClipper oldClipper) => true;
+}
+
+extension GlobalKeyExtension on GlobalKey {
+  Rect? get globalPaintBounds {
+    final renderObject = currentContext?.findRenderObject();
+    final matrix = renderObject?.getTransformTo(null);
+
+    if (matrix != null && renderObject?.paintBounds != null) {
+      final rect = MatrixUtils.transformRect(matrix, renderObject!.paintBounds);
+      return rect;
+    } else {
+      return null;
+    }
   }
 }

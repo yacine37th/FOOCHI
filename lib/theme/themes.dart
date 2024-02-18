@@ -2,6 +2,8 @@ import 'package:fluter_ecom/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../functions/functions.dart';
+
 class Themes extends GetxController {
   ThemeData _darkTheme = ThemeData(
       // accentColor: Colors.red,
@@ -168,4 +170,10 @@ class Themes extends GetxController {
           color: whiteColor,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))));
+
+  static ThemeData getThemeMode() {
+    return MainFunctions.sharredPrefs!.getBool("isDarkTheme") ?? false
+        ? Themes.customDarkTheme
+        : Themes.customLightTheme;
+  }
 }
